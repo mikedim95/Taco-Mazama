@@ -1,6 +1,7 @@
 import Route from "./components/Route";
 import LoginPage from "./pages/LoginPage";
 // import LandingPage from "./pages/LandingPage";
+// skata
 
 function App() {
   return (
