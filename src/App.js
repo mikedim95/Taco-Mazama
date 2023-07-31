@@ -1,14 +1,15 @@
 import Route from "./components/Route";
 import LoginPage from "./pages/LoginPage";
-// import LandingPage from "./pages/LandingPage";
-// skata
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   return (
     <div>
       <Route path="/">
-        {/* <LandingPage /> */}
         <LoginPage />
+      </Route>
+      <Route path="/LandingPage">
+        <LandingPage />
       </Route>
     </div>
   );
