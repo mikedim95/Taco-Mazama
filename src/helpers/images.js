@@ -11,7 +11,7 @@ export const images = [
   { title: "Fajita", subtitle: "", price: "€ 7", img: image2 },
   { title: "Bowl", subtitle: "Burrito/Fajita", price: "€ 7", img: image3 },
   { title: "Quesadilla", subtitle: "", price: "€ 7", img: image4 },
-  { title: "Taco", subtitle: "", price: "€ 2.75/pic", img: image5 },
+  { title: "Taco", subtitle: "", price: "€ 2.75/τμχ", img: image5 },
   { title: "Enchilada", subtitle: "one size", price: "€ 8", img: image6 },
-  { title: "Mulita", subtitle: "", price: "€ 3.25/pic", img: image7 },
+  { title: "Mulita", subtitle: "", price: "€ 3.25/τμχ", img: image7 },
 ];
