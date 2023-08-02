@@ -3,6 +3,9 @@ import basket from "../assets/basket.svg";
 import hat from "../assets/ht.svg";
 import search from "../assets/search.svg";
 import Line from "../assets/Line.svg";
+import Carousel from "../components/Carousel";
+import cactus from "../assets/cactus.svg";
+import Desserts from "../components/Desserts";
 
 function LandingPage() {
   return (
@@ -40,10 +43,26 @@ function LandingPage() {
               Αναζήτηση...
             </p>
           </div>
-          <img className="pl-[34px] pr-[30px]" src={Line} alt="" />
+          <div className="flex space-x-[-60px]">
+            <img className="pl-[34px] pr-[30px] mt-[-10px]" src={Line} alt="" />
+            <img
+              className="w-[43px] h-[62px] mt-[-50px] opacity-30"
+              src={cactus}
+              alt=""
+            />
+          </div>
           <p className="mt-[20px] text-[16px] font-pop font-semibold text-textFont-dark">
             Επέλεξε Γεύμα
           </p>
+          <div className="mt-[-210px] ml-[-30px]">
+            <Carousel />
+          </div>
+          <p className="mt-[-7px] text-[16px] font-pop font-semibold text-textFont-dark">
+            Επέλεξε Συνοδευτικό
+          </p>
+          <div className="mt-[-250px] ml-[-30px]">
+            <Desserts />
+          </div>
         </div>
       </div>
     </div>

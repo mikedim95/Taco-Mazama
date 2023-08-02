@@ -1,0 +1,48 @@
+.App {
+  width: 100vminm;
+  height: 450px;
+  overflow: hidden;
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+}
+
+.row {
+  position: relative;
+}
+
+.container {
+  position: absolute;
+  width: 180px;
+  height: 200px;
+  overflow: hidden;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+.container > img {
+  height: 100%;
+  width: 100%;
+}
+
+.title {
+  position: absolute;
+  left: 15px;
+  bottom: 23px;
+}
+
+.subtitle {
+  position: absolute;
+  left: 15px;
+  bottom: 3px;
+}
+
+.price {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+}
