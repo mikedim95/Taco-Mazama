@@ -7,21 +7,21 @@ export const dessertPics = [
   {
     title: "Nachos",
     price: "€ 6",
-    nacho,
+    img: nacho,
   },
   {
     title: "Loaded Nachos",
     price: "€ 7.5",
-    loadNacho,
+    img: loadNacho,
   },
   {
     title: "Tortilla",
     price: "€ 2",
-    tortilla,
+    img: tortilla,
   },
   {
     title: "Tortilla Loaded",
     price: "€ 3",
-    loadTortilla,
+    img: loadTortilla,
   },
 ];

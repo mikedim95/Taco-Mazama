@@ -60,9 +60,12 @@ function LandingPage() {
           <p className="mt-[-7px] text-[16px] font-pop font-semibold text-textFont-dark">
             Επέλεξε Συνοδευτικό
           </p>
-          <div className="mt-[-250px] ml-[-30px]">
+          <div className="mt-[10px] ml-[-30px]">
             <Desserts />
           </div>
+          <p className="mt-[170px] text-[16px] font-pop font-semibold text-textFont-dark">
+            Επέλεξε Ποτό/Αναψυκτικό
+          </p>
         </div>
       </div>
     </div>
