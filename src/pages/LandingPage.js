@@ -6,6 +6,9 @@ import Line from "../assets/Line.svg";
 import Carousel from "../components/Carousel";
 import cactus from "../assets/cactus.svg";
 import Desserts from "../components/Desserts";
+import Drinks from "../components/Drinks";
+import fb from "../assets/fb.svg";
+import insta from "../assets/insta.svg";
 
 function LandingPage() {
   return (
@@ -60,12 +63,38 @@ function LandingPage() {
           <p className="mt-[-7px] text-[16px] font-pop font-semibold text-textFont-dark">
             Επέλεξε Συνοδευτικό
           </p>
-          <div className="mt-[10px] ml-[-30px]">
+          <div className="mt-[10px] ml-[-25px]">
             <Desserts />
           </div>
-          <p className="mt-[170px] text-[16px] font-pop font-semibold text-textFont-dark">
+          <p className="mt-[7px] text-[16px] font-pop font-semibold text-textFont-dark">
             Επέλεξε Ποτό/Αναψυκτικό
           </p>
+          <div className="mt-[10px] ml-[5px]">
+            <Drinks />
+          </div>
+          <div className="mt-[30px] ml-[-30px] bg-black">
+            <div className="flex flex-col justify-center items-center">
+              <p className="text-white font-pop font-normal">Follow us in</p>
+              <div className="flex flex-col-2">
+                <img className="w-[20px] h-[20px]" src={fb} alt="" />
+                <a
+                  href="https://www.facebook.com/people/Taco-Mazama-SKG/100075547643013/"
+                  className="text-white  font-pop font-normal text-[12px]"
+                >
+                  Taco Mazama SKG
+                </a>
+              </div>
+              <div className="flex flex-col-2">
+                <img className="w-[20px] h-[20px]" src={insta} alt="" />
+                <a
+                  href="https://www.instagram.com/taco.mazama.skg/"
+                  className="text-white  font-pop font-normal text-[12px]"
+                >
+                  @taco.mazama.skg
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
