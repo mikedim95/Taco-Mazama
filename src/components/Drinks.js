@@ -5,8 +5,11 @@ function Drinks() {
     <div className="flex justify-start items-center space-x-[20px] ">
       {drinkPics.map((drink) => {
         return (
-          <div className="relative w-[50px] h-[50px] rounded-full bg-primary-regular shadow-[2px_2px_3px_rgba(0,0,0,0.5)]">
-            <div key={drink.title}>
+          <div
+            key={drink.title}
+            className="relative w-[50px] h-[50px] rounded-full bg-primary-regular shadow-[2px_2px_3px_rgba(0,0,0,0.5)]"
+          >
+            <div>
               <img
                 className="absolute top-[10px] left-[10px] w-[30px] h-[30px]"
                 src={drink.img}
