@@ -16,7 +16,8 @@ function LandingPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [position, setPosition] = useState(1);
 
-  const handleSearchSubmit = (term) => {
+  const handleSearch = (term) => {
+   
     const lowercaseTerm = term.toLowerCase();
     setSearchTerm(lowercaseTerm);
     const foundIndex = images.findIndex((image) =>
@@ -30,9 +31,9 @@ function LandingPage() {
   };
 
   const handleCarouselSwipe = (newPosition, eventData) => {
-    if (!searchTerm) {
+    
       setPosition(newPosition);
-    }
+    
   };
 
   return (
@@ -64,7 +65,7 @@ function LandingPage() {
           <p className="mt-[-10px] text-[32px] font-pop font-bold text-textFont-dark">
             Delivery
           </p>
-          <Search onSubmit={handleSearchSubmit} />
+          <Search onChange={handleSearch} />
           <div className="flex space-x-[-60px]">
             <img className="pl-[34px] pr-[30px] mt-[-10px]" src={Line} alt="" />
             <img
