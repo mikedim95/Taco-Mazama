@@ -3,7 +3,7 @@ import { dessertPics } from "../helpers/dessertPics";
 function Desserts() {
   return (
     <div className="flex overflow-x-auto pb-[10px] justify-start gap-[5px] items-start ">
-      {dessertPics.map((pic, index) => {
+      {dessertPics.map((pic) => {
         return (
           <div className="relative">
             <h1
@@ -12,7 +12,7 @@ function Desserts() {
             >
               {pic.price}
             </h1>
-            <div key={index} className="flex-shrink-0 top-[-5px] relative;">
+            <div key={pic.title} className="flex-shrink-0 top-[-5px] relative;">
               <img
                 className="w-[95px] h-auto object-contain rounded-t-[20px] shadow-[2px_2px_3px_rgba(0,0,0,0.5)]"
                 src={pic.img}

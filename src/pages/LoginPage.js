@@ -3,6 +3,7 @@ import mexican from "../assets/mexican.svg";
 import circle from "../assets/circle.svg";
 import taco from "../assets/taco_logo.jpg";
 import { motion as m } from "framer-motion";
+import Link from "../components/Links";
 
 function LoginPage() {
   return (
@@ -59,6 +60,7 @@ function LoginPage() {
             animate={{ x: 0 }}
             transition={{ delay: 2, duration: 0.5 }}
             className="w-full h-[60px] text-[24px] font-pop text-background-dark font-bold bg-primary-regular rounded-full"
+            onClick={Link.label}
           >
             Login as Guest
           </m.button>

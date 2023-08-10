@@ -1,7 +1,6 @@
 import taco from "../assets/logo.jpg";
 import basket from "../assets/basket.svg";
 import hat from "../assets/ht.svg";
-import search from "../assets/search.svg";
 import Line from "../assets/Line.svg";
 import Carousel from "../components/Carousel";
 import cactus from "../assets/cactus.svg";
@@ -9,8 +8,33 @@ import Desserts from "../components/Desserts";
 import Drinks from "../components/Drinks";
 import fb from "../assets/fb.svg";
 import insta from "../assets/insta.svg";
+import Search from "../components/Search";
+import { useState } from "react";
+import { images } from "../helpers/images";
 
 function LandingPage() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [position, setPosition] = useState(1);
+
+  const handleSearchSubmit = (term) => {
+    const lowercaseTerm = term.toLowerCase();
+    setSearchTerm(lowercaseTerm);
+    const foundIndex = images.findIndex((image) =>
+      image.title.toLowerCase().includes(lowercaseTerm)
+    );
+    if (foundIndex !== -1) {
+      setPosition(foundIndex);
+    } else {
+      setPosition(1);
+    }
+  };
+
+  const handleCarouselSwipe = (newPosition, eventData) => {
+    if (!searchTerm) {
+      setPosition(newPosition);
+    }
+  };
+
   return (
     <div className="max-w-screen-sm h-screen mx-auto bg-background-light overflow-scroll">
       <div className="flex justify-between relative">
@@ -40,12 +64,7 @@ function LandingPage() {
           <p className="mt-[-10px] text-[32px] font-pop font-bold text-textFont-dark">
             Delivery
           </p>
-          <div className="flex space-x-[10px] mt-[5px]">
-            <img className="w-[24px] h-[24px]" src={search} alt="" />
-            <p className="text-[16px] font-pop font-normal text-textFont-light">
-              Αναζήτηση...
-            </p>
-          </div>
+          <Search onSubmit={handleSearchSubmit} />
           <div className="flex space-x-[-60px]">
             <img className="pl-[34px] pr-[30px] mt-[-10px]" src={Line} alt="" />
             <img
@@ -58,7 +77,12 @@ function LandingPage() {
             Επέλεξε Γεύμα
           </p>
           <div className="mt-[-210px] ml-[-30px]">
-            <Carousel />
+            <Carousel
+              images={images}
+              position={position}
+              searchTerm={searchTerm}
+              onSwipe={handleCarouselSwipe}
+            />
           </div>
           <p className="mt-[-7px] text-[16px] font-pop font-semibold text-textFont-dark">
             Επέλεξε Συνοδευτικό
@@ -72,7 +96,7 @@ function LandingPage() {
           <div className="mt-[10px] ml-[5px]">
             <Drinks />
           </div>
-          <div className="mt-[30px] ml-[-30px] bg-black">
+          <div className="mt-[30px] ml-[-30px] bg-black h-max">
             <div className="flex flex-col justify-center items-center">
               <p className="text-white font-pop font-normal">Follow us in</p>
               <div className="flex flex-col-2">

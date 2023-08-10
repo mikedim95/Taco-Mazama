@@ -1,21 +1,13 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
 import "./Carousel.css";
-import { images } from "../helpers/images";
 import { useSwipeable } from "react-swipeable";
 
-function Carousel() {
-  const [position, setPosition] = useState(1);
-
+function Carousel({ images, position, searchTerm, onSwipe }) {
   const handleSwipe = (eventData) => {
-    if (eventData.dir === "Right") {
-      if (position > 0) {
-        setPosition(position - 1);
-      }
-    } else if (eventData.dir === "Left") {
-      if (position < images.length - 1) {
-        setPosition(position + 1);
-      }
+    if (eventData.dir === "Right" && position > 0) {
+      onSwipe(position - 1, eventData);
+    } else if (eventData.dir === "Left" && position < images.length - 1) {
+      onSwipe(position + 1, eventData);
     }
   };
 
