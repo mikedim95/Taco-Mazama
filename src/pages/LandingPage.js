@@ -11,13 +11,13 @@ import insta from "../assets/insta.svg";
 import Search from "../components/Search";
 import { useState } from "react";
 import { images } from "../helpers/images";
+import { motion as m } from "framer-motion";
 
 function LandingPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [position, setPosition] = useState(1);
 
   const handleSearch = (term) => {
-   
     const lowercaseTerm = term.toLowerCase();
     setSearchTerm(lowercaseTerm);
     const foundIndex = images.findIndex((image) =>
@@ -31,21 +31,25 @@ function LandingPage() {
   };
 
   const handleCarouselSwipe = (newPosition, eventData) => {
-    
-      setPosition(newPosition);
-    
+    setPosition(newPosition);
   };
 
   return (
     <div className="max-w-screen-sm h-screen mx-auto bg-background-light overflow-scroll">
       <div className="flex justify-between relative">
-        <img
+        <m.img
+          initial={{ x: -150, rotate: -360 }}
+          animate={{ x: 0, rotate: 0 }}
+          transition={{ delay: 0.3, ease: "easeOut", duration: 1 }}
           className="max-w-[60px] max-h-[60px] absolute top-[43px] left-[71px] rounded-full"
           src={taco}
           alt=""
         />
         <div>
-          <img
+          <m.img
+            initial={{ x: -150, y: -150, rotate: -180 }}
+            animate={{ x: 0, y: 0, rotate: 0 }}
+            transition={{ delay: 1, ease: "easeOut", duration: 1 }}
             className="w-[140px] h-[95px] absolute top-[0px] left-[10px]"
             src={hat}
             alt=""
@@ -68,8 +72,17 @@ function LandingPage() {
           <Search onChange={handleSearch} />
           <div className="flex space-x-[-60px]">
             <img className="pl-[34px] pr-[30px] mt-[-10px]" src={Line} alt="" />
-            <img
-              className="w-[43px] h-[62px] mt-[-50px] opacity-30"
+            <m.img
+              initial={{ x: -370 }}
+              animate={{ x: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 150,
+                damping: 8,
+                delay: 1,
+                duration: 3,
+              }}
+              className="w-[43px] h-[65px] mt-[-50px] opacity-30"
               src={cactus}
               alt=""
             />
