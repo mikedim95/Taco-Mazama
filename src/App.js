@@ -1,20 +1,29 @@
-import Route from "./components/Route";
+//pages
 import LoginPage from "./pages/LoginPage";
 import LandingPage from "./pages/LandingPage";
-import Navigation from "./components/Navigation";
+
+//routes
+import {
+  createBrowserRouter,
+  Route,
+  createRoutesFromElements,
+  RouterProvider,
+} from "react-router-dom";
+
+//layouts
+import RootLayout from "./layouts/RootLayout";
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<RootLayout />}>
+      <Route index element={<LoginPage />} />
+      <Route path="LandingPage" element={<LandingPage />} />
+    </Route>
+  )
+);
 
 function App() {
-  return (
-    <div>
-      <Navigation />
-      <Route path="/">
-        <LoginPage />
-      </Route>
-      <Route path="/LandingPage">
-        <LandingPage />
-      </Route>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

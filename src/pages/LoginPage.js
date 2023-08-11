@@ -3,7 +3,7 @@ import mexican from "../assets/mexican.svg";
 import circle from "../assets/circle.svg";
 import taco from "../assets/taco_logo.jpg";
 import { motion as m } from "framer-motion";
-import Link from "../components/Links";
+import { Link } from "react-router-dom";
 
 function LoginPage() {
   return (
@@ -55,15 +55,18 @@ function LoginPage() {
         {/* Text Let's Eat */}
 
         <div className="flex items-center mt-[10px] px-[30px]">
-          <m.button
+          <m.div
             initial={{ x: -450 }}
             animate={{ x: 0 }}
             transition={{ delay: 2, duration: 0.5 }}
-            className="w-full h-[60px] text-[24px] font-pop text-background-dark font-bold bg-primary-regular rounded-full"
-            onClick={Link.label}
+            className=" flex justify-center items-center w-full h-[60px] bg-primary-regular rounded-full"
           >
-            Login as Guest
-          </m.button>
+            <Link to="/LandingPage">
+              <button className=" text-[24px] font-pop text-background-dark font-bold">
+                Login as Guest
+              </button>
+            </Link>
+          </m.div>
         </div>
         <div className="flex items-center mt-[20px] px-[30px]">
           <m.button

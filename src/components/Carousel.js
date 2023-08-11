@@ -4,12 +4,9 @@ import { useSwipeable } from "react-swipeable";
 
 function Carousel({ images, position, searchTerm, onSwipe }) {
   const handleSwipe = (eventData) => {
-   
     if (eventData.dir === "Right" && position > 0) {
-     
       onSwipe(position - 1, eventData);
     } else if (eventData.dir === "Left" && position < images.length - 1) {
-      
       onSwipe(position + 1, eventData);
     }
   };
@@ -36,8 +33,8 @@ function Carousel({ images, position, searchTerm, onSwipe }) {
               }}
               transition={{
                 type: "spring",
-                stiffness: 260,
-                damping: 20,
+                stiffness: 400,
+                damping: 18,
               }}
             >
               <div
