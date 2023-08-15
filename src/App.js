@@ -1,6 +1,7 @@
 //pages
 import LoginPage from "./pages/LoginPage";
 import LandingPage from "./pages/LandingPage";
+import Step1 from "./pages/Step1";
 
 //routes
 import {
@@ -18,6 +19,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<LoginPage />} />
       <Route path="LandingPage" element={<LandingPage />} />
+      <Route path="Step1" element={<Step1 />} />
     </Route>
   )
 );

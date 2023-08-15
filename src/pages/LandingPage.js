@@ -73,7 +73,7 @@ function LandingPage() {
           <div className="flex space-x-[-60px]">
             <img className="pl-[34px] pr-[30px] mt-[-10px]" src={Line} alt="" />
             <m.img
-              initial={{ x: -370 }}
+              initial={{ x: -400 }}
               animate={{ x: 0 }}
               transition={{
                 type: "spring",

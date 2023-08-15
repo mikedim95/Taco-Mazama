@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import "./Carousel.css";
 import { useSwipeable } from "react-swipeable";
 
-function Carousel({ images, position, searchTerm, onSwipe }) {
+function Carousel({ images, position, searchTerm, onSwipe, onClick }) {
   const handleSwipe = (eventData) => {
     if (eventData.dir === "Right" && position > 0) {
       onSwipe(position - 1, eventData);
@@ -61,6 +61,7 @@ function Carousel({ images, position, searchTerm, onSwipe }) {
                   {index === position && images[position].subtitle}
                 </p>
               </div>
+
               <img src={url.img} alt=""></img>
             </motion.div>
           );
