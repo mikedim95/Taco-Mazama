@@ -1,29 +1,43 @@
 import { stepnum } from "../helpers/stepnum";
-
-// import { useState } from "react";
+import img from "../assets/ht.svg";
+import { useState } from "react";
 
 function Steps() {
-  // const [hatPossition, setHatPossition] = useState(0);
+  const [hatPosition, setHatPosition] = useState(0);
 
-  // const handleHat () => {
-  //   if (index === hatPossition)
-  // }
+  const renderedSteps = stepnum.map((stp, index) => {
+    const clickNext = index === hatPosition;
+
+    const hat = clickNext ? (
+      <img src={img} alt="" className="w-full h-full" />
+    ) : null;
+
+    const circle = clickNext
+      ? "outline-black bg-primary-regular "
+      : "outline-textFont-dark bg-textFont-light ";
+
+    const num = clickNext ? "text-black" : "text-textFont-dark";
+
+    return (
+      <div
+        key={index}
+        className={`relative  w-[50px] h-[50px] top-[-58px] rounded-full outline outline-1 ${circle}`}
+      >
+        <div className="absolute top-[-30px] left-[-35px]">{hat}</div>
+
+        <h1
+          className={`pt-[15px] text-[16px] font-extrabold font-pop ${num}  text-center`}
+        >
+          {stp.title}
+        </h1>
+      </div>
+    );
+  });
 
   return (
     <div>
       <div className="flex flex-row justify-center px-[20px] space-x-[30px] items-center ">
-        {stepnum.map((stp, index) => {
-          return (
-            <div
-              key={index}
-              className="relative w-[50px] h-[50px] top-[-58px] rounded-full bg-textFont-light outline outline-1 outline-textFont-dark"
-            >
-              <h1 className="pt-[15px] text-[16px] font-extrabold font-pop text-textFont-dark text-center">
-                {stp.title}
-              </h1>
-            </div>
-          );
-        })}
+        {renderedSteps}
       </div>
     </div>
   );

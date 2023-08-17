@@ -73,16 +73,16 @@ function LandingPage() {
           <div className="flex space-x-[-60px]">
             <img className="pl-[34px] pr-[30px] mt-[-10px]" src={Line} alt="" />
             <m.img
-              initial={{ x: -400 }}
+              initial={{ x: 50 }}
               animate={{ x: 0 }}
               transition={{
                 type: "spring",
                 stiffness: 150,
                 damping: 8,
-                delay: 1,
-                duration: 3,
+                delay: 1.5,
+                duration: 1,
               }}
-              className="w-[43px] h-[65px] mt-[-50px] opacity-30"
+              className="w-[43px] h-[65px] mt-[-50px] z-50 opacity-30 overflow-hidden"
               src={cactus}
               alt=""
             />
