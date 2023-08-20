@@ -1,38 +1,38 @@
-export const insidefood = [
+export const insideFood = [
   {
     title: "Κοτόπουλο",
     subtitle: "Παρθένο κοτόπουλο μεγαλωμένο με αγάπη 500γρ.",
-    extraprice: "",
+    extraPrice: null,
     spicy: "",
   },
   {
     title: "Pull Pork",
     subtitle: "Παρθένο κοτόπουλο μεγαλωμένο με αγάπη 500γρ.",
-    extraprice: "",
+    extraPrice: null,
     spicy: "",
   },
   {
     title: "Μοσχαρίσιο Chilli",
     subtitle: "Παρθένο κοτόπουλο μεγαλωμένο με αγάπη 500γρ.",
-    extraprice: "+ 1,00 €",
+    extraPrice: 1,
     spicy: "",
   },
   {
     title: "Vegie Chilli",
     subtitle: "Γλυκοπατάτα Καλαμπόκι & Πιπεριά",
-    extraprice: "",
+    extraPrice: null,
     spicy: "",
   },
   {
     title: "Mushroom & Sweetcorn Chilli",
     subtitle: "Πιπεριά",
-    extraprice: "",
+    extraPrice: null,
     spicy: "",
   },
   {
     title: "Vegan Special",
     subtitle: "Παρθένο κοτόπουλο μεγαλωμένο με αγάπη 500γρ.",
-    extraprice: "",
+    extraPrice: null,
     spicy: "",
   },
 ];

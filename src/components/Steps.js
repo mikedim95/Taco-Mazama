@@ -1,22 +1,31 @@
 import { stepnum } from "../helpers/stepnum";
 import img from "../assets/ht.svg";
-import { useState } from "react";
+import { motion as m } from "framer-motion";
 
-function Steps() {
-  const [hatPosition, setHatPosition] = useState(0);
-
+function Steps({ nextPosition }) {
   const renderedSteps = stepnum.map((stp, index) => {
-    const clickNext = index === hatPosition;
+    const clickNext = index === nextPosition;
 
     const hat = clickNext ? (
-      <img src={img} alt="" className="w-full h-full" />
+      <m.img
+        animate={{
+          y: [0, 0, -60, -60, 0],
+          x: [0, 40, 60, 60, 30],
+          rotate: [0, 100, 320, 390, 420],
+        }}
+        transition={{ ease: "easeOut", duration: 1 }}
+        src={img}
+        alt=""
+        className="w-full h-full"
+      />
     ) : null;
 
-    const circle = clickNext
+    const isCircleActive = clickNext || index <= nextPosition - 1;
+    const circle = isCircleActive
       ? "outline-black bg-primary-regular "
       : "outline-textFont-dark bg-textFont-light ";
 
-    const num = clickNext ? "text-black" : "text-textFont-dark";
+    const num = isCircleActive ? "text-black" : "text-textFont-dark";
 
     return (
       <div

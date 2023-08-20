@@ -4,21 +4,14 @@ import { useState } from "react";
 import tick from "../assets/tick.svg";
 import Line from "../assets/Line.svg";
 
-function InsideFood() {
+function IngredientsPick() {
   const [buttonOk, setButtonOk] = useState(null);
 
   const renderedFoods = insideFood.map((food, index) => {
     const isClicked = index === buttonOk;
 
-    const extraPriceElement =
-      food.extraPrice !== null ? (
-        <div className="pl-[100px] pt-[15px] text-[14px] font-pop text-left font-bold font-black">
-          +{food.extraPrice} €
-        </div>
-      ) : null;
-
     const icons = isClicked ? (
-      <img src={tick} alt="" size="20px" />
+      <img src={tick} alt="" sizes="10px" />
     ) : (
       <CgMathPlus size="20px" />
     );
@@ -51,7 +44,9 @@ function InsideFood() {
             >
               <div className="px-[30px] py-[10px]">{icons}</div>
             </div>
-            {extraPriceElement}
+            <div className="pl-[100px] pt-[15px] text-[14px] font-pop text-left font-bold font-black">
+              {food.extraPrice}
+            </div>
           </div>
         </div>
       </div>
@@ -65,7 +60,7 @@ function InsideFood() {
           className="absolute top-[10px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
           style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
         >
-          Διάλεξε τη γέμισή σου...
+          Διάλεξε τα υλικά σου...
         </h1>
       </div>
       <div className="pt-[45px] pl-[30px] mr-[20px]">
@@ -78,4 +73,4 @@ function InsideFood() {
   );
 }
 
-export default InsideFood;
+export default IngredientsPick;

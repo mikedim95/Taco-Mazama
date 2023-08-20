@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import "./Carousel.css";
 import { useSwipeable } from "react-swipeable";
+import { Link } from "react-router-dom";
 
 function Carousel({ images, position, searchTerm, onSwipe, onClick }) {
   const handleSwipe = (eventData) => {
@@ -22,48 +23,49 @@ function Carousel({ images, position, searchTerm, onSwipe, onClick }) {
       <div className="row">
         {images.map((url, index) => {
           return (
-            <motion.div
-              className="container"
-              key={index}
-              initial={{ scale: 0, rotation: -180 }}
-              animate={{
-                rotate: 0,
-                left: `${(index - position) * 180 - 90}px`,
-                scale: index === position ? 1.05 : 0.88,
-              }}
-              transition={{
-                type: "spring",
-                stiffness: 400,
-                damping: 18,
-              }}
-            >
-              <div
-                className="text-[16px] font-semibold font-pop text-white"
-                style={{ textShadow: "0 0 3px rgba(0, 0, 0, 1)" }}
+            <Link key={index} to={"/Step1"}>
+              <motion.div
+                className="container"
+                initial={{ scale: 0, rotation: -180 }}
+                animate={{
+                  rotate: 0,
+                  left: `${(index - position) * 180 - 90}px`,
+                  scale: index === position ? 1.05 : 0.88,
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 18,
+                }}
               >
-                <h1 className="price">
-                  {index === position && images[position].price}
-                </h1>
-              </div>
-              <div
-                className="text-[20px] font-semibold font-pop text-white"
-                style={{ textShadow: "0 0 3px rgba(0, 0, 0, 1)" }}
-              >
-                <h1 className="title">
-                  {index === position && images[position].title}
-                </h1>
-              </div>
-              <div
-                className="text-[16px] font-medium font-pop text-white"
-                style={{ textShadow: "0 0 3px rgba(0, 0, 0, 1)" }}
-              >
-                <p className="subtitle">
-                  {index === position && images[position].subtitle}
-                </p>
-              </div>
+                <div
+                  className="text-[16px] font-semibold font-pop text-white"
+                  style={{ textShadow: "0 0 3px rgba(0, 0, 0, 1)" }}
+                >
+                  <h1 className="price">
+                    {index === position && images[position].price}
+                  </h1>
+                </div>
+                <div
+                  className="text-[20px] font-semibold font-pop text-white"
+                  style={{ textShadow: "0 0 3px rgba(0, 0, 0, 1)" }}
+                >
+                  <h1 className="title">
+                    {index === position && images[position].title}
+                  </h1>
+                </div>
+                <div
+                  className="text-[16px] font-medium font-pop text-white"
+                  style={{ textShadow: "0 0 3px rgba(0, 0, 0, 1)" }}
+                >
+                  <p className="subtitle">
+                    {index === position && images[position].subtitle}
+                  </p>
+                </div>
 
-              <img src={url.img} alt=""></img>
-            </motion.div>
+                <img src={url.img} alt=""></img>
+              </motion.div>
+            </Link>
           );
         })}
       </div>

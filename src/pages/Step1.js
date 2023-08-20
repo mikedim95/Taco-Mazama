@@ -1,12 +1,23 @@
 import image1 from "../assets/taco_step.svg";
 import Steps from "../components/Steps";
-import Line from "../assets/Line.svg";
+
 import InsideFood from "../components/InsideFood";
+import IngredientsPick from "../components/IngredientsPick";
 import { useState } from "react";
 
 function Step1() {
   const [middleMeal, setMiddleMeal] = useState(true);
   const [bigMeal, setBigMeal] = useState(false);
+  const [nextPosition, setNextPosition] = useState(0);
+
+  const order = () => {
+    if (nextPosition === 0) {
+      return <InsideFood />;
+    } else if (nextPosition === 1) {
+      return <IngredientsPick />;
+    }
+    return null;
+  };
 
   const handleBigMeal = () => {
     setBigMeal(true);
@@ -18,19 +29,23 @@ function Step1() {
     setMiddleMeal(true);
   };
 
+  const handleNextStep = () => {
+    setNextPosition(nextPosition + 1);
+  };
+
   return (
     <div className="max-w-screen-sm h-screen mx-auto bg-background-light overflow-scroll">
       <div className="justify-center items-center relative">
         <img className="w-full h-full ml-[-2px]" src={image1} alt="" />
       </div>
       <div className="w-full h-full flex flex-col ">
-        <Steps />
+        <Steps nextPosition={nextPosition} />
         <div className="flex justify-end relative">
           <h1
             className="absolute right-[30px] top-[-40px] font-pop text-[20px] font-bold text-textFont-dark"
             style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
           >
-            Συνολική Τιμή: 15 €
+            {`Συνολική Τιμή: 15 €`}
           </h1>
         </div>
         <div className="flex justify-between mx-[20px] gap-[20px]">
@@ -55,23 +70,17 @@ function Step1() {
             Μεγάλο 12 €
           </button>
         </div>
-        <div className="flex justify-start relative">
-          <h1
-            className="absolute top-[10px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
-            style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
+
+        <div className="pt-[10px]">{order()}</div>
+        <div className="flex justify-between space-x-[10px] items-end pt-[15px]  px-[20px] pb-[20px]">
+          <button className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center ">
+            Προηγούμενο
+          </button>
+          <button
+            className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center "
+            onClick={handleNextStep}
           >
-            Διάλεξε τη γέμισή σου...
-          </h1>
-        </div>
-        <div className="pt-[45px] pl-[30px] mr-[20px]">
-          <img className="w-full" src={Line} alt="" />
-        </div>
-        <div className="pt-[10px]">
-          <InsideFood />
-        </div>
-        <div className="flex justify-end items-end pt-[15px]  pr-[20px] pb-[20px]">
-          <button className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-[#AEAEAE] font-pop text-[16px] font-normal text-center ">
-            Επόμενο Βήμα
+            Επόμενο
           </button>
         </div>
       </div>

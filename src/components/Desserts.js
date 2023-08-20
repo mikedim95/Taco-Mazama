@@ -7,7 +7,7 @@ function Desserts() {
         return (
           <div key={pic.title} className="relative">
             <h1
-              className=" absolute right-[8px] top-[5px] text-[16px] font-semibold font-pop text-price-light "
+              className=" absolute right-[8px] top-[5px] text-[16px] font-semibold font-pop text-white "
               style={{ textShadow: "0 0 2px rgba(0, 0, 0, 1)" }}
             >
               {pic.price}
@@ -21,8 +21,8 @@ function Desserts() {
 
               <div className="flex w-[95px] h-[50px] shadow-[2px_2px_3px_rgba(0,0,0,0.5)] bg-secondary-light rounded-b-[20px]">
                 <h1
-                  className="px-[18px] text-[16px] font-semibold font-pop text-white "
-                  style={{ textShadow: "0 0 2px rgba(0, 0, 0, 1)" }}
+                  className="px-[18px] text-[16px] font-semibold font-pop text-white"
+                  style={{ textShadow: "0 1px 2px rgba(0, 0, 0, 0.4)" }}
                 >
                   {pic.title}
                 </h1>
