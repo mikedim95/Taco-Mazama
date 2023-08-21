@@ -4,8 +4,6 @@ import InsideFood from "../components/InsideFood";
 import IngredientsPick from "../components/IngredientsPick";
 import { useState } from "react";
 function Steps() {
-  const [middleMeal, setMiddleMeal] = useState(true);
-  const [bigMeal, setBigMeal] = useState(false);
   const [nextPosition, setNextPosition] = useState(0);
   const { currentDish } = useMyContext();
   const [size, setSize] = useState();
