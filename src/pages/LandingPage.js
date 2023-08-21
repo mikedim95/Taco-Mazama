@@ -12,11 +12,10 @@ import Search from "../components/Search";
 import { useState } from "react";
 import { images } from "../helpers/images";
 import { motion as m } from "framer-motion";
-
 function LandingPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [position, setPosition] = useState(1);
-
+  
   const handleSearch = (term) => {
     const lowercaseTerm = term.toLowerCase();
     setSearchTerm(lowercaseTerm);

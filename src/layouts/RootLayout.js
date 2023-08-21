@@ -6,7 +6,7 @@ export default function RootLayout() {
       <div>
         <Link to="/"></Link>
         <Link to="LandingPage"></Link>
-        <Link to="Step1"></Link>
+        <Link to="Steps"></Link>
       </div>
       <div>
         <Outlet />

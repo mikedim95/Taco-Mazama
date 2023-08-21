@@ -1,15 +1,15 @@
-import { insideFood } from "../helpers/insideFood";
+import { insideFood } from "../helpers/insidefood";
 import { CgMathPlus } from "react-icons/cg";
 import { useState } from "react";
 import tick from "../assets/tick.svg";
 import Line from "../assets/Line.svg";
 
 function InsideFood() {
-  const [buttonOk, setButtonOk] = useState(null);
-
+  const [selectedItems, setSelectedItems] = useState([]);
+ 
   const renderedFoods = insideFood.map((food, index) => {
-    const isClicked = index === buttonOk;
-
+    const isClicked = selectedItems.includes(food.title);
+console.log(selectedItems)
     const extraPriceElement =
       food.extraPrice !== null ? (
         <div className="pl-[100px] pt-[15px] text-[14px] font-pop text-left font-bold font-black">
@@ -17,19 +17,16 @@ function InsideFood() {
         </div>
       ) : null;
 
-    const icons = isClicked ? (
-      <img src={tick} alt="" size="20px" />
-    ) : (
-      <CgMathPlus size="20px" />
-    );
+      const icons = isClicked ? <img src={tick} alt="" size="20px" /> : <CgMathPlus size="20px" />;
 
-    const color = isClicked ? "bg-primary-dark" : "bg-[#E6C013]";
-
-    const handleClick = () => {
-      if (isClicked) {
-        setButtonOk(null);
+  const color = isClicked ? "bg-primary-dark" : "bg-[#E6C013]";
+    const handleClick = (ingredient) => {
+      if (selectedItems.includes(ingredient)) {
+        // Item is already selected, remove it from the array
+        setSelectedItems(selectedItems.filter((item) => item !== ingredient));
       } else {
-        setButtonOk(index);
+        // Item is not selected, add it to the array
+        setSelectedItems([...selectedItems, ingredient]);
       }
     };
 
@@ -37,7 +34,7 @@ function InsideFood() {
       <div key={index} className=" relative ">
         <div
           className="w-auto h-[120px] rounded-[20px] bg-[#DFE3BA] shadow-[1px_4px_6px_rgba(0,0,0,0.4)]"
-          onClick={handleClick}
+          onClick={() => handleClick(food.title)}
         >
           <div className="pt-[10px] pl-[5px] text-[18px] font-pop text-left font-bold text-textFont-dark">
             {food.title}

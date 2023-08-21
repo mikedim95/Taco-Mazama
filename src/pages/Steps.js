@@ -1,15 +1,14 @@
-import image1 from "../assets/taco_step.svg";
-import Steps from "../components/Steps";
-
+import Stepper from "../components/Stepper";
+import { useMyContext } from "../context/UseMyContext";
 import InsideFood from "../components/InsideFood";
 import IngredientsPick from "../components/IngredientsPick";
 import { useState } from "react";
-
-function Step1() {
+function Steps() {
   const [middleMeal, setMiddleMeal] = useState(true);
   const [bigMeal, setBigMeal] = useState(false);
   const [nextPosition, setNextPosition] = useState(0);
-
+  const { currentDish } = useMyContext();
+  const [size, setSize] = useState();
   const order = () => {
     if (nextPosition === 0) {
       return <InsideFood />;
@@ -18,16 +17,12 @@ function Step1() {
     }
     return null;
   };
-
-  const handleBigMeal = () => {
-    setBigMeal(true);
-    setMiddleMeal(false);
+console.log(size)
+  const handleSetSize = (size) => {
+    setSize(size)
   };
 
-  const handleMiddleMeal = () => {
-    setBigMeal(false);
-    setMiddleMeal(true);
-  };
+  
 
   const handleNextStep = () => {
     setNextPosition(nextPosition + 1);
@@ -36,10 +31,10 @@ function Step1() {
   return (
     <div className="max-w-screen-sm h-screen mx-auto bg-background-light overflow-scroll">
       <div className="justify-center items-center relative">
-        <img className="w-full h-full ml-[-2px]" src={image1} alt="" />
+        <img className="w-full h-full ml-[-2px]" src={currentDish.img} alt="" />
       </div>
       <div className="w-full h-full flex flex-col ">
-        <Steps nextPosition={nextPosition} />
+        <Stepper nextPosition={nextPosition} />
         <div className="flex justify-end relative">
           <h1
             className="absolute right-[30px] top-[-40px] font-pop text-[20px] font-bold text-textFont-dark"
@@ -51,18 +46,18 @@ function Step1() {
         <div className="flex justify-between mx-[20px] gap-[20px]">
           <button
             className={`w-[150px] h-[40px] top-[5px] ml-[10px] rounded-full ${
-              middleMeal
+              size==='middle'
                 ? "bg-primary-regular outline outline-2 outline-gray-600"
                 : "bg-[#AEAEAE]"
             } font-pop text-[16px] font-semibold text-center`}
-            onClick={handleMiddleMeal}
+            onClick={() => handleSetSize('middle')}
           >
             Μεσαίο 7 €
           </button>
           <button
-            onClick={handleBigMeal}
+           onClick={() => handleSetSize('big')}
             className={`w-[150px] h-[40px] top-[5px]  rounded-full ${
-              bigMeal
+              size==='big'
                 ? "bg-primary-regular outline outline-2 outline-gray-600"
                 : "bg-[#AEAEAE]"
             } font-pop text-[16px] font-semibold text-center`}
@@ -88,4 +83,4 @@ function Step1() {
   );
 }
 
-export default Step1;
+export default Steps;

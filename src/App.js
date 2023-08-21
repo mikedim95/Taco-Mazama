@@ -1,17 +1,14 @@
-//pages
-import LoginPage from "./pages/LoginPage";
-import LandingPage from "./pages/LandingPage";
-import Step1 from "./pages/Step1";
-
-//routes
+import React from "react";
+import { MyProvider } from "./context/UseMyContext"; // Import your context provider
 import {
   createBrowserRouter,
   Route,
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
-
-//layouts
+import LoginPage from "./pages/LoginPage";
+import LandingPage from "./pages/LandingPage";
+import Steps from "./pages/Steps";
 import RootLayout from "./layouts/RootLayout";
 
 const router = createBrowserRouter(
@@ -19,13 +16,17 @@ const router = createBrowserRouter(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<LoginPage />} />
       <Route path="LandingPage" element={<LandingPage />} />
-      <Route path="Step1" element={<Step1 />} />
+      <Route path="Steps" element={<Steps />} />
     </Route>
   )
 );
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <MyProvider>
+      <RouterProvider router={router} />
+    </MyProvider>
+  );
 }
 
 export default App;

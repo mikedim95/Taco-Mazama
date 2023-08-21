@@ -1,4 +1,4 @@
-import { insideFood } from "../helpers/insideFood";
+import { insideFood } from "../helpers/insidefood";
 import { CgMathPlus } from "react-icons/cg";
 import { useState } from "react";
 import tick from "../assets/tick.svg";
