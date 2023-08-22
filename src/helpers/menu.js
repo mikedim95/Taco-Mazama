@@ -14,7 +14,7 @@ export const stuffing = [
   {
     title: "Μοσχαρίσιο Chilli",
     subtitle: "Παρθένο κοτόπουλο μεγαλωμένο με αγάπη 500γρ.",
-    extraPrice: '+1.00€',
+    extraPrice: 1,
     spicy: "",
   },
   {
@@ -32,7 +32,7 @@ export const stuffing = [
   {
     title: "Vegan Special",
     subtitle: "Παρθένο κοτόπουλο μεγαλωμένο με αγάπη 500γρ.",
-    extraPrice: '+1.00€',
+    extraPrice: 1,
     spicy: "",
   },
 ];
@@ -104,19 +104,19 @@ export const extra = [
   {
     title: "Guacamole",
     subtitle: "",
-    extraPrice: '+1.00€',
+    extraPrice: 1,
     spicy: "",
   },
   {
     title: "Chorizo",
     subtitle: "",
-    extraPrice: '+1.00€',
+    extraPrice: 1,
     spicy: "",
   },
   {
     title: "Fajita Mix",
     subtitle: "",
-    extraPrice: '+0.50€',
+    extraPrice: 0.50,
     spicy: "",
   },
   
