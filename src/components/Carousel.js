@@ -17,14 +17,13 @@ function Carousel({ images, position, searchTerm, onSwipe, onClick }) {
     preventDefaultTouchmoveEvent: true,
     trackMouse: true,
   });
-  const { updateCurrentDish } = useMyContext();
+  const { setCurrentDish } = useMyContext();
 
   const handleItemClick = (item) => {
-    updateCurrentDish({
+    setCurrentDish({
       img: item.img,
       price: item.price,
       title: item.title,
-      subtitle: item.subtitle,
     });
   };
   return (
@@ -37,7 +36,7 @@ function Carousel({ images, position, searchTerm, onSwipe, onClick }) {
             >
              
           
-             <Link key={index} to={`/Steps?customProp=${item.img}`}>
+             <Link key={index} to={`/Steps`}>
                <motion.div
                  className="container"
                  initial={{ scale: 0, rotation: -180 }}

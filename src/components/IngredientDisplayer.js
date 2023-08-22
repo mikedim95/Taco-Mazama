@@ -1,14 +1,18 @@
-import { insideFood } from "../helpers/insidefood";
+
 import { CgMathPlus } from "react-icons/cg";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import tick from "../assets/tick.svg";
 import Line from "../assets/Line.svg";
-
-function InsideFood() {
+import { useMyContext } from "../context/UseMyContext";
+function IngredientDisplayer({ content,handleNextStep,handlePreviousStep }) {
+  const { currentDish } = useMyContext();
   const [selectedItems, setSelectedItems] = useState([]);
- 
-  const renderedFoods = insideFood.map((food, index) => {
-    const isClicked = selectedItems.includes(food.title);
+  useEffect(() => {
+    // Populate selectedItems with currentDish.stuffing when component mounts
+    setSelectedItems(currentDish.stuffing || []);
+  }, []);
+  const renderedFoods = content.map((food, index) => {
+  const isClicked = selectedItems.includes(food.title);
 console.log(selectedItems)
     const extraPriceElement =
       food.extraPrice !== null ? (
@@ -29,7 +33,7 @@ console.log(selectedItems)
         setSelectedItems([...selectedItems, ingredient]);
       }
     };
-
+   
     return (
       <div key={index} className=" relative ">
         <div
@@ -71,8 +75,21 @@ console.log(selectedItems)
       <div className="columns-1 px-[20px] justify-center space-y-[10px] items-center">
         {renderedFoods}
       </div>
+      <div className="flex justify-between space-x-[10px] items-end pt-[15px]  px-[20px] pb-[20px]">
+          <button className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center "
+            onClick={()=> handlePreviousStep()}
+            >
+            Προηγούμενο
+          </button>
+          <button
+            className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center "
+            onClick={()=> handleNextStep('stuffing',selectedItems)}
+          >
+            Επόμενο
+          </button>
+        </div>
     </>
   );
 }
 
-export default InsideFood;
+export default IngredientDisplayer;

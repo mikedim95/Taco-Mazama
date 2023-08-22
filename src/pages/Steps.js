@@ -1,19 +1,22 @@
 import Stepper from "../components/Stepper";
+import { stuffing,ingredients,salsa } from "../helpers/menu";
 import { useMyContext } from "../context/UseMyContext";
-import InsideFood from "../components/InsideFood";
-import IngredientsPick from "../components/IngredientsPick";
+import IngredientDisplayer from "../components/IngredientDisplayer";
+
 import { useState } from "react";
 function Steps() {
   const [nextPosition, setNextPosition] = useState(0);
-  const { currentDish } = useMyContext();
+  const { currentDish,setCurrentDish } = useMyContext();
   const [size, setSize] = useState();
   const order = () => {
     if (nextPosition === 0) {
-      return <InsideFood />;
+      return <IngredientDisplayer content={stuffing} handleNextStep={handleNextStep}/>;
     } else if (nextPosition === 1) {
-      return <IngredientsPick />;
-    }
-    return null;
+      return <IngredientDisplayer content={ingredients} handleNextStep={handleNextStep} handlePreviousStep={handlePreviousStep}/>;
+    } else if (nextPosition === 2) {
+    return <IngredientDisplayer content={salsa} handleNextStep={handleNextStep} handlePreviousStep={handlePreviousStep}/>;
+  }
+    
   };
 console.log(size)
   const handleSetSize = (size) => {
@@ -22,8 +25,15 @@ console.log(size)
 
   
 
-  const handleNextStep = () => {
+  const handleNextStep = (category,selection) => {
+    setCurrentDish({...currentDish,[category]:selection})
+  
     setNextPosition(nextPosition + 1);
+    
+  };
+  const handlePreviousStep = () => {
+    setNextPosition(nextPosition - 1);
+    console.log(nextPosition)
   };
 
   return (
@@ -65,17 +75,7 @@ console.log(size)
         </div>
 
         <div className="pt-[10px]">{order()}</div>
-        <div className="flex justify-between space-x-[10px] items-end pt-[15px]  px-[20px] pb-[20px]">
-          <button className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center ">
-            Προηγούμενο
-          </button>
-          <button
-            className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center "
-            onClick={handleNextStep}
-          >
-            Επόμενο
-          </button>
-        </div>
+        
       </div>
     </div>
   );
