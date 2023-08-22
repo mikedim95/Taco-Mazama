@@ -15,7 +15,7 @@ import { motion as m } from "framer-motion";
 function LandingPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [position, setPosition] = useState(1);
-  
+
   const handleSearch = (term) => {
     const lowercaseTerm = term.toLowerCase();
     setSearchTerm(lowercaseTerm);
@@ -34,7 +34,7 @@ function LandingPage() {
   };
 
   return (
-    <div className="max-w-screen-sm h-screen mx-auto bg-background-light overflow-scroll">
+    <div className="max-w-screen-sm h-screen mx-auto bg-background-light scroll-smooth overflow-y-scroll">
       <div className="flex justify-between relative">
         <m.img
           initial={{ x: -150, rotate: -360 }}
@@ -72,13 +72,13 @@ function LandingPage() {
           <div className="flex space-x-[-60px]">
             <img className="pl-[34px] pr-[30px] mt-[-10px]" src={Line} alt="" />
             <m.img
-              initial={{ x: 50 }}
-              animate={{ x: 0 }}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
               transition={{
                 type: "spring",
                 stiffness: 150,
                 damping: 8,
-                delay: 1.5,
+                delay: 2,
                 duration: 1,
               }}
               className="w-[43px] h-[65px] mt-[-50px] z-50 opacity-30 overflow-hidden"
@@ -109,7 +109,7 @@ function LandingPage() {
           <div className="mt-[10px] ml-[5px]">
             <Drinks />
           </div>
-          <div className="mt-[30px] ml-[-30px] bg-black h-max">
+          <div className="mt-[30px] ml-[-30px] h-[110px] bg-black">
             <div className="flex flex-col justify-center items-center">
               <p className="text-white font-pop font-normal">Follow us in</p>
               <div className="flex flex-col-2">
