@@ -64,6 +64,20 @@ function Steps() {
           key="extra"
           phase={"extra"}
           content={extra}
+          handleNextStep={handleNextStep}
+          handlePreviousStep={handlePreviousStep}
+          message={"Διάλεξε τα Έξτρα σου"}
+          addExtraCost={addExtraCost}
+          subExtraCost={subExtraCost}
+          handleMultiplier={handleMultiplier}
+        />
+      );
+    } else if (nextPosition === 4) {
+      return (
+        <IngredientDisplayer
+          key="review"
+          phase={"review"}
+          currentDish={currentDish}
           finalSubmit={finalSubmit}
           handlePreviousStep={handlePreviousStep}
           message={"Διάλεξε τα Έξτρα σου"}

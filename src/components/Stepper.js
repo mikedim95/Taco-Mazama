@@ -19,7 +19,6 @@ function Steps({ nextPosition }) {
         className="w-full h-full"
       />
     ) : null;
-
     const isCircleActive = clickNext || index <= nextPosition - 1;
     const circle = isCircleActive
       ? "outline-black bg-primary-regular "
