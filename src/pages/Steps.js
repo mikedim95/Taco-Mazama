@@ -66,7 +66,7 @@ function Steps() {
           content={extra}
           handleNextStep={handleNextStep}
           handlePreviousStep={handlePreviousStep}
-          message={"Διάλεξε τα Έξτρα σου"}
+          message={"Extra Υλικά"}
           addExtraCost={addExtraCost}
           subExtraCost={subExtraCost}
           handleMultiplier={handleMultiplier}
@@ -80,7 +80,7 @@ function Steps() {
           currentDish={currentDish}
           finalSubmit={finalSubmit}
           handlePreviousStep={handlePreviousStep}
-          message={"Διάλεξε τα Έξτρα σου"}
+          message={"Δες τι έχτισες ..."}
           addExtraCost={addExtraCost}
           subExtraCost={subExtraCost}
           handleMultiplier={handleMultiplier}

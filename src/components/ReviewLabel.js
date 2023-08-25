@@ -48,22 +48,21 @@ function ReviewLabel({
     return (
       <div key={index} className=" relative ">
         <div
-          className="w-auto h-[120px] rounded-[20px] bg-[#DFE3BA] shadow-[1px_4px_6px_rgba(0,0,0,0.4)]"
+          className="w-auto h-auto flex flex-col rounded-[20px] bg-[#DFE3BA] shadow-[1px_4px_6px_rgba(0,0,0,0.4)]"
           onClick={() => handleClick(food)}
         >
-          <div className="pt-[10px] pl-[5px] text-[18px] font-pop text-left font-bold text-textFont-dark">
+          <div className="pt-[20px] pl-[10px] text-[18px] font-pop text-left font-bold text-textFont-dark">
             {food.title}
           </div>
-          <div className="pl-[5px] pr-[100px] text-[14px] font-pop text-left font-normal text-textFont-dark">
+          <div className="pl-[10px] pr-[5px] text-[14px] font-pop text-left font-normal text-textFont-dark">
             {food.subtitle}
           </div>
-          <div className="col-span-2">
+          <div className="pt-[50px]">
             <div
               className={`w-[80px] h-[40px] absolute bottom-0 ${color} rounded-tr-[20px] rounded-bl-[20px]`}
             >
               <div className="px-[30px] py-[10px]">{icons}</div>
             </div>
-            {extraPriceElement}
           </div>
         </div>
       </div>

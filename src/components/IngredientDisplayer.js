@@ -24,15 +24,21 @@ function IngredientDisplayer({
     // eslint-disable-next-line
     setSelectedItems(currentDish[phase] || []);
   }, []);
+
   if (finalSubmit) {
     content = [
       {
         title: currentDish.title,
-        subtitle: JSON.stringify(currentDish.stuffing),
+        subtitle: [
+          currentDish.stuffing.join(", "),
+          currentDish.ingredients.join(", "),
+          currentDish.salsa.join(", "),
+          currentDish.extra.join(", "),
+        ].join(", "),
       },
     ];
   }
-  console.log("content= " + content);
+
   return (
     <>
       <div className="flex justify-start relative ">
