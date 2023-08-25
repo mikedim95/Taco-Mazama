@@ -57,21 +57,21 @@ function OptionLabel({
           <div className="pl-[5px] pr-[100px] text-[14px] font-pop text-left font-normal text-textFont-dark">
             {food.subtitle}
           </div>
-        </div>
-        <div className="flex row-span-3">
-          <img
-            src={food.img}
-            alt=""
-            className="w-[100px] h-[120px] absolute top-0 right-0 aspect-[3/2] object-cover items-center rounded-tr-[20px] rounded-br-[20px]"
-          />
-          <div
-            className={`w-[80px] h-[40px] pl-[-10px] absolute bottom-0 left-0 ${color} rounded-tr-[20px] rounded-bl-[20px]`}
-          >
-            <div className="px-[30px] py-[10px]">{icons}</div>
-          </div>
-          {extraPriceElement}
-          <div className="absolute bottom-[10px] left-[130px]">
-            {food.spicy}
+          <div className="flex row-span-3">
+            <img
+              src={food.img}
+              alt=""
+              className="w-[100px] h-[120px] absolute top-0 right-0 aspect-[3/2] object-cover items-center rounded-tr-[20px] rounded-br-[20px]"
+            />
+            <div
+              className={`w-[80px] h-[40px] pl-[-10px] absolute bottom-0 left-0 ${color} rounded-tr-[20px] rounded-bl-[20px]`}
+            >
+              <div className="px-[30px] py-[10px]">{icons}</div>
+            </div>
+            {extraPriceElement}
+            <div className="absolute bottom-[10px] left-[130px]">
+              {food.spicy}
+            </div>
           </div>
         </div>
       </div>
