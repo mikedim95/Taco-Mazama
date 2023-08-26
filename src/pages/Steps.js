@@ -6,10 +6,16 @@ import { motion as m } from "framer-motion";
 import { useNavigate } from "react-router-dom"; /* 
 import postJsonData from "../helpers/functionalComponents/postRequestToBack"; */
 import { useState, useEffect, useRef } from "react";
-debugger;
+/* debugger; */
 function Steps() {
-  const { currentDish, setCurrentDish, finalDishOrder, setFinalDishOrder } =
-    useMyContext();
+  const {
+    setCartItemCount,
+    cartItemCount,
+    currentDish,
+    setCurrentDish,
+    finalDishOrder,
+    setFinalDishOrder,
+  } = useMyContext();
   console.log(currentDish);
   const navigate = useNavigate();
   const [basePrice, setBasePrice] = useState(currentDish.middlePrice);
@@ -171,7 +177,8 @@ function Steps() {
     delete addingLastValues.middlePrice;
     delete addingLastValues.largePrice;
     delete addingLastValues.img;
-
+    const temp = cartItemCount + multiplier;
+    setCartItemCount(temp);
     // Use the callback form of setFinalDishOrder to access the most recent state
     setFinalDishOrder((prevFinalDishOrder) => {
       const updatedFinalDishOrder = [...prevFinalDishOrder, addingLastValues];

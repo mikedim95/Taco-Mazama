@@ -9,18 +9,23 @@ import Drinks from "../components/Drinks";
 import fb from "../assets/fb.svg";
 import insta from "../assets/insta.svg";
 import Search from "../components/Search";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { images } from "../helpers/images";
 import { motion as m } from "framer-motion";
 import { useMyContext } from "../context/UseMyContext";
 import { Link } from "react-router-dom";
 import "./Cart.css";
 function LandingPage() {
-  const { currentDish, setCurrentDish, finalDishOrder, setFinalDishOrder } =
-    useMyContext();
+  const {
+    currentDish,
+    setCurrentDish,
+    finalDishOrder,
+    setFinalDishOrder,
+    cartItemCount,
+  } = useMyContext();
   const [searchTerm, setSearchTerm] = useState("");
   const [position, setPosition] = useState(1);
-  const [cartItemCount, setCartItemCount] = useState(5);
+
   const handleSearch = (term) => {
     const lowercaseTerm = term.toLowerCase();
     setSearchTerm(lowercaseTerm);
@@ -37,7 +42,18 @@ function LandingPage() {
   const handleCarouselSwipe = (newPosition, eventData) => {
     setPosition(newPosition);
   };
+  /*  useEffect(() => {
+    finalDishOrder.forEach((item) => {
+      if (item.multiplier) {
+        // If the item has a multiplier property, use it
+        const temp = cartItemCount + item.multiplier;
 
+        setCartItemCount(temp);
+      } else {
+        // If the item doesn't have a multiplier property, count as 1
+      }
+    });
+  }, []); */
   return (
     <div className="max-w-screen-sm h-screen mx-auto bg-background-light scroll-smooth overflow-y-scroll">
       <div className="flex justify-between relative">
@@ -65,6 +81,11 @@ function LandingPage() {
             src={basket}
             alt=""
           />
+          {cartItemCount > 0 && (
+            <div className="cart-indicator  top-[50px] right-[20px]">
+              {cartItemCount}
+            </div>
+          )}
         </Link>
       </div>
       <div className="w-full h-full flex flex-col ">
