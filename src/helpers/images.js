@@ -7,11 +7,35 @@ import image6 from "../assets/6.gif";
 import image7 from "../assets/7.gif";
 
 export const images = [
-  { title: "Burrito", subtitle: "", price: "€ 7", img: image1 },
-  { title: "Fajita", subtitle: "", price: "€ 7", img: image2 },
-  { title: "Bowl", subtitle: "Burrito/Fajita", price: "€ 7", img: image3 },
-  { title: "Quesadilla", subtitle: "", price: "€ 7", img: image4 },
-  { title: "Taco", subtitle: "", price: "€ 2.75/τμχ", img: image5 },
-  { title: "Enchilada", subtitle: "one size", price: "€ 8", img: image6 },
-  { title: "Mulita", subtitle: "", price: "€ 3.25/τμχ", img: image7 },
+  {
+    title: "Burrito",
+    subtitle: "",
+    middlePrice: 7,
+    largePrice: 12,
+    img: image1,
+  },
+  {
+    title: "Fajita",
+    subtitle: "",
+    middlePrice: 7,
+    largePrice: 12,
+    img: image2,
+  },
+  {
+    title: "Bowl",
+    subtitle: "Burrito/Fajita",
+    middlePrice: 7,
+    largePrice: 12,
+    img: image3,
+  },
+  {
+    title: "Quesadilla",
+    subtitle: "",
+    middlePrice: 7,
+    largePrice: 12,
+    img: image4,
+  },
+  { title: "Taco", subtitle: "", middlePrice: 2.75, img: image5 },
+  { title: "Enchilada", subtitle: "one size", middlePrice: 8, img: image6 },
+  { title: "Mulita", subtitle: "", middlePrice: 3.25, img: image7 },
 ];

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from "react";
 
 // Create a context
 const MyContext = createContext();
@@ -11,7 +11,20 @@ export const MyProvider = ({ children }) => {
   const [finalSidesOrder, setFinalSidesOrder] = useState([]);
   const [finalBeveragesOrder, setFinalBeveragesOrder] = useState([]);
   return (
-    <MyContext.Provider value={{ currentDish, setCurrentDish,finalDishOrder,setFinalDishOrder,finalSidesOrder,setFinalSidesOrder,finalBeveragesOrder,setFinalBeveragesOrder,currentDishIndex,setCurrentDishIndex }}>
+    <MyContext.Provider
+      value={{
+        currentDish,
+        setCurrentDish,
+        finalDishOrder,
+        setFinalDishOrder,
+        finalSidesOrder,
+        setFinalSidesOrder,
+        finalBeveragesOrder,
+        setFinalBeveragesOrder,
+        currentDishIndex,
+        setCurrentDishIndex,
+      }}
+    >
       {children}
     </MyContext.Provider>
   );

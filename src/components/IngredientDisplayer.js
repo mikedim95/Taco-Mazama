@@ -13,6 +13,7 @@ function IngredientDisplayer({
   subExtraCost,
   finalSubmit,
   firstButtonPosition,
+  handleMultiplier,
 }) {
   console.log(content);
   const { currentDish } = useMyContext();
@@ -71,6 +72,7 @@ function IngredientDisplayer({
             subExtraCost={subExtraCost}
             setSelectedItems={setSelectedItems}
             finalSubmit={finalSubmit}
+            handleMultiplier={handleMultiplier}
           />
         ) : (
           <OptionLabel
@@ -101,7 +103,7 @@ function IngredientDisplayer({
         {phase === "review" ? (
           <button
             className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center "
-            onClick={() => finalSubmit(phase, selectedItems)}
+            onClick={() => finalSubmit()}
           >
             Υποβολή
           </button>

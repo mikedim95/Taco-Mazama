@@ -18,7 +18,6 @@ function LandingPage() {
     useMyContext();
   const [searchTerm, setSearchTerm] = useState("");
   const [position, setPosition] = useState(1);
-  console.log(finalDishOrder);
   const handleSearch = (term) => {
     const lowercaseTerm = term.toLowerCase();
     setSearchTerm(lowercaseTerm);

@@ -3,18 +3,20 @@ import { stuffing, ingredients, salsa, extra } from "../helpers/menu";
 import { useMyContext } from "../context/UseMyContext";
 import IngredientDisplayer from "../components/IngredientDisplayer";
 import { motion as m } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom"; /* 
+import postJsonData from "../helpers/functionalComponents/postRequestToBack"; */
 import { useState, useEffect, useRef } from "react";
-/* debugger */
+debugger;
 function Steps() {
+  const { currentDish, setCurrentDish, finalDishOrder, setFinalDishOrder } =
+    useMyContext();
+  console.log(currentDish);
   const navigate = useNavigate();
-  const [basePrice, setBasePrice] = useState(0);
+  const [basePrice, setBasePrice] = useState(currentDish.middlePrice);
   const [multiplier, setMultiplier] = useState(1);
   const [extraCosts, setExtraCosts] = useState(0);
   const [nextPosition, setNextPosition] = useState(0);
-  const { currentDish, setCurrentDish, finalDishOrder, setFinalDishOrder } =
-    useMyContext();
+
   const [size, setSize] = useState("middle");
   const scrollToTopRef = useRef(null);
 
@@ -29,7 +31,6 @@ function Steps() {
           message={"Διάλεξε τη Γέμισή σου"}
           addExtraCost={addExtraCost}
           subExtraCost={subExtraCost}
-          handleMultiplier={handleMultiplier}
           firstButtonPosition
         />
       );
@@ -44,7 +45,6 @@ function Steps() {
           message={"Διάλεξε τα υλικά σου"}
           addExtraCost={addExtraCost}
           subExtraCost={subExtraCost}
-          handleMultiplier={handleMultiplier}
         />
       );
     } else if (nextPosition === 2) {
@@ -58,7 +58,6 @@ function Steps() {
           message={"Διάλεξε τη Σάλτσα σου"}
           addExtraCost={addExtraCost}
           subExtraCost={subExtraCost}
-          handleMultiplier={handleMultiplier}
         />
       );
     } else if (nextPosition === 3) {
@@ -72,7 +71,6 @@ function Steps() {
           message={"Extra Υλικά"}
           addExtraCost={addExtraCost}
           subExtraCost={subExtraCost}
-          handleMultiplier={handleMultiplier}
         />
       );
     } else if (nextPosition === 4) {
@@ -94,7 +92,7 @@ function Steps() {
 
   useEffect(() => {
     // Populate selectedItems with currentDish.stuffing when component mounts
-    switch (size) {
+    /*  switch (size) {
       case "middle":
         setBasePrice(7);
         break;
@@ -103,13 +101,30 @@ function Steps() {
         break;
       default:
         setBasePrice(0);
+        
     }
 
-    /*   setFinalPrice(basePrice*multiplier+extraCosts) */
-  }, [size, extraCosts, multiplier]);
+       setFinalPrice(basePrice*multiplier+extraCosts)  */
+  }, [finalDishOrder]);
+  /*  useEffect(() => {
+    if (finalDishOrder.length > 0) {
+      // Make the API call when finalDishOrder is updated
+      postJsonData(finalDishOrder)
+        .then((response) => {
+          // Handle the response from the API if needed
+          console.log("API Response:", response);
+          navigate("/LandingPage");
+        })
+        .catch((error) => {
+          // Handle errors if the API call fails
+          console.error("API Error:", error);
+        });
+    }
+  }, [finalDishOrder, navigate]); */
 
   const handleSetSize = (size) => {
     setSize(size);
+    handleBasePrice(size);
   };
 
   const handleNextStep = (category, selection) => {
@@ -127,15 +142,43 @@ function Steps() {
   const addExtraCost = (value) => {
     setExtraCosts(extraCosts + value);
   };
+  const handleBasePrice = (size) => {
+    switch (size) {
+      case "middle":
+        setBasePrice(7);
+        break;
+      case "big":
+        setBasePrice(12);
+        break;
+      default:
+        setBasePrice(0);
+    }
+  };
   const subExtraCost = (value) => {
     setExtraCosts(extraCosts - value);
   };
   const handleMultiplier = (value) => {
+    console.log("multiplier about to take value: " + value);
     setMultiplier(value);
   };
-  const finalSubmit = (category, selection) => {
-    console.log(finalDishOrder);
-    setFinalDishOrder([...finalDishOrder, currentDish]);
+  const finalSubmit = () => {
+    const addingLastValues = {
+      ...currentDish,
+      multiplier: multiplier,
+      basePrice: basePrice,
+      extraCosts: extraCosts,
+    };
+    delete addingLastValues.middlePrice;
+    delete addingLastValues.largePrice;
+    delete addingLastValues.img;
+
+    // Use the callback form of setFinalDishOrder to access the most recent state
+    setFinalDishOrder((prevFinalDishOrder) => {
+      const updatedFinalDishOrder = [...prevFinalDishOrder, addingLastValues];
+      console.log("Updated finalDishOrder:", updatedFinalDishOrder);
+      return updatedFinalDishOrder;
+    });
+
     navigate("/LandingPage");
   };
 
@@ -172,31 +215,46 @@ function Steps() {
             className="absolute right-[30px] top-[-40px] font-pop text-[20px] font-bold text-textFont-dark"
             style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
           >
-            Συνολική Τιμή: {basePrice * multiplier + extraCosts} €
+            Συνολική Τιμή: {(basePrice + extraCosts) * multiplier} €
           </h1>
         </div>
-        <div className="flex justify-between mx-[20px] gap-[20px]">
-          <button
-            className={`w-[150px] h-[40px] top-[5px] ml-[10px] rounded-full ${
-              size === "middle"
-                ? "bg-primary-regular outline outline-2 outline-gray-600"
-                : "bg-[#AEAEAE]"
-            } font-pop text-[16px] font-semibold text-center`}
-            onClick={() => handleSetSize("middle")}
-          >
-            Μεσαίο 7 €
-          </button>
-          <button
-            className={`w-[150px] h-[40px] top-[5px]  rounded-full ${
-              size === "big"
-                ? "bg-primary-regular outline outline-2 outline-gray-600"
-                : "bg-[#AEAEAE]"
-            } font-pop text-[16px] font-semibold text-center`}
-            onClick={() => handleSetSize("big")}
-          >
-            Μεγάλο 12 €
-          </button>
-        </div>
+        {currentDish.largePrice !== undefined ? (
+          <div className="flex justify-between mx-[20px] gap-[20px]">
+            <button
+              className={`w-[150px] h-[40px] top-[5px] ml-[10px] rounded-full ${
+                size === "middle"
+                  ? "bg-primary-regular outline outline-2 outline-gray-600"
+                  : "bg-[#AEAEAE]"
+              } font-pop text-[16px] font-semibold text-center`}
+              onClick={() => handleSetSize("middle")}
+            >
+              Μεσαίο {currentDish.middlePrice} €
+            </button>
+            <button
+              className={`w-[150px] h-[40px] top-[5px]  rounded-full ${
+                size === "big"
+                  ? "bg-primary-regular outline outline-2 outline-gray-600"
+                  : "bg-[#AEAEAE]"
+              } font-pop text-[16px] font-semibold text-center`}
+              onClick={() => handleSetSize("big")}
+            >
+              Μεγάλο {currentDish.largePrice} €
+            </button>
+          </div>
+        ) : (
+          <div className="flex justify-between mx-[20px] gap-[20px]">
+            <button
+              className={`w-[180px] h-[40px] top-[5px] ml-[0px] rounded-full ${
+                size === "middle"
+                  ? "bg-primary-regular outline outline-2 outline-gray-600"
+                  : "bg-[#AEAEAE]"
+              } font-pop text-[16px] font-semibold text-center`}
+              onClick={() => handleSetSize("middle")}
+            >
+              Ένα μέγεθος {currentDish.middlePrice} €
+            </button>
+          </div>
+        )}
 
         <div className="pt-[10px]">{order()}</div>
       </m.div>

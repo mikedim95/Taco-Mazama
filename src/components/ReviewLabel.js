@@ -1,13 +1,34 @@
 import React from "react";
 import { CgMathPlus, CgMathMinus } from "react-icons/cg";
-
+import { useState } from "react";
+import { useMyContext } from "../context/UseMyContext";
 function ReviewLabel({
   content,
   selectedItems,
   addExtraCost,
   subExtraCost,
   setSelectedItems,
+  handleMultiplier,
+  finalSubmit,
 }) {
+  const { currentDish, setCurrentDish, finalDishOrder, setFinalDishOrder } =
+    useMyContext();
+  const [multiplier, setMultiplier] = useState(1);
+  handleMultiplier(multiplier);
+  const updateMultiplier = (operation) => {
+    switch (operation) {
+      case "add":
+        handleMultiplier(multiplier + 1);
+        setMultiplier(multiplier + 1);
+        break;
+      case "sub":
+        if (multiplier > 1) {
+          handleMultiplier(multiplier - 1);
+          setMultiplier(multiplier - 1);
+        }
+        break;
+    }
+  };
   const renderedFoods = content.map((food, index) => {
     const isClicked = selectedItems.includes(food.title);
 
@@ -21,13 +42,31 @@ function ReviewLabel({
             {food.subtitle}
           </div>
           <div className="pt-[50px]">
-            <div className="w-[150px] h-[40px] absolute bottom-0 bg-[#E6C013] rounded-tr-[20px] rounded-bl-[20px]">
-              <div className="px-[20px] py-[10px] columns-3">
-                <CgMathMinus size="20px" />
+            <div
+              className="w-[80px] h-[40px] absolute bottom-0 right-0 bg-[#E6C013] rounded-tl-[20px] rounded-br-[20px]"
+              onClick={() => updateMultiplier("add")}
+            >
+              <div className="px-[30px] py-[10px] columns-3">
                 <div className=" text-[18px] font-pop text-center font-bold text-black">
-                  1
+                  <CgMathPlus size="20px" />
                 </div>
-                <CgMathPlus size="20px" />
+              </div>
+            </div>
+            <div
+              className="w-[80px] h-[40px] absolute bottom-0 left-0 bg-[#E6C013] rounded-tr-[20px] rounded-bl-[20px]"
+              onClick={() => updateMultiplier("sub")}
+            >
+              <div className="px-[30px] py-[10px] columns-3">
+                <div className=" text-[18px] font-pop text-center font-bold text-black">
+                  <CgMathMinus size="20px" />
+                </div>
+              </div>
+            </div>
+            <div className="w-[150px] h-[40px] absolute top-0 right-0 bg-[#E6C013] rounded-tr-[20px] rounded-bl-[20px]">
+              <div className="px-[30px] py-[10px] columns-3">
+                <div className=" text-[18px] font-pop text-center font-bold text-black">
+                  ποσότητα:{multiplier}
+                </div>
               </div>
             </div>
           </div>
