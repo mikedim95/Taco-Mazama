@@ -3,10 +3,12 @@ import { stuffing, ingredients, salsa, extra } from "../helpers/menu";
 import { useMyContext } from "../context/UseMyContext";
 import IngredientDisplayer from "../components/IngredientDisplayer";
 import { motion as m } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 import { useState, useEffect, useRef } from "react";
 /* debugger */
 function Steps() {
+  const navigate = useNavigate();
   const [basePrice, setBasePrice] = useState(0);
   const [multiplier, setMultiplier] = useState(1);
   const [extraCosts, setExtraCosts] = useState(0);
@@ -132,8 +134,9 @@ function Steps() {
     setMultiplier(value);
   };
   const finalSubmit = (category, selection) => {
-    setFinalDishOrder(finalDishOrder);
-    setCurrentDish({ ...currentDish, [category]: selection });
+    console.log(finalDishOrder);
+    setFinalDishOrder([...finalDishOrder, currentDish]);
+    navigate("/LandingPage");
   };
 
   const initialImage = {

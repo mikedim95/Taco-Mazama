@@ -12,10 +12,13 @@ import Search from "../components/Search";
 import { useState } from "react";
 import { images } from "../helpers/images";
 import { motion as m } from "framer-motion";
+import { useMyContext } from "../context/UseMyContext";
 function LandingPage() {
+  const { currentDish, setCurrentDish, finalDishOrder, setFinalDishOrder } =
+    useMyContext();
   const [searchTerm, setSearchTerm] = useState("");
   const [position, setPosition] = useState(1);
-
+  console.log(finalDishOrder);
   const handleSearch = (term) => {
     const lowercaseTerm = term.toLowerCase();
     setSearchTerm(lowercaseTerm);
