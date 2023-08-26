@@ -14,12 +14,13 @@ import { images } from "../helpers/images";
 import { motion as m } from "framer-motion";
 import { useMyContext } from "../context/UseMyContext";
 import { Link } from "react-router-dom";
-
+import "./Cart.css";
 function LandingPage() {
   const { currentDish, setCurrentDish, finalDishOrder, setFinalDishOrder } =
     useMyContext();
   const [searchTerm, setSearchTerm] = useState("");
   const [position, setPosition] = useState(1);
+  const [cartItemCount, setCartItemCount] = useState(5);
   const handleSearch = (term) => {
     const lowercaseTerm = term.toLowerCase();
     setSearchTerm(lowercaseTerm);
