@@ -11,7 +11,8 @@ function Steps() {
   const [multiplier, setMultiplier] = useState(1);
   const [extraCosts, setExtraCosts] = useState(0);
   const [nextPosition, setNextPosition] = useState(0);
-  const { currentDish, setCurrentDish } = useMyContext();
+  const { currentDish, setCurrentDish, finalDishOrder, setFinalDishOrder } =
+    useMyContext();
   const [size, setSize] = useState("middle");
   const scrollToTopRef = useRef(null);
 
@@ -131,6 +132,7 @@ function Steps() {
     setMultiplier(value);
   };
   const finalSubmit = (category, selection) => {
+    setFinalDishOrder(finalDishOrder);
     setCurrentDish({ ...currentDish, [category]: selection });
   };
 

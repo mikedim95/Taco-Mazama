@@ -30,11 +30,21 @@ function IngredientDisplayer({
       {
         title: currentDish.title,
         subtitle: [
-          currentDish.stuffing.join(", "),
-          currentDish.ingredients.join(", "),
-          currentDish.salsa.join(", "),
-          currentDish.extra.join(", "),
-        ].join(", "),
+          currentDish.stuffing && currentDish.stuffing.length > 0
+            ? currentDish.stuffing.join(", ")
+            : null,
+          currentDish.ingredients && currentDish.ingredients.length > 0
+            ? currentDish.ingredients.join(", ")
+            : null,
+          currentDish.salsa && currentDish.salsa.length > 0
+            ? currentDish.salsa.join(", ")
+            : null,
+          currentDish.extra && currentDish.extra.length > 0
+            ? currentDish.extra.join(", ")
+            : null,
+        ]
+          .filter((item) => item !== null) // Remove null entries
+          .join(", "),
       },
     ];
   }
