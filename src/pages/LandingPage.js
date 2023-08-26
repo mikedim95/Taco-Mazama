@@ -13,6 +13,8 @@ import { useState } from "react";
 import { images } from "../helpers/images";
 import { motion as m } from "framer-motion";
 import { useMyContext } from "../context/UseMyContext";
+import { Link } from "react-router-dom";
+
 function LandingPage() {
   const { currentDish, setCurrentDish, finalDishOrder, setFinalDishOrder } =
     useMyContext();
@@ -56,11 +58,13 @@ function LandingPage() {
             alt=""
           />
         </div>
-        <img
-          className="w-[30px] h-[30px] absolute top-[60px] right-[30px]"
-          src={basket}
-          alt=""
-        />
+        <Link to="/BasketPage">
+          <img
+            className="w-[30px] h-[30px] absolute top-[60px] right-[30px]"
+            src={basket}
+            alt=""
+          />
+        </Link>
       </div>
       <div className="w-full h-full flex flex-col ">
         <div className="pt-[110px] pl-[30px]">

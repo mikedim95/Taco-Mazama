@@ -10,6 +10,7 @@ import LoginPage from "./pages/LoginPage";
 import LandingPage from "./pages/LandingPage";
 import Steps from "./pages/Steps";
 import RootLayout from "./layouts/RootLayout";
+import BasketPage from "./pages/BacketPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
       <Route index element={<LoginPage />} />
       <Route path="LandingPage" element={<LandingPage />} />
       <Route path="Steps" element={<Steps />} />
+      <Route path="BasketPage" element={<BasketPage />} />
     </Route>
   )
 );
