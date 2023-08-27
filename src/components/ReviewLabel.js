@@ -33,7 +33,7 @@ function ReviewLabel({
     const isClicked = selectedItems.includes(food.title);
 
     return (
-      <div key={index} className=" relative ">
+      <div key={index} className=" relative">
         <div className="w-auto h-auto flex flex-col rounded-[20px] bg-[#DFE3BA] shadow-[1px_4px_6px_rgba(0,0,0,0.4)]">
           <div className="pt-[20px] pl-[10px] text-[18px] font-pop text-left font-bold text-textFont-dark">
             {food.title}

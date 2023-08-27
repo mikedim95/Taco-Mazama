@@ -6,14 +6,18 @@ const MyContext = createContext();
 // Create a custom provider component
 export const MyProvider = ({ children }) => {
   const [currentDish, setCurrentDish] = useState();
+  const [currentSide, setCurrentSide] = useState();
   const [cartItemCount, setCartItemCount] = useState(0);
   const [currentDishIndex, setCurrentDishIndex] = useState(0);
   const [finalDishOrder, setFinalDishOrder] = useState([]);
   const [finalSidesOrder, setFinalSidesOrder] = useState([]);
   const [finalBeveragesOrder, setFinalBeveragesOrder] = useState([]);
+
   return (
     <MyContext.Provider
       value={{
+        currentSide,
+        setCurrentSide,
         currentDish,
         setCurrentDish,
         finalDishOrder,

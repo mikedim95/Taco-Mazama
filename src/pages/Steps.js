@@ -195,7 +195,7 @@ function Steps() {
   };
 
   return (
-    <div className="max-w-screen-sm h-screen mx-auto bg-background-light overflow-scroll">
+    <div className="max-w-screen-sm h-screen mx-auto bg-background-light overflow-y-scroll">
       <m.div
         initial="hidden"
         animate="visible"

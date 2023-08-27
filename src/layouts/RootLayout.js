@@ -8,6 +8,8 @@ export default function RootLayout() {
         <Link to="LandingPage"></Link>
         <Link to="Steps"></Link>
         <Link to="BasketPage"></Link>
+        <Link to="SidesPage"></Link>
+        <Link to="DrinkPage"></Link>
       </div>
       <div>
         <Outlet />

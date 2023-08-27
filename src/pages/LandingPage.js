@@ -4,25 +4,21 @@ import hat from "../assets/ht.svg";
 import Line from "../assets/Line.svg";
 import Carousel from "../components/Carousel";
 import cactus from "../assets/cactus.svg";
-import Desserts from "../components/Desserts";
+import Sides from "../components/Sides";
 import Drinks from "../components/Drinks";
 import fb from "../assets/fb.svg";
 import insta from "../assets/insta.svg";
 import Search from "../components/Search";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { images } from "../helpers/images";
 import { motion as m } from "framer-motion";
 import { useMyContext } from "../context/UseMyContext";
 import { Link } from "react-router-dom";
+import { sides } from "../helpers/menu";
 import "./Cart.css";
+
 function LandingPage() {
-  const {
-    currentDish,
-    setCurrentDish,
-    finalDishOrder,
-    setFinalDishOrder,
-    cartItemCount,
-  } = useMyContext();
+  const { setDessertPlace, cartItemCount } = useMyContext();
   const [searchTerm, setSearchTerm] = useState("");
   const [position, setPosition] = useState(1);
 
@@ -129,7 +125,7 @@ function LandingPage() {
             Επέλεξε Συνοδευτικό
           </p>
           <div className="mt-[10px] ml-[-25px]">
-            <Desserts />
+            <Sides sides={sides} />
           </div>
           <p className="mt-[7px] text-[16px] font-pop font-semibold text-textFont-dark">
             Επέλεξε Ποτό/Αναψυκτικό

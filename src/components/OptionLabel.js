@@ -11,7 +11,7 @@ function OptionLabel({
   console.log(content);
   const renderedFoods = content.map((food, index) => {
     const isClicked = selectedItems.includes(food.title);
-    console.log(selectedItems);
+
     const extraPriceElement =
       food.extraPrice !== null ? (
         <div className="absolute bottom-[10px] left-[90px] text-[14px] font-pop text-left font-black">
