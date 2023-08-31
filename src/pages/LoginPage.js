@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 function LoginPage() {
   return (
-    <div className="max-w-screen-sm h-screen mx-auto bg-background-dark overflow-scroll ">
+    <div className="max-w-screen-sm h-screen mx-auto bg-background-dark overflow-auto ">
       <div className="flex justify-center items-center relative">
         <div>
           <m.img

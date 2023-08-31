@@ -15,9 +15,8 @@ function IngredientDisplayer({
   firstButtonPosition,
   handleMultiplier,
 }) {
-  console.log(content);
   const { currentDish } = useMyContext();
-  console.log(currentDish);
+
   const [selectedItems, setSelectedItems] = useState([]);
 
   useEffect(() => {

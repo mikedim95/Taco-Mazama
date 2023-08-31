@@ -18,7 +18,7 @@ import { sides } from "../helpers/menu";
 import "./Cart.css";
 
 function LandingPage() {
-  const { setDessertPlace, cartItemCount } = useMyContext();
+  const { setCurrentSide, cartItemCount } = useMyContext();
   const [searchTerm, setSearchTerm] = useState("");
   const [position, setPosition] = useState(1);
 

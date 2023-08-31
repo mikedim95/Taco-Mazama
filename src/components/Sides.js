@@ -3,7 +3,7 @@ import { useMyContext } from "../context/UseMyContext";
 
 function Sides({ sides }) {
   const { setCurrentSide } = useMyContext();
-  const handleDessertPlace = (side) => {
+  const handleSides = (side) => {
     setCurrentSide({
       img: side.img,
       title: side.title,
@@ -14,12 +14,8 @@ function Sides({ sides }) {
 
   const renderedLandDesserts = sides.map((side, index) => {
     return (
-      <div
-        key={index}
-        onClick={() => handleDessertPlace(side)}
-        className="relative"
-      >
-        <Link key={index} to={`/DessertPage`}>
+      <div key={index} onClick={() => handleSides(side)} className="relative">
+        <Link key={index} to={`/SidesPage`}>
           <h1
             className=" absolute right-[8px] top-[5px] text-[16px] font-semibold font-pop text-white "
             style={{ textShadow: "0 0 2px rgba(0, 0, 0, 1)" }}

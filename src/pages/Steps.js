@@ -16,7 +16,7 @@ function Steps() {
     finalDishOrder,
     setFinalDishOrder,
   } = useMyContext();
-  console.log(currentDish);
+
   const navigate = useNavigate();
   const [basePrice, setBasePrice] = useState(currentDish.middlePrice);
   const [multiplier, setMultiplier] = useState(1);

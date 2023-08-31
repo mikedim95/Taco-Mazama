@@ -8,7 +8,6 @@ function OptionLabel({
   subExtraCost,
   setSelectedItems,
 }) {
-  console.log(content);
   const renderedFoods = content.map((food, index) => {
     const isClicked = selectedItems.includes(food.title);
 
