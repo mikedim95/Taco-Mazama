@@ -6,6 +6,8 @@ import { motion as m } from "framer-motion";
 import { useNavigate } from "react-router-dom"; /* 
 import postJsonData from "../helpers/functionalComponents/postRequestToBack"; */
 import { useState, useEffect, useRef } from "react";
+import { HiArrowCircleLeft } from "react-icons/hi";
+import { Link } from "react-router-dom";
 /* debugger; */
 function Steps() {
   const {
@@ -96,37 +98,7 @@ function Steps() {
     }
   };
 
-  useEffect(() => {
-    // Populate selectedItems with currentDish.stuffing when component mounts
-    /*  switch (size) {
-      case "middle":
-        setBasePrice(7);
-        break;
-      case "big":
-        setBasePrice(12);
-        break;
-      default:
-        setBasePrice(0);
-        
-    }
-
-       setFinalPrice(basePrice*multiplier+extraCosts)  */
-  }, [finalDishOrder]);
-  /*  useEffect(() => {
-    if (finalDishOrder.length > 0) {
-      // Make the API call when finalDishOrder is updated
-      postJsonData(finalDishOrder)
-        .then((response) => {
-          // Handle the response from the API if needed
-          console.log("API Response:", response);
-          navigate("/LandingPage");
-        })
-        .catch((error) => {
-          // Handle errors if the API call fails
-          console.error("API Error:", error);
-        });
-    }
-  }, [finalDishOrder, navigate]); */
+  useEffect(() => {}, [finalDishOrder]);
 
   const handleSetSize = (size) => {
     setSize(size);
@@ -164,7 +136,6 @@ function Steps() {
     setExtraCosts(extraCosts - value);
   };
   const handleMultiplier = (value) => {
-    console.log("multiplier about to take value: " + value);
     setMultiplier(value);
   };
   const finalSubmit = () => {
@@ -182,7 +153,6 @@ function Steps() {
     // Use the callback form of setFinalDishOrder to access the most recent state
     setFinalDishOrder((prevFinalDishOrder) => {
       const updatedFinalDishOrder = [...prevFinalDishOrder, addingLastValues];
-      console.log("Updated finalDishOrder:", updatedFinalDishOrder);
       return updatedFinalDishOrder;
     });
 
@@ -205,10 +175,16 @@ function Steps() {
         className="justify-center items-center relative"
       >
         <img
-          className="w-full h-full mb-[30px] aspect-[3/2] object-cover items-center rounded-b-[30px]"
+          className="w-full h-full mb-[30px] z-0 aspect-[3/2] object-cover items-center rounded-b-[30px]"
           src={currentDish.img}
           alt=""
         />
+        <Link to={"/LandingPage"}>
+          <HiArrowCircleLeft
+            size="35px"
+            className="z-10 absolute top-[10px] left-[20px] bg-primary-regular rounded-full"
+          />
+        </Link>
       </m.div>
       <m.div
         initial={{ opacity: 0, y: "100%" }}
