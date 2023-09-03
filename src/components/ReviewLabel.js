@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 function ReviewLabel({ content, handleMultiplier }) {
   const { multiplier, updateMultiplier } = useMultiplier();
+  // handleMultiplier(multiplier);
   useEffect(() => {
     handleMultiplier(multiplier);
   }, [multiplier, handleMultiplier]);

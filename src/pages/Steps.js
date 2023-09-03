@@ -192,7 +192,9 @@ function Steps() {
         transition={{ duration: 2, ease: "easeInOut" }}
         className="w-full h-full flex flex-col "
       >
-        <Stepper nextPosition={nextPosition} />
+        <div className="flex justify-center pl-[5px]">
+          <Stepper nextPosition={nextPosition} />
+        </div>
         <div className="flex justify-end relative">
           <h1
             className="absolute right-[30px] top-[-40px] font-pop text-[20px] font-bold text-textFont-dark"

@@ -29,12 +29,12 @@ function Steps({ nextPosition }) {
     return (
       <div
         key={index}
-        className={`relative  w-[50px] h-[50px] top-[-58px] rounded-full outline outline-1 ${circle}`}
+        className={`relative  w-[40px] h-[40px] top-[-52px] rounded-full outline outline-1 ${circle}`}
       >
-        <div className="absolute top-[-30px] left-[-35px]">{hat}</div>
+        <div className="absolute top-[-32px] left-[-45px]">{hat}</div>
 
         <h1
-          className={`pt-[15px] text-[16px] font-extrabold font-pop ${num}  text-center`}
+          className={`pt-[10px] text-[14px] font-extrabold font-pop ${num}  text-center`}
         >
           {stp.title}
         </h1>
@@ -44,7 +44,7 @@ function Steps({ nextPosition }) {
 
   return (
     <div>
-      <div className="flex flex-row justify-center px-[20px] space-x-[30px] items-center ">
+      <div className="flex flex-row justify-center px-[5px] space-x-[25px] items-center ">
         {renderedSteps}
       </div>
     </div>

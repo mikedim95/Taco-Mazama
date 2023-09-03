@@ -38,18 +38,6 @@ function LandingPage() {
   const handleCarouselSwipe = (newPosition, eventData) => {
     setPosition(newPosition);
   };
-  /*  useEffect(() => {
-    finalDishOrder.forEach((item) => {
-      if (item.multiplier) {
-        // If the item has a multiplier property, use it
-        const temp = cartItemCount + item.multiplier;
-
-        setCartItemCount(temp);
-      } else {
-        // If the item doesn't have a multiplier property, count as 1
-      }
-    });
-  }, []); */
   return (
     <div className="max-w-screen-sm h-screen mx-auto bg-background-light scroll-smooth overflow-y-scroll">
       <div className="flex justify-between relative">
@@ -71,18 +59,18 @@ function LandingPage() {
             alt=""
           />
         </div>
-        <Link to="/BasketPage">
+        <Link to="/BucketPage">
           <img
             className="w-[30px] h-[30px] absolute top-[60px] right-[30px]"
             src={basket}
             alt=""
           />
-          {cartItemCount > 0 && (
-            <div className="cart-indicator  top-[50px] right-[20px]">
-              {cartItemCount}
-            </div>
-          )}
         </Link>
+        {cartItemCount > 0 && (
+          <div className="cart-indicator  top-[50px] right-[20px]">
+            {cartItemCount}
+          </div>
+        )}
       </div>
       <div className="w-full h-full flex flex-col ">
         <div className="pt-[110px] pl-[30px]">

@@ -86,17 +86,17 @@ function SidesPage() {
             Συνολική Τιμή: {totalSidePrice()} €
           </h1>
           <h1
-            className="absolute pt-[5px] top-[10px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
+            className="absolute pt-[20px] top-[10px] left-[30px] font-pop text-[18px] font-bold text-textFont-dark"
             style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
           >
             Συνοδευτικό ...
           </h1>
-          <div className="pt-[45px] pl-[30px] mr-[20px]">
+          <div className="pt-[60px] pl-[30px] mr-[20px]">
             <img className="w-full" src={Line} alt="" />
           </div>
         </div>
         <div className=" columns-1 px-[20px] justify-center space-y-[10px] items-center relative">
-          <div className="w-auto h-auto flex flex-col mt-[20px] rounded-[20px] bg-[#DFE3BA] shadow-[1px_4px_6px_rgba(0,0,0,0.4)]">
+          <div className="w-auto h-auto flex flex-col mt-[5px] rounded-[20px] bg-[#DFE3BA] shadow-[1px_4px_6px_rgba(0,0,0,0.4)]">
             <div className="pt-[10px] pl-[15px] text-[18px] font-pop text-left font-bold text-textFont-dark">
               {currentSide.title}
             </div>
