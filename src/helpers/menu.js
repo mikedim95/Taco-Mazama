@@ -47,7 +47,7 @@ export const stuffing = [
     img: vegie,
   },
   {
-    title: "Mushroom & Sweetcorn Chilli",
+    title: "Mushroom & Sweetcorn \nChilli",
     subtitle: "Πιπεριά",
     extraPrice: null,
     spicy: "",

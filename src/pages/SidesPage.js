@@ -1,6 +1,7 @@
 import { useMyContext } from "../context/UseMyContext";
 import { motion as m } from "framer-motion";
 import { CgMathPlus, CgMathMinus } from "react-icons/cg";
+import { useEffect, useState, useCallback } from "react";
 
 // import postJsonData from "../helpers/functionalComponents/postRequestToBack"; */
 import Line from "../assets/Line.svg";
@@ -15,21 +16,30 @@ function SidesPage() {
     useMyContext();
   const { multiplier, updateMultiplier } = useMultiplier();
 
-  const totalSidePrice = () => {
+  const calculateTotalSidePrice = useCallback(() => {
     if (multiplier > 1) {
       return currentSide.price * multiplier;
-    } else if (multiplier < 1) {
+    } else {
       return currentSide.price;
     }
-    return currentSide.price;
-  };
+  }, [multiplier, currentSide.price]);
+
+  const [totalSidePrice, setTotalSidePrice] = useState(
+    calculateTotalSidePrice()
+  );
+  useEffect(() => {
+    const newTotalSidePrice = calculateTotalSidePrice();
+    setTotalSidePrice(newTotalSidePrice);
+  }, [multiplier, currentSide.price, calculateTotalSidePrice]);
+
+  console.log(totalSidePrice);
 
   const navigate = useNavigate();
 
   const finalSideSubmit = () => {
     const addingLastValues = {
       ...currentSide,
-      totalSidePrice,
+      totalSidePrice: totalSidePrice,
     };
     delete addingLastValues.subtitle;
     delete addingLastValues.img;
@@ -83,7 +93,7 @@ function SidesPage() {
             className="absolute right-[30px] top-[-20px] font-pop text-[20px] font-bold text-textFont-dark"
             style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
           >
-            Συνολική Τιμή: {totalSidePrice()} €
+            Συνολική Τιμή: {totalSidePrice} €
           </h1>
           <h1
             className="absolute pt-[20px] top-[10px] left-[30px] font-pop text-[18px] font-bold text-textFont-dark"
