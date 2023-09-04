@@ -3,6 +3,7 @@ import Line from "../assets/Line.svg";
 import { useMyContext } from "../context/UseMyContext";
 import OptionLabel from "../components/OptionLabel";
 import ReviewLabel from "../components/ReviewLabel";
+import mariachi from "../assets/mariachi.wav";
 function IngredientDisplayer({
   phase,
   content,
@@ -52,6 +53,11 @@ function IngredientDisplayer({
   const VibrationActive = () => {
     if (!navigator.vibrate) return false;
     return true;
+  };
+
+  //play sound
+  const play = () => {
+    new Audio(mariachi).play();
   };
 
   return (
@@ -112,6 +118,7 @@ function IngredientDisplayer({
               if (VibrationActive()) {
                 navigator.vibrate([1000, 50, 1000]); // Trigger vibration if VibrationActive returns true
               }
+              play();
             }}
           >
             Υποβολή
