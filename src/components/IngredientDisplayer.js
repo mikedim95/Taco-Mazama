@@ -48,6 +48,11 @@ function IngredientDisplayer({
       },
     ];
   }
+  //vibration notification
+  const VibrationActive = () => {
+    if (!navigator.vibrate) return false;
+    return true;
+  };
 
   return (
     <>
@@ -102,7 +107,12 @@ function IngredientDisplayer({
         {phase === "review" ? (
           <button
             className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center "
-            onClick={() => finalSubmit()}
+            onClick={() => {
+              finalSubmit();
+              if (VibrationActive()) {
+                navigator.vibrate([1000, 50, 1000]); // Trigger vibration if VibrationActive returns true
+              }
+            }}
           >
             Υποβολή
           </button>
