@@ -3,6 +3,7 @@ import Line from "../assets/Line.svg";
 import { useMyContext } from "../context/UseMyContext";
 import OptionLabel from "../components/OptionLabel";
 import ReviewLabel from "../components/ReviewLabel";
+import mariachi from "../assets/mariachi.wav";
 function IngredientDisplayer({
   phase,
   content,
@@ -23,6 +24,40 @@ function IngredientDisplayer({
     setSelectedItems(currentDish[phase] || []);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (finalSubmit) {
+    content = [
+      {
+        title: currentDish.title,
+        subtitle: [
+          currentDish.stuffing && currentDish.stuffing.length > 0
+            ? currentDish.stuffing.join(", ")
+            : null,
+          currentDish.ingredients && currentDish.ingredients.length > 0
+            ? currentDish.ingredients.join(", ")
+            : null,
+          currentDish.salsa && currentDish.salsa.length > 0
+            ? currentDish.salsa.join(", ")
+            : null,
+          currentDish.extra && currentDish.extra.length > 0
+            ? currentDish.extra.join(", ")
+            : null,
+        ]
+          .filter((item) => item !== null) // Remove null entries
+          .join(", "),
+      },
+    ];
+  }
+  //vibration notification
+  const VibrationActive = () => {
+    if (!navigator.vibrate) return false;
+    return true;
+  };
+
+  //play sound
+  const play = () => {
+    new Audio(mariachi).play();
+  };
 
   return (
     <>
@@ -72,7 +107,13 @@ function IngredientDisplayer({
         {phase === "review" ? (
           <button
             className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center "
-            onClick={() => finalSubmit()}
+            onClick={() => {
+              finalSubmit();
+              if (VibrationActive()) {
+                navigator.vibrate([1000, 50, 1000]); // Trigger vibration if VibrationActive returns true
+              }
+              play();
+            }}
           >
             Υποβολή
           </button>
