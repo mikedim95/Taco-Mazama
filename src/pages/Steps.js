@@ -15,7 +15,6 @@ function Steps() {
     cartItemCount,
     currentDish,
     setCurrentDish,
-    finalDishOrder,
     setFinalDishOrder,
   } = useMyContext();
 
@@ -23,8 +22,8 @@ function Steps() {
   const [basePrice, setBasePrice] = useState(currentDish.middlePrice);
   const [multiplier, setMultiplier] = useState(1);
   const [extraCosts, setExtraCosts] = useState(0);
-  const [nextPosition, setNextPosition] = useState(0);
-
+  const [nextPosition, setNextPosition] = useState(0); /* 
+  setCurrentDish({ ...currentDish, multiplier: multiplier }); */
   const [size, setSize] = useState("middle");
   const scrollToTopRef = useRef(null);
 
@@ -93,12 +92,16 @@ function Steps() {
           addExtraCost={addExtraCost}
           subExtraCost={subExtraCost}
           handleMultiplier={handleMultiplier}
+          multiplier={multiplier}
         />
       );
     }
   };
 
-  useEffect(() => {}, [finalDishOrder]);
+  useEffect(() => {
+    setCurrentDish({ ...currentDish, multiplier: multiplier });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSetSize = (size) => {
     setSize(size);
@@ -135,8 +138,11 @@ function Steps() {
   const subExtraCost = (value) => {
     setExtraCosts(extraCosts - value);
   };
-  const handleMultiplier = (value) => {
-    setMultiplier(value);
+  const handleMultiplier = (index, value) => {
+    if (value > 0) {
+      setMultiplier(value);
+      setCurrentDish({ ...currentDish, multiplier: value });
+    }
   };
   const finalSubmit = () => {
     const addingLastValues = {
@@ -148,8 +154,7 @@ function Steps() {
     delete addingLastValues.middlePrice;
     delete addingLastValues.largePrice;
     delete addingLastValues.img;
-    const temp = cartItemCount + multiplier;
-    setCartItemCount(temp);
+    setCartItemCount(cartItemCount + multiplier);
     // Use the callback form of setFinalDishOrder to access the most recent state
     setFinalDishOrder((prevFinalDishOrder) => {
       const updatedFinalDishOrder = [...prevFinalDishOrder, addingLastValues];

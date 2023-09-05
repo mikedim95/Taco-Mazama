@@ -18,36 +18,11 @@ function IngredientDisplayer({
   const { currentDish } = useMyContext();
 
   const [selectedItems, setSelectedItems] = useState([]);
-
   useEffect(() => {
     // Populate selectedItems with currentDish.stuffing when component mounts
-    // eslint-disable-next-line
     setSelectedItems(currentDish[phase] || []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  if (finalSubmit) {
-    content = [
-      {
-        title: currentDish.title,
-        subtitle: [
-          currentDish.stuffing && currentDish.stuffing.length > 0
-            ? currentDish.stuffing.join(", ")
-            : null,
-          currentDish.ingredients && currentDish.ingredients.length > 0
-            ? currentDish.ingredients.join(", ")
-            : null,
-          currentDish.salsa && currentDish.salsa.length > 0
-            ? currentDish.salsa.join(", ")
-            : null,
-          currentDish.extra && currentDish.extra.length > 0
-            ? currentDish.extra.join(", ")
-            : null,
-        ]
-          .filter((item) => item !== null) // Remove null entries
-          .join(", "),
-      },
-    ];
-  }
 
   return (
     <>
@@ -65,12 +40,7 @@ function IngredientDisplayer({
       <div className="columns-1 px-[20px] justify-center space-y-[10px] items-center">
         {finalSubmit ? (
           <ReviewLabel
-            content={content}
-            selectedItems={selectedItems}
-            addExtraCost={addExtraCost}
-            subExtraCost={subExtraCost}
-            setSelectedItems={setSelectedItems}
-            finalSubmit={finalSubmit}
+            currentDish={currentDish}
             handleMultiplier={handleMultiplier}
           />
         ) : (

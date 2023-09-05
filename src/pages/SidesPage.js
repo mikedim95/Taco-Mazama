@@ -1,20 +1,30 @@
 import { useMyContext } from "../context/UseMyContext";
 import { motion as m } from "framer-motion";
-import { CgMathPlus, CgMathMinus } from "react-icons/cg";
-import { useEffect, useState, useCallback } from "react";
 
 // import postJsonData from "../helpers/functionalComponents/postRequestToBack"; */
 import Line from "../assets/Line.svg";
-import { useNavigate } from "react-router-dom";
-import useMultiplier from "../hooks/useMultiplier";
+import { useNavigate } from "react-router-dom"; /* 
+import useMultiplier from "../hooks/useMultiplier"; */
 import { HiArrowCircleLeft } from "react-icons/hi";
 import { Link } from "react-router-dom";
 // /* debugger; */
-
+import ReviewLabel from "../components/ReviewLabel";
 function SidesPage() {
-  const { currentSide, setFinalSidesOrder, setCartItemCount, cartItemCount } =
-    useMyContext();
-  const { multiplier, updateMultiplier } = useMultiplier();
+  const {
+    currentSide,
+    setCurrentSide,
+    setFinalSidesOrder,
+    finalSidesOrder,
+    setCartItemCount,
+    cartItemCount,
+  } = useMyContext();
+  console.log(finalSidesOrder);
+  const handleMultiplier = (index, value) => {
+    if (value > 0) {
+      setCurrentSide({ ...currentSide, multiplier: value });
+    }
+  };
+  /*  const { multiplier, updateMultiplier } = useMultiplier();
 
   const calculateTotalSidePrice = useCallback(() => {
     if (multiplier > 1) {
@@ -32,27 +42,23 @@ function SidesPage() {
     setTotalSidePrice(newTotalSidePrice);
   }, [multiplier, currentSide.price, calculateTotalSidePrice]);
 
-  console.log(totalSidePrice);
+  console.log(totalSidePrice); */
 
   const navigate = useNavigate();
 
   const finalSideSubmit = () => {
-    const addingLastValues = {
-      ...currentSide,
-      totalSidePrice: totalSidePrice,
-    };
-    delete addingLastValues.subtitle;
-    delete addingLastValues.img;
-
-    const temp = cartItemCount + multiplier;
-    setCartItemCount(temp);
-
+    /*  const addingLastValues = {
+       ...currentDish,
+       multiplier: multiplier,
+       basePrice: basePrice,
+       extraCosts: extraCosts,
+     };
+     delete addingLastValues.middlePrice;
+     delete addingLastValues.largePrice;
+     delete addingLastValues.img; */
+    setCartItemCount(cartItemCount + currentSide.multiplier);
     // Use the callback form of setFinalDishOrder to access the most recent state
-    setFinalSidesOrder((prevFinalSidesOrder) => {
-      const updatedFinalDishOrder = [...prevFinalSidesOrder, addingLastValues];
-      return updatedFinalDishOrder;
-    });
-
+    setFinalSidesOrder([...finalSidesOrder, currentSide]);
     navigate("/LandingPage");
   };
 
@@ -93,7 +99,7 @@ function SidesPage() {
             className="absolute right-[30px] top-[-20px] font-pop text-[20px] font-bold text-textFont-dark"
             style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
           >
-            Συνολική Τιμή: {totalSidePrice} €
+            Συνολική Τιμή: {/* {totalSidePrice} */} €
           </h1>
           <h1
             className="absolute pt-[20px] top-[10px] left-[30px] font-pop text-[18px] font-bold text-textFont-dark"
@@ -105,7 +111,11 @@ function SidesPage() {
             <img className="w-full" src={Line} alt="" />
           </div>
         </div>
-        <div className=" columns-1 px-[20px] justify-center space-y-[10px] items-center relative">
+        <ReviewLabel
+          currentSide={currentSide}
+          handleMultiplier={handleMultiplier}
+        />
+        {/* <div className=" columns-1 px-[20px] justify-center space-y-[10px] items-center relative">
           <div className="w-auto h-auto flex flex-col mt-[5px] rounded-[20px] bg-[#DFE3BA] shadow-[1px_4px_6px_rgba(0,0,0,0.4)]">
             <div className="pt-[10px] pl-[15px] text-[18px] font-pop text-left font-bold text-textFont-dark">
               {currentSide.title}
@@ -135,7 +145,7 @@ function SidesPage() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="flex justify-end items-end mt-[20px] mr-[20px]">
           <button
             className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center "

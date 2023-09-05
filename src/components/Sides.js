@@ -9,6 +9,7 @@ function Sides({ sides }) {
       title: side.title,
       subtitle: side.subtitle,
       price: side.price,
+      multiplier: 1,
     });
   };
 

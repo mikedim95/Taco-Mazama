@@ -18,10 +18,21 @@ import { sides } from "../helpers/menu";
 import "./Cart.css";
 
 function LandingPage() {
-  const { setCurrentSide, cartItemCount } = useMyContext();
+  const {
+    setCurrentSide,
+    cartItemCount,
+    finalDishOrder,
+    finalSidesOrder,
+    finaBeverageOrder,
+  } = useMyContext();
   const [searchTerm, setSearchTerm] = useState("");
   const [position, setPosition] = useState(1);
-
+  console.log("finalDishOrder is: ");
+  console.log(finalDishOrder);
+  console.log("finalSidesOrder is: ");
+  console.log(finalSidesOrder);
+  console.log("finaBeverageOrder is: ");
+  console.log(finaBeverageOrder);
   const handleSearch = (term) => {
     const lowercaseTerm = term.toLowerCase();
     setSearchTerm(lowercaseTerm);
