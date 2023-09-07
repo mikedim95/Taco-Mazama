@@ -15,7 +15,7 @@ function BucketPage() {
     finalBeveragesOrder,
     setFinalBeveragesOrder,
   } = useMyContext();
-  console.log(Array.isArray(finalDishOrder));
+
   const handleDishMultipliers = (index, value) => {
     if (value > 0) {
       const updatedFinalDishOrder = [...finalDishOrder];
@@ -45,6 +45,7 @@ function BucketPage() {
         currentDish={foodOrder}
         index={index}
         handleMultiplier={handleDishMultipliers}
+        buttonDelete={true}
       />
     );
   });
@@ -56,6 +57,7 @@ function BucketPage() {
         currentSide={sideOrder}
         index={index}
         handleMultiplier={handleSideMultipliers}
+        buttonDelete={true}
       />
     );
   });
@@ -67,45 +69,36 @@ function BucketPage() {
           currentBeverage={beverageOrder}
           index={index}
           handleMultiplier={handleBeveragesMultipliers}
+          buttonDelete={true}
         />
       );
     }
   );
-  const overalPrice = (
-    finalDishOrder,
-    finalSidesOrder,
-    finalBeveragesOrder
-  ) => {
+  const overalPrice = () => {
     let dishPrice = 0;
     let sidePrice = 0;
     let beveragePrice = 0;
-    console.log(dishPrice);
+
     // Check if all three arrays are defined and are arrays
     if (Array.isArray(finalDishOrder)) {
-      console.log(dishPrice);
       finalDishOrder.forEach((dish) => {
         dishPrice += (dish.basePrice + dish.extraCosts) * dish.multiplier;
       });
-      console.log(dishPrice);
-    } else {
-      dishPrice = 0;
     }
+
     if (Array.isArray(finalSidesOrder)) {
-      finalSidesOrder.forEach((dish) => {
-        sidePrice += (dish.basePrice + dish.extraCosts) * dish.multiplier;
+      finalSidesOrder.forEach((side) => {
+        sidePrice += side.price * side.multiplier;
       });
-      console.log(sidePrice);
-    } else {
-      sidePrice = 0;
     }
+
     if (Array.isArray(finalBeveragesOrder)) {
-      finalBeveragesOrder.forEach((dish) => {
-        beveragePrice += (dish.basePrice + dish.extraCosts) * dish.multiplier;
+      finalBeveragesOrder.forEach((beverage) => {
+        beveragePrice +=
+          (beverage.basePrice + beverage.extraCosts) * beverage.multiplier;
       });
-      console.log(beveragePrice);
-    } else {
-      beveragePrice = 0;
     }
+
     return dishPrice + sidePrice + beveragePrice;
   };
 
@@ -149,7 +142,7 @@ function BucketPage() {
           className="absolute right-[30px] top-[-20px] font-pop text-[20px] font-bold text-textFont-dark"
           style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
         >
-          Συνολική Τιμή: {overalPrice()}€
+          Συνολική Τιμή: {overalPrice()} €
         </h1>
       </div>
       <div className="flex justify-start relative ">
@@ -163,10 +156,11 @@ function BucketPage() {
       <div className="pt-[65px] pl-[30px] mr-[20px]">
         <img className="w-full" src={Line} alt="" />
       </div>
-
-      {renderDishOrder}
-      {renderSideOrder}
-      {renderBeveragesOrder}
+      <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
+        {renderDishOrder}
+        {renderSideOrder}
+        {renderBeveragesOrder}
+      </div>
     </div>
   );
 }

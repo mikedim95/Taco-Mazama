@@ -1,4 +1,8 @@
 import { CgMathPlus, CgMathMinus } from "react-icons/cg";
+// import { GiTrashCan } from "react-icons/gi";
+import Lottie from "lottie-react";
+import bin from "../assets/bin.json";
+import pen from "../assets/pen.json";
 
 function ReviewLabel({
   handleMultiplier,
@@ -6,12 +10,8 @@ function ReviewLabel({
   currentSide,
   currentBeverage,
   index,
+  buttonDelete,
 }) {
-  /* useEffect(() => {
-    handleMultiplier(multiplier);
-  }, [multiplier, handleMultiplier]);
- */
-  console.log(currentDish);
   var content = {};
   if (currentDish) {
     content = {
@@ -35,12 +35,11 @@ function ReviewLabel({
       multiplier: currentDish.multiplier,
     };
   } else if (currentSide) {
-    console.log("i am in sides with: ");
-    console.log(currentSide);
     content = {
       title: currentSide.title,
       subtitle: currentSide.subtitle,
       multiplier: currentSide.multiplier,
+      price: currentSide.price,
     };
   } else if (currentBeverage) {
     content = {
@@ -49,11 +48,15 @@ function ReviewLabel({
       multiplier: currentBeverage.multiplier,
     };
   }
-  console.log("going with content: ");
-  console.log(content);
+
   return (
     <div className=" relative">
       <div className="w-auto h-auto flex flex-col rounded-[20px] bg-[#DFE3BA] shadow-[1px_4px_6px_rgba(0,0,0,0.4)]">
+        {/* <div>
+        {priceCard && (
+          {content.price}
+        )}
+        </div> */}
         <div className="pt-[20px] pl-[10px] text-[18px] font-pop text-left font-bold text-textFont-dark">
           {content.title}
         </div>
@@ -80,6 +83,26 @@ function ReviewLabel({
               </div>
             </div>
           </div>
+          {buttonDelete && (
+            <div>
+              <div className="w-[40px] h-[40px] flex justify-center items-center  absolute bottom-0 right-0 bg-[#cc6655] rounded-tl-[20px] rounded-br-[20px]">
+                <Lottie
+                  animationData={bin}
+                  speed={1}
+                  loop={false}
+                  className="mb-[10px]"
+                />
+              </div>
+              <div className="flex justify-start align-bottom">
+                <Lottie
+                  animationData={pen}
+                  speed={1}
+                  loop={false}
+                  className="w-[60px] h-[60px] ml-[130px] absolute bottom-0"
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

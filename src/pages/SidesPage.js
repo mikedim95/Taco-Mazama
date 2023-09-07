@@ -18,7 +18,7 @@ function SidesPage() {
     setCartItemCount,
     cartItemCount,
   } = useMyContext();
-  console.log(finalSidesOrder);
+
   const handleMultiplier = (index, value) => {
     if (value > 0) {
       setCurrentSide({ ...currentSide, multiplier: value });
@@ -99,7 +99,7 @@ function SidesPage() {
             className="absolute right-[30px] top-[-20px] font-pop text-[20px] font-bold text-textFont-dark"
             style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
           >
-            Συνολική Τιμή: {/* {totalSidePrice} */} €
+            Συνολική Τιμή: {currentSide.price * currentSide.multiplier} €
           </h1>
           <h1
             className="absolute pt-[20px] top-[10px] left-[30px] font-pop text-[18px] font-bold text-textFont-dark"
@@ -111,10 +111,12 @@ function SidesPage() {
             <img className="w-full" src={Line} alt="" />
           </div>
         </div>
-        <ReviewLabel
-          currentSide={currentSide}
-          handleMultiplier={handleMultiplier}
-        />
+        <div className="columns-1 px-[20px] justify-center space-y-[10px] items-center">
+          <ReviewLabel
+            currentSide={currentSide}
+            handleMultiplier={handleMultiplier}
+          />
+        </div>
         {/* <div className=" columns-1 px-[20px] justify-center space-y-[10px] items-center relative">
           <div className="w-auto h-auto flex flex-col mt-[5px] rounded-[20px] bg-[#DFE3BA] shadow-[1px_4px_6px_rgba(0,0,0,0.4)]">
             <div className="pt-[10px] pl-[15px] text-[18px] font-pop text-left font-bold text-textFont-dark">
