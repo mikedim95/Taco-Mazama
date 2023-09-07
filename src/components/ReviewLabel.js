@@ -96,7 +96,7 @@ function ReviewLabel({
               <div className="flex justify-start align-bottom">
                 <Lottie
                   animationData={pen}
-                  speed={1}
+                  speed={0.2}
                   loop={false}
                   className="w-[60px] h-[60px] ml-[130px] absolute bottom-0"
                 />
