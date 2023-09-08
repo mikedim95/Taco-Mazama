@@ -1,5 +1,4 @@
 import { CgMathPlus, CgMathMinus } from "react-icons/cg";
-// import { GiTrashCan } from "react-icons/gi";
 import Lottie from "lottie-react";
 import bin from "../assets/bin.json";
 import pen from "../assets/pen.json";
@@ -11,8 +10,13 @@ function ReviewLabel({
   currentBeverage,
   index,
   buttonDelete,
+  dishPrice,
+  sidePrice,
+  beveragePrice,
+  onDelete,
 }) {
   var content = {};
+
   if (currentDish) {
     content = {
       title: currentDish.title,
@@ -39,7 +43,6 @@ function ReviewLabel({
       title: currentSide.title,
       subtitle: currentSide.subtitle,
       multiplier: currentSide.multiplier,
-      price: currentSide.price,
     };
   } else if (currentBeverage) {
     content = {
@@ -52,11 +55,14 @@ function ReviewLabel({
   return (
     <div className=" relative">
       <div className="w-auto h-auto flex flex-col rounded-[20px] bg-[#DFE3BA] shadow-[1px_4px_6px_rgba(0,0,0,0.4)]">
-        {/* <div>
-        {priceCard && (
-          {content.price}
-        )}
-        </div> */}
+        <div
+          className="absolute right-[10px] top-[10px] font-pop text-[13px] font-bold text-textFont-dark"
+          style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
+        >
+          {dishPrice > 0 && <span>{dishPrice} €</span>}
+          {sidePrice > 0 && <span>{sidePrice} €</span>}
+          {beveragePrice > 0 && <span>{beveragePrice} €</span>}
+        </div>
         <div className="pt-[20px] pl-[10px] text-[18px] font-pop text-left font-bold text-textFont-dark">
           {content.title}
         </div>
@@ -85,7 +91,12 @@ function ReviewLabel({
           </div>
           {buttonDelete && (
             <div>
-              <div className="w-[40px] h-[40px] flex justify-center items-center  absolute bottom-0 right-0 bg-[#cc6655] rounded-tl-[20px] rounded-br-[20px]">
+              <div
+                className="w-[40px] h-[40px] flex justify-center items-center  absolute bottom-0 right-0 bg-[#cc6655] rounded-tl-[20px] rounded-br-[20px]"
+                onClick={() => {
+                  onDelete("dish" || "side" || "beverage");
+                }}
+              >
                 <Lottie
                   animationData={bin}
                   speed={1}

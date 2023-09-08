@@ -14,13 +14,34 @@ function BucketPage() {
     setFinalSidesOrder,
     finalBeveragesOrder,
     setFinalBeveragesOrder,
+    cartItemCount,
+    setCartItemCount,
   } = useMyContext();
+
+  const deleteOrder = (index, type) => {
+    if (type === "dish") {
+      const updatedFinalDishOrder = [...finalDishOrder];
+      updatedFinalDishOrder.splice(index, 1);
+      setFinalDishOrder(updatedFinalDishOrder);
+      setCartItemCount(cartItemCount - finalDishOrder[index].multiplier);
+    } else if (type === "side") {
+      const updatedFinalSideOrder = [...finalSidesOrder];
+      updatedFinalSideOrder.splice(index, 1);
+      setFinalSidesOrder(updatedFinalSideOrder);
+      setCartItemCount(cartItemCount - finalSidesOrder[index].multiplier);
+    } else if (type === "beverage") {
+      const updatedFinalBeveragesOrder = [...finalBeveragesOrder];
+      updatedFinalBeveragesOrder.splice(index, 1);
+      setFinalBeveragesOrder(updatedFinalBeveragesOrder);
+    }
+  };
 
   const handleDishMultipliers = (index, value) => {
     if (value > 0) {
       const updatedFinalDishOrder = [...finalDishOrder];
       updatedFinalDishOrder[index].multiplier = value;
       setFinalDishOrder(updatedFinalDishOrder);
+      setCartItemCount(cartItemCount * finalDishOrder[index].multiplier);
     }
   };
   const handleSideMultipliers = (index, value) => {
@@ -28,6 +49,7 @@ function BucketPage() {
       const updatedFinalSideOrder = [...finalSidesOrder];
       updatedFinalSideOrder[index].multiplier = value;
       setFinalSidesOrder(updatedFinalSideOrder);
+      setCartItemCount(cartItemCount * finalSidesOrder[index].multiplier);
     }
   };
   const handleBeveragesMultipliers = (index, value) => {
@@ -38,69 +60,126 @@ function BucketPage() {
     }
   };
 
-  const renderDishOrder = finalDishOrder.map((foodOrder, index) => {
-    return (
-      <ReviewLabel
-        key={index}
-        currentDish={foodOrder}
-        index={index}
-        handleMultiplier={handleDishMultipliers}
-        buttonDelete={true}
-      />
-    );
-  });
-
-  const renderSideOrder = finalSidesOrder.map((sideOrder, index) => {
-    return (
-      <ReviewLabel
-        key={index}
-        currentSide={sideOrder}
-        index={index}
-        handleMultiplier={handleSideMultipliers}
-        buttonDelete={true}
-      />
-    );
-  });
-  const renderBeveragesOrder = finalBeveragesOrder.map(
-    (beverageOrder, index) => {
-      return (
-        <ReviewLabel
-          key={index}
-          currentBeverage={beverageOrder}
-          index={index}
-          handleMultiplier={handleBeveragesMultipliers}
-          buttonDelete={true}
-        />
-      );
-    }
-  );
-  const overalPrice = () => {
-    let dishPrice = 0;
-    let sidePrice = 0;
-    let beveragePrice = 0;
-
-    // Check if all three arrays are defined and are arrays
+  const dishPrice = () => {
+    let price = 0;
     if (Array.isArray(finalDishOrder)) {
       finalDishOrder.forEach((dish) => {
-        dishPrice += (dish.basePrice + dish.extraCosts) * dish.multiplier;
+        price += (dish.basePrice + dish.extraCosts) * dish.multiplier;
       });
     }
+    return price;
+  };
 
+  const sidePrice = () => {
+    let price = 0;
     if (Array.isArray(finalSidesOrder)) {
       finalSidesOrder.forEach((side) => {
-        sidePrice += side.price * side.multiplier;
+        price += side.price * side.multiplier;
       });
     }
+    return price;
+  };
 
+  const beveragePrice = () => {
+    let price = 0;
     if (Array.isArray(finalBeveragesOrder)) {
       finalBeveragesOrder.forEach((beverage) => {
-        beveragePrice +=
+        price +=
           (beverage.basePrice + beverage.extraCosts) * beverage.multiplier;
       });
     }
-
-    return dishPrice + sidePrice + beveragePrice;
+    return price;
   };
+
+  const overalPrice = dishPrice() + sidePrice() + beveragePrice();
+
+  const renderDishOrder = Array.isArray(finalDishOrder)
+    ? finalDishOrder.map((foodOrder, index) => {
+        return (
+          <ReviewLabel
+            key={index}
+            currentDish={foodOrder}
+            index={index}
+            handleMultiplier={handleDishMultipliers}
+            buttonDelete={true}
+            dishPrice={
+              (foodOrder.basePrice + foodOrder.extraCosts) *
+              foodOrder.multiplier
+            }
+            sidePrice={0}
+            beveragePrice={0}
+            onDelete={() => deleteOrder(index, "dish")}
+          />
+        );
+      })
+    : [];
+
+  const renderSideOrder = Array.isArray(finalSidesOrder)
+    ? finalSidesOrder.map((sideOrder, index) => {
+        return (
+          <ReviewLabel
+            key={index}
+            currentSide={sideOrder}
+            index={index}
+            handleMultiplier={handleSideMultipliers}
+            buttonDelete={true}
+            dishPrice={0}
+            sidePrice={sideOrder.price * sideOrder.multiplier}
+            beveragePrice={0}
+            onDelete={() => deleteOrder(index, "side")}
+          />
+        );
+      })
+    : [];
+
+  const renderBeveragesOrder = Array.isArray(finalBeveragesOrder)
+    ? finalBeveragesOrder.map((beverageOrder, index) => {
+        return (
+          <ReviewLabel
+            key={index}
+            currentBeverage={beverageOrder}
+            index={index}
+            handleMultiplier={handleBeveragesMultipliers}
+            buttonDelete={true}
+            dishPrice={0}
+            sidePrice={0}
+            beveragePrice={
+              (beverageOrder.basePrice + beverageOrder.extraCosts) *
+              beverageOrder.multiplier
+            }
+            onDelete={() => deleteOrder(index, "beverage")}
+          />
+        );
+      })
+    : [];
+
+  // const overalPrice = () => {
+  //   let dishPrice = 0;
+  //   let sidePrice = 0;
+  //   let beveragePrice = 0;
+
+  //   // Check if all three arrays are defined and are arrays
+  //   if (Array.isArray(finalDishOrder)) {
+  //     finalDishOrder.forEach((dish) => {
+  //       dishPrice += (dish.basePrice + dish.extraCosts) * dish.multiplier;
+  //     });
+  //   }
+
+  //   if (Array.isArray(finalSidesOrder)) {
+  //     finalSidesOrder.forEach((side) => {
+  //       sidePrice += side.price * side.multiplier;
+  //     });
+  //   }
+
+  //   if (Array.isArray(finalBeveragesOrder)) {
+  //     finalBeveragesOrder.forEach((beverage) => {
+  //       beveragePrice +=
+  //         (beverage.basePrice + beverage.extraCosts) * beverage.multiplier;
+  //     });
+  //   }
+
+  //   return dishPrice + sidePrice + beveragePrice;
+  // };
 
   return (
     <div className="max-w-screen-sm h-screen mx-auto bg-background-light overflow-y-scroll">
@@ -142,7 +221,7 @@ function BucketPage() {
           className="absolute right-[30px] top-[-20px] font-pop text-[20px] font-bold text-textFont-dark"
           style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
         >
-          Συνολική Τιμή: {overalPrice()} €
+          Συνολική Τιμή: {overalPrice} €
         </h1>
       </div>
       <div className="flex justify-start relative ">
