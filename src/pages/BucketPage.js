@@ -21,14 +21,16 @@ function BucketPage() {
   const deleteOrder = (index, type) => {
     if (type === "dish") {
       const updatedFinalDishOrder = [...finalDishOrder];
+      const deletedMultiplier = updatedFinalDishOrder[index].multiplier;
       updatedFinalDishOrder.splice(index, 1);
       setFinalDishOrder(updatedFinalDishOrder);
-      setCartItemCount(cartItemCount - finalDishOrder[index].multiplier);
+      setCartItemCount(cartItemCount - deletedMultiplier);
     } else if (type === "side") {
       const updatedFinalSideOrder = [...finalSidesOrder];
+      const deletedMultiplier = updatedFinalSideOrder[index].multiplier;
       updatedFinalSideOrder.splice(index, 1);
       setFinalSidesOrder(updatedFinalSideOrder);
-      setCartItemCount(cartItemCount - finalSidesOrder[index].multiplier);
+      setCartItemCount(cartItemCount - deletedMultiplier);
     } else if (type === "beverage") {
       const updatedFinalBeveragesOrder = [...finalBeveragesOrder];
       updatedFinalBeveragesOrder.splice(index, 1);
@@ -39,17 +41,19 @@ function BucketPage() {
   const handleDishMultipliers = (index, value) => {
     if (value > 0) {
       const updatedFinalDishOrder = [...finalDishOrder];
+      const oldMultiplier = updatedFinalDishOrder[index].multiplier;
       updatedFinalDishOrder[index].multiplier = value;
       setFinalDishOrder(updatedFinalDishOrder);
-      setCartItemCount(cartItemCount * finalDishOrder[index].multiplier);
+      setCartItemCount(cartItemCount - oldMultiplier + value);
     }
   };
   const handleSideMultipliers = (index, value) => {
     if (value > 0) {
       const updatedFinalSideOrder = [...finalSidesOrder];
+      const oldMultiplier = updatedFinalSideOrder[index].multiplier;
       updatedFinalSideOrder[index].multiplier = value;
       setFinalSidesOrder(updatedFinalSideOrder);
-      setCartItemCount(cartItemCount * finalSidesOrder[index].multiplier);
+      setCartItemCount(cartItemCount - oldMultiplier + value);
     }
   };
   const handleBeveragesMultipliers = (index, value) => {
