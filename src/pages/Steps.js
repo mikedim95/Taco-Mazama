@@ -26,6 +26,8 @@ function Steps() {
   setCurrentDish({ ...currentDish, multiplier: multiplier }); */
   const [size, setSize] = useState("middle");
   const scrollToTopRef = useRef(null);
+  //count clicks
+  const [countClicks, setCountClicks] = useState(0);
 
   const order = () => {
     if (nextPosition === 0) {
@@ -154,6 +156,7 @@ function Steps() {
     delete addingLastValues.middlePrice;
     delete addingLastValues.largePrice;
     delete addingLastValues.img;
+    delete addingLastValues.subtitle;
     setCartItemCount(cartItemCount + multiplier);
     // Use the callback form of setFinalDishOrder to access the most recent state
     setFinalDishOrder((prevFinalDishOrder) => {
@@ -190,6 +193,12 @@ function Steps() {
             className="z-10 absolute top-[10px] left-[20px] bg-primary-regular rounded-full"
           />
         </Link>
+        <div
+          className="z-30 p-1 mx-[20px] my-[-10px] absolute top-[90px] left-[20px] right-[20px] rounded-[20px] font-pop italic text-[14px] font-normal backdrop-blur-xl text-center text-white outline-textFont-dark outline outline-[0.2px]"
+          style={{ textShadow: "0 2px 4px rgba(0, 0, 0, 0.8)" }}
+        >
+          {currentDish.subtitle}
+        </div>
       </m.div>
       <m.div
         initial={{ opacity: 0, y: "100%" }}

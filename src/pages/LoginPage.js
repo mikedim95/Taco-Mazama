@@ -59,16 +59,16 @@ function LoginPage() {
             initial={{ x: -450 }}
             animate={{ x: 0 }}
             transition={{ delay: 2, duration: 0.5 }}
-            className=" flex justify-center items-center w-full h-[60px] bg-primary-regular rounded-full"
+            className=" flex justify-center items-center w-full h-[80px] bg-primary-regular rounded-full"
           >
             <Link to="/LandingPage">
               <button className=" text-[24px] font-pop text-background-dark font-bold">
-                Login as Guest
+                Explore Menu
               </button>
             </Link>
           </m.div>
         </div>
-        <div className="flex items-center mt-[20px] px-[30px]">
+        {/* <div className="flex items-center mt-[20px] px-[30px]">
           <m.button
             initial={{ x: 450 }}
             animate={{ x: 0 }}
@@ -77,7 +77,7 @@ function LoginPage() {
           >
             Login
           </m.button>
-        </div>
+        </div> */}
         {/* 2 Login Buttons */}
 
         <div className="flex pt-[20px] pl-[30px]">
@@ -87,7 +87,7 @@ function LoginPage() {
             transition={{ delay: 2.4, duration: 0.5 }}
             className="text-[16px] font-pop text-textFont-light "
           >
-            Don't you have account?
+            Πατήστε για να παραγγείλετε...
           </m.p>
           <m.p
             initial={{ opacity: 0, scale: 0 }}
@@ -105,11 +105,11 @@ function LoginPage() {
             }}
             className="text-[16px] font-pop text-primary-dark ml-[5px] "
           >
-            Sign Up!
+            Αμέσως!!!
           </m.p>
         </div>
         {/* Bottom Sign Up */}
-        <div className="flex justify-end items-end -mt-9">
+        <div className="flex justify-end items-end -mt-8">
           <m.img
             initial={{ x: 100, opacity: 0, scale: 0 }}
             animate={{ x: 0, opacity: 1, scale: 1, rotateY: [0, 360, 360, 0] }}

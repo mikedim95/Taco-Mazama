@@ -45,18 +45,21 @@ function OptionLabel({
     };
 
     return (
-      <div key={index} className=" relative ">
+      <div key={index} className="relative ">
         <div
           className="w-auto h-[120px] rounded-[20px] bg-[#DFE3BA] shadow-[1px_4px_6px_rgba(0,0,0,0.4)]"
           onClick={() => handleClick(food)}
         >
-          <div className="pt-[10px] pl-[5px] text-[18px] font-pop text-left font-bold text-textFont-dark">
+          <p
+            className="pt-[10px] pl-[5px] text-[18px] font-pop text-left font-bold text-textFont-dark"
+            style={{ whiteSpace: "pre-line" }}
+          >
             {food.title}
-          </div>
-          <div className="pl-[5px] pr-[100px] text-[14px] font-pop text-left font-normal text-textFont-dark">
+          </p>
+          <p className="pl-[5px] pr-[100px] text-[14px] font-pop text-left font-normal text-textFont-dark">
             {food.subtitle}
-          </div>
-          <div className="flex row-span-3">
+          </p>
+          <div className="flex row-span-3 ">
             <img
               src={food.img}
               alt=""

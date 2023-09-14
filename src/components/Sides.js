@@ -21,7 +21,7 @@ function Sides({ sides }) {
             className=" absolute right-[8px] top-[5px] text-[16px] font-semibold font-pop text-white "
             style={{ textShadow: "0 0 2px rgba(0, 0, 0, 1)" }}
           >
-            € {side.price}
+            {side.price} €
           </h1>
           <div className="flex-shrink-0 top-[-5px] relative;">
             <img

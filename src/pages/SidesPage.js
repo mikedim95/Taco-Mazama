@@ -1,5 +1,5 @@
 import { useMyContext } from "../context/UseMyContext";
-import { motion as m } from "framer-motion";
+import { motion as m, useAnimate, stagger } from "framer-motion";
 
 // import postJsonData from "../helpers/functionalComponents/postRequestToBack"; */
 import Line from "../assets/Line.svg";
@@ -18,44 +18,26 @@ function SidesPage() {
     setCartItemCount,
     cartItemCount,
   } = useMyContext();
+  const [scope, animate] = useAnimate();
 
   const handleMultiplier = (index, value) => {
     if (value > 0) {
       setCurrentSide({ ...currentSide, multiplier: value });
     }
   };
-  /*  const { multiplier, updateMultiplier } = useMultiplier();
 
-  const calculateTotalSidePrice = useCallback(() => {
-    if (multiplier > 1) {
-      return currentSide.price * multiplier;
-    } else {
-      return currentSide.price;
-    }
-  }, [multiplier, currentSide.price]);
-
-  const [totalSidePrice, setTotalSidePrice] = useState(
-    calculateTotalSidePrice()
-  );
-  useEffect(() => {
-    const newTotalSidePrice = calculateTotalSidePrice();
-    setTotalSidePrice(newTotalSidePrice);
-  }, [multiplier, currentSide.price, calculateTotalSidePrice]);
-
-  console.log(totalSidePrice); */
+  const onButtonClick = () => {
+    animate([
+      [".letter", { y: -32 }, { duration: 0.2, delay: stagger(0.05) }],
+      ["button", { scale: 0.8 }, { duration: 0.1, at: "<" }],
+      ["button", { scale: 1 }, { duration: 0.1 }],
+      [".letter", { y: 0 }, { duration: 0.000001, at: 0.5 }],
+    ]);
+  };
 
   const navigate = useNavigate();
 
   const finalSideSubmit = () => {
-    /*  const addingLastValues = {
-       ...currentDish,
-       multiplier: multiplier,
-       basePrice: basePrice,
-       extraCosts: extraCosts,
-     };
-     delete addingLastValues.middlePrice;
-     delete addingLastValues.largePrice;
-     delete addingLastValues.img; */
     setCartItemCount(cartItemCount + currentSide.multiplier);
     // Use the callback form of setFinalDishOrder to access the most recent state
     setFinalSidesOrder([...finalSidesOrder, currentSide]);
@@ -117,43 +99,34 @@ function SidesPage() {
             handleMultiplier={handleMultiplier}
           />
         </div>
-        {/* <div className=" columns-1 px-[20px] justify-center space-y-[10px] items-center relative">
-          <div className="w-auto h-auto flex flex-col mt-[5px] rounded-[20px] bg-[#DFE3BA] shadow-[1px_4px_6px_rgba(0,0,0,0.4)]">
-            <div className="pt-[10px] pl-[15px] text-[18px] font-pop text-left font-bold text-textFont-dark">
-              {currentSide.title}
-            </div>
-            <div className="pl-[15px] pr-[10px] text-[14px] font-pop text-left font-normal text-textFont-dark">
-              {currentSide.subtitle}
-            </div>
-            <div className="pt-[20px]">
-              <div className="w-[140px] h-[40px] bg-[#E6C013] rounded-tr-[20px] rounded-bl-[20px]">
-                <div className="columns-3">
-                  <div
-                    className=" text-[18px] py-[10px] px-[20px] font-pop text-center font-bold text-black"
-                    onClick={() => updateMultiplier("sub")}
-                  >
-                    <CgMathMinus size="20px" />
-                  </div>
-                  <div className="text-center py-[7px] text-[18px] font-pop  font-bold text-black">
-                    {multiplier}
-                  </div>
-                  <div
-                    className=" text-[18px] py-[10px] font-pop text-center font-bold text-black"
-                    onClick={() => updateMultiplier("add")}
-                  >
-                    <CgMathPlus size="20px" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
-        <div className="flex justify-end items-end mt-[20px] mr-[20px]">
+        <div
+          ref={scope}
+          className="flex justify-end items-end mt-[20px] mr-[20px]"
+        >
           <button
             className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center "
-            onClick={() => finalSideSubmit()}
+            onClick={async () => {
+              await onButtonClick();
+              setTimeout(() => {
+                finalSideSubmit();
+              }, 500);
+            }}
           >
-            Υποβολή
+            <span className="sr-only">Motion</span>
+            <span
+              className="h-8 overflow-hidden flex items-center justify-center"
+              aria-hidden
+            >
+              {["Υ", "π", "ο", "β", "ο", "λ", "ή"].map((letter, index) => (
+                <span
+                  data-letter={letter}
+                  className="letter inline-block relative h-8 leading-8 after:h-8 after:absolute after:left-0 after:top-full after:content-[attr(data-letter)]"
+                  key={`${letter}-${index}`}
+                >
+                  {letter}
+                </span>
+              ))}
+            </span>
           </button>
         </div>
       </m.div>
