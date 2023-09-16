@@ -1,20 +1,93 @@
-import React from "react";
 import { CgMathPlus } from "react-icons/cg";
 import tick from "../assets/tick.svg";
+import { useState } from "react";
+
 function OptionLabel({
   content,
   selectedItems,
   addExtraCost,
   subExtraCost,
   setSelectedItems,
+  plusCost,
+  setPlusCost,
+  setExtraCosts,
+  extraCosts,
+  phase,
 }) {
+  // const handleClick = (food) => {
+
+  // };
+  const [previousExtraPrices, setPreviousExtraPrices] = useState({});
+
+  const handleClick = (food) => {
+    if (phase === "stuffing") {
+      let updatedSelectedItems = [...selectedItems];
+      let updatedExtraPrices = { ...previousExtraPrices };
+      let updatedExtraCosts = 0;
+      let updatedPlusCost = 0;
+
+      if (selectedItems.includes(food.title)) {
+        const itemIndex = updatedSelectedItems.indexOf(food.title);
+        if (itemIndex !== -1) {
+          updatedSelectedItems.splice(itemIndex, 1);
+        }
+
+        if (food.extraPrice) {
+          updatedExtraPrices[food.title] -= food.extraPrice;
+        }
+      } else {
+        updatedSelectedItems.push(food.title);
+
+        if (food.extraPrice) {
+          updatedExtraPrices[food.title] =
+            (updatedExtraPrices[food.title] || 0) + food.extraPrice;
+        }
+      }
+      if (updatedSelectedItems.length >= 2) {
+        updatedPlusCost = (updatedSelectedItems.length - 1) * 1.5;
+      }
+
+      updatedExtraCosts = Object.values(updatedExtraPrices).reduce(
+        (total, price) => total + price,
+        0
+      );
+
+      setSelectedItems(updatedSelectedItems);
+      setPreviousExtraPrices(updatedExtraPrices);
+      setPlusCost(updatedPlusCost);
+      setExtraCosts(updatedExtraCosts + updatedPlusCost);
+    } else {
+      if (selectedItems.includes(food.title)) {
+        const updatedSelectedItems = selectedItems.filter(
+          (item) => item !== food.title
+        );
+        setSelectedItems(updatedSelectedItems);
+        if (food.extraPrice) {
+          subExtraCost(food.extraPrice);
+        }
+      } else {
+        setSelectedItems([...selectedItems, food.title]);
+
+        if (food.extraPrice) {
+          addExtraCost(food.extraPrice);
+        }
+      }
+    }
+  };
+
   const renderedFoods = content.map((food, index) => {
     const isClicked = selectedItems.includes(food.title);
 
+    const previousExtraPrice =
+      previousExtraPrices[food.title] || food.extraPrice;
+    const updatedExtraPrice = isClicked
+      ? food.extraPrice + plusCost
+      : previousExtraPrice;
+
     const extraPriceElement =
-      food.extraPrice !== null ? (
+      updatedExtraPrice > 0 ? (
         <div className="absolute bottom-[10px] left-[90px] text-[14px] font-pop text-left font-black">
-          +{food.extraPrice} €
+          +{updatedExtraPrice}€
         </div>
       ) : null;
     const icons = isClicked ? (
@@ -24,25 +97,6 @@ function OptionLabel({
     );
 
     const color = isClicked ? "bg-primary-dark" : "bg-[#E6C013]";
-    const handleClick = (ingredient) => {
-      if (selectedItems.includes(ingredient.title)) {
-        // Item is already selected, remove it from the array
-        if (ingredient.extraPrice) {
-          subExtraCost(ingredient.extraPrice);
-        }
-
-        setSelectedItems(
-          selectedItems.filter((item) => item !== ingredient.title)
-        );
-      } else {
-        // Item is not selected, add it to the array
-
-        setSelectedItems([...selectedItems, ingredient.title]);
-        if (ingredient.extraPrice) {
-          addExtraCost(ingredient.extraPrice);
-        }
-      }
-    };
 
     return (
       <div key={index} className="relative ">
