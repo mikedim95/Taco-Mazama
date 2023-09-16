@@ -9,7 +9,7 @@ export default function RootLayout() {
         <Link to="Steps"></Link>
         <Link to="BucketPage"></Link>
         <Link to="SidesPage"></Link>
-        <Link to="DrinkPage"></Link>
+        <Link to="BeveragesPage"></Link>
       </div>
       <div>
         <Outlet />

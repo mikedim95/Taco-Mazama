@@ -25,6 +25,7 @@ function Carousel({ images, position, searchTerm, onSwipe, onClick }) {
       middlePrice: item.middlePrice,
       largePrice: item.largePrice,
       title: item.title,
+      subtitle: item.subtitle,
     });
   };
   return (
@@ -64,14 +65,14 @@ function Carousel({ images, position, searchTerm, onSwipe, onClick }) {
                       {index === position && images[position].title}
                     </h1>
                   </div>
-                  <div
+                  {/* <div
                     className="text-[16px] font-medium font-pop text-white"
                     style={{ textShadow: "0 0 3px rgba(0, 0, 0, 1)" }}
                   >
                     <p className="subtitle">
                       {index === position && images[position].subtitle}
                     </p>
-                  </div>
+                  </div> */}
 
                   <img src={item.img} alt=""></img>
                 </motion.div>

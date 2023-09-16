@@ -61,25 +61,25 @@ function LandingPage() {
         </div>
         <Link to="/BucketPage">
           <img
-            className="w-[30px] h-[30px] absolute top-[60px] right-[30px]"
+            className="w-[30px] h-[30px] absolute top-[40px] right-[30px]"
             src={basket}
             alt=""
           />
         </Link>
         {cartItemCount > 0 && (
-          <div className="cart-indicator  top-[50px] right-[20px]">
+          <div className="cart-indicator  top-[30px] right-[20px]">
             {cartItemCount}
           </div>
         )}
       </div>
       <div className="w-full h-full flex flex-col ">
-        <div className="pt-[110px] pl-[30px]">
-          <p className="text-[16px] font-pop font-normal text-textFont-dark">
+        <div className="pt-[130px] pl-[30px]">
+          {/* <p className="text-[16px] font-pop font-normal text-textFont-dark">
             Food
           </p>
           <p className="mt-[-10px] text-[32px] font-pop font-bold text-textFont-dark">
             Delivery
-          </p>
+          </p> */}
           <Search onChange={handleSearch} />
           <div className="flex space-x-[-60px]">
             <img className="pl-[34px] pr-[30px] mt-[-10px]" src={Line} alt="" />
@@ -98,10 +98,10 @@ function LandingPage() {
               alt=""
             />
           </div>
-          <p className="mt-[20px] text-[16px] font-pop font-semibold text-textFont-dark">
+          <p className="mt-[-2px] text-[20px] font-pop font-bold text-textFont-dark">
             Επέλεξε Γεύμα
           </p>
-          <div className="mt-[-210px] ml-[-30px]">
+          <div className="mt-[-215px] ml-[-30px]">
             <Carousel
               images={images}
               position={position}
@@ -109,35 +109,50 @@ function LandingPage() {
               onSwipe={handleCarouselSwipe}
             />
           </div>
-          <p className="mt-[-7px] text-[16px] font-pop font-semibold text-textFont-dark">
+          <p className="mt-[-10px] text-[20px] font-pop font-bold text-textFont-dark">
             Επέλεξε Συνοδευτικό
           </p>
-          <div className="mt-[10px] ml-[-25px]">
+          <div className="mt-[2px] ml-[-25px]">
             <Sides sides={sides} />
           </div>
-          <p className="mt-[7px] text-[16px] font-pop font-semibold text-textFont-dark">
+          <p className="mt-[5px] text-[20px] font-pop font-bold text-textFont-dark">
             Επέλεξε Ποτό/Αναψυκτικό
           </p>
-          <div className="mt-[10px] ml-[5px]">
+          <div className="mt-[5px] ml-[5px]">
             <Drinks />
           </div>
-          <div className="mt-[30px] ml-[-30px] h-[110px] bg-black">
-            <div className="flex flex-col justify-center items-center">
-              <p className="text-white font-pop font-normal">Follow us in</p>
-              <div className="flex flex-col-2">
-                <img className="w-[20px] h-[20px]" src={fb} alt="" />
+          <div className="my-[40px]">
+            <img
+              className="w-full flex justify-stretch ml-[-15px]"
+              src={Line}
+              alt=""
+            />
+          </div>
+          <div className="mt-[-35px] ml-[-30px]">
+            <div className="flex flex-col items-center">
+              <p className="text-black font-pop font-bold">Follow us in</p>
+              <div className="flex flex-col-2 gap-2">
+                <img
+                  className="w-[20px] h-[20px] bg-black rounded-full"
+                  src={fb}
+                  alt=""
+                />
                 <a
                   href="https://www.facebook.com/people/Taco-Mazama-SKG/100075547643013/"
-                  className="text-white  font-pop font-normal text-[12px]"
+                  className="text-black  font-pop font-semibold text-[12px]"
                 >
                   Taco Mazama SKG
                 </a>
               </div>
-              <div className="flex flex-col-2">
-                <img className="w-[20px] h-[20px]" src={insta} alt="" />
+              <div className="flex flex-col-2 gap-2">
+                <img
+                  className="w-[20px] h-[20px] bg-black rounded-full"
+                  src={insta}
+                  alt=""
+                />
                 <a
                   href="https://www.instagram.com/taco.mazama.skg/"
-                  className="text-white  font-pop font-normal text-[12px]"
+                  className="text-black  font-pop font-semibold text-[12px]"
                 >
                   @taco.mazama.skg
                 </a>

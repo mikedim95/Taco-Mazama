@@ -11,7 +11,7 @@ import LandingPage from "./pages/LandingPage";
 import Steps from "./pages/Steps";
 import RootLayout from "./layouts/RootLayout";
 import BucketPage from "./pages/BucketPage";
-import DrinkPage from "./pages/DrinkPage";
+import BeveragesPage from "./pages/BeveragesPage";
 import SidesPage from "./pages/SidesPage";
 
 const router = createBrowserRouter(
@@ -22,7 +22,7 @@ const router = createBrowserRouter(
       <Route path="Steps" element={<Steps />} />
       <Route path="BucketPage" element={<BucketPage />} />
       <Route path="SidesPage" element={<SidesPage />} />
-      <Route path="DrinkPage" element={<DrinkPage />} />
+      <Route path="BeveragesPage" element={<BeveragesPage />} />
     </Route>
   )
 );

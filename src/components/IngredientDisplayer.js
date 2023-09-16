@@ -16,10 +16,14 @@ function IngredientDisplayer({
   finalSubmit,
   firstButtonPosition,
   handleMultiplier,
+  setExtraCosts,
+  extraCosts,
+  updateExtraCosts,
 }) {
   const { currentDish } = useMyContext();
 
   const [selectedItems, setSelectedItems] = useState([]);
+  const [plusCost, setPlusCost] = useState(0);
   useEffect(() => {
     // Populate selectedItems with currentDish.stuffing when component mounts
     setSelectedItems(currentDish[phase] || []);
@@ -86,6 +90,12 @@ function IngredientDisplayer({
             addExtraCost={addExtraCost}
             subExtraCost={subExtraCost}
             setSelectedItems={setSelectedItems}
+            setPlusCost={setPlusCost}
+            plusCost={plusCost}
+            setExtraCosts={setExtraCosts}
+            extraCosts={extraCosts}
+            updateExtraCosts={updateExtraCosts}
+            phase={phase}
           />
         )}
       </div>
