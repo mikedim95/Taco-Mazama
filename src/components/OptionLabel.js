@@ -1,7 +1,6 @@
 import { CgMathPlus } from "react-icons/cg";
 import tick from "../assets/tick.svg";
 import { useState } from "react";
-
 function OptionLabel({
   content,
   selectedItems,
@@ -15,81 +14,92 @@ function OptionLabel({
   phase,
 }) {
   // const handleClick = (food) => {
-
+  const [hasChosen, setHasChosen] = useState(false);
   // };
-  const [previousExtraPrices, setPreviousExtraPrices] = useState({});
+  console.log(hasChosen);
+  const updateHasChosen = (isClicked) => {
+    const temp = isClicked && hasChosen;
+    setHasChosen(temp);
+  };
+  const handleClick = (isClicked, food) => {
+    updateHasChosen(isClicked);
+    // if (phase === "stuffing") {
+    //   let updatedSelectedItems = [...selectedItems];
+    //   let updatedExtraPrices = { ...previousExtraPrices };
+    //   let updatedExtraCosts = 0;
+    //   let updatedPlusCost = 0;
 
-  const handleClick = (food) => {
-    if (phase === "stuffing") {
-      let updatedSelectedItems = [...selectedItems];
-      let updatedExtraPrices = { ...previousExtraPrices };
-      let updatedExtraCosts = 0;
-      let updatedPlusCost = 0;
+    //   if (selectedItems.includes(food.title)) {
+    //     const itemIndex = updatedSelectedItems.indexOf(food.title);
+    //     if (itemIndex !== -1) {
+    //       updatedSelectedItems.splice(itemIndex, 1);
+    //     }
 
-      if (selectedItems.includes(food.title)) {
-        const itemIndex = updatedSelectedItems.indexOf(food.title);
-        if (itemIndex !== -1) {
-          updatedSelectedItems.splice(itemIndex, 1);
-        }
+    //     if (food.extraPrice) {
+    //       updatedExtraPrices[food.title] -= food.extraPrice;
+    //     }
+    //   } else {
+    //     updatedSelectedItems.push(food.title);
 
-        if (food.extraPrice) {
-          updatedExtraPrices[food.title] -= food.extraPrice;
-        }
-      } else {
-        updatedSelectedItems.push(food.title);
+    //     if (food.extraPrice) {
+    //       updatedExtraPrices[food.title] =
+    //         (updatedExtraPrices[food.title] || 0) + food.extraPrice;
+    //     }
+    //   }
+    //   if (updatedSelectedItems.length >= 2) {
+    //     updatedPlusCost = (updatedSelectedItems.length - 1) * 1.5;
+    //   }
 
-        if (food.extraPrice) {
-          updatedExtraPrices[food.title] =
-            (updatedExtraPrices[food.title] || 0) + food.extraPrice;
-        }
-      }
-      if (updatedSelectedItems.length >= 2) {
-        updatedPlusCost = (updatedSelectedItems.length - 1) * 1.5;
-      }
+    //   updatedExtraCosts = Object.values(updatedExtraPrices).reduce(
+    //     (total, price) => total + price,
+    //     0
+    //   );
 
-      updatedExtraCosts = Object.values(updatedExtraPrices).reduce(
-        (total, price) => total + price,
-        0
+    //   setSelectedItems(updatedSelectedItems);
+    //   setPreviousExtraPrices(updatedExtraPrices);
+    //   setPlusCost(updatedPlusCost);
+    //   setExtraCosts(updatedExtraCosts + updatedPlusCost);
+    // } else {
+
+    if (selectedItems.includes(food.title)) {
+      const updatedSelectedItems = selectedItems.filter(
+        (item) => item !== food.title
       );
-
       setSelectedItems(updatedSelectedItems);
-      setPreviousExtraPrices(updatedExtraPrices);
-      setPlusCost(updatedPlusCost);
-      setExtraCosts(updatedExtraCosts + updatedPlusCost);
+      if (food.extraPrice) {
+        subExtraCost(food.extraPrice);
+      }
     } else {
-      if (selectedItems.includes(food.title)) {
-        const updatedSelectedItems = selectedItems.filter(
-          (item) => item !== food.title
-        );
-        setSelectedItems(updatedSelectedItems);
-        if (food.extraPrice) {
-          subExtraCost(food.extraPrice);
-        }
-      } else {
-        setSelectedItems([...selectedItems, food.title]);
+      setSelectedItems([...selectedItems, food.title]);
 
-        if (food.extraPrice) {
-          addExtraCost(food.extraPrice);
-        }
+      if (food.extraPrice) {
+        addExtraCost(food.extraPrice);
       }
     }
   };
 
   const renderedFoods = content.map((food, index) => {
     const isClicked = selectedItems.includes(food.title);
+    console.log(isClicked);
+    updateHasChosen();
+    /*    setHasChosen(hasChosen && isClicked); */
 
-    const previousExtraPrice =
-      previousExtraPrices[food.title] || food.extraPrice;
-    const updatedExtraPrice = isClicked
-      ? food.extraPrice + plusCost
-      : previousExtraPrice;
+    // const previousExtraPrice =
+    //   previousExtraPrices[food.title] || food.extraPrice;
+    // const updatedExtraPrice = isClicked
+    //   ? food.extraPrice + plusCost
+    //   : previousExtraPrice;
 
     const extraPriceElement =
-      updatedExtraPrice > 0 ? (
+      food.extraPrice == null ? (
         <div className="absolute bottom-[10px] left-[90px] text-[14px] font-pop text-left font-black">
-          +{updatedExtraPrice}€
+          {/*  +{hasChosen ? 1.5 : 0}€ */}
         </div>
-      ) : null;
+      ) : (
+        <div className="absolute bottom-[10px] left-[90px] text-[14px] font-pop text-left font-black">
+          {/* +{hasChosen ? food.extraPrice + 1.5 : food.extraPrice}€ */}
+        </div>
+      );
     const icons = isClicked ? (
       <img src={tick} alt="" size="20px" />
     ) : (
@@ -102,7 +112,7 @@ function OptionLabel({
       <div key={index} className="relative ">
         <div
           className="w-auto h-[120px] rounded-[20px] bg-[#DFE3BA] shadow-[1px_4px_6px_rgba(0,0,0,0.4)]"
-          onClick={() => handleClick(food)}
+          onClick={() => handleClick(isClicked, food)}
         >
           <p
             className="pt-[10px] pl-[5px] text-[18px] font-pop text-left font-bold text-textFont-dark"

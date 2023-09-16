@@ -18,7 +18,6 @@ function IngredientDisplayer({
   handleMultiplier,
   setExtraCosts,
   extraCosts,
-  updateExtraCosts,
 }) {
   const { currentDish } = useMyContext();
 
@@ -94,7 +93,6 @@ function IngredientDisplayer({
             plusCost={plusCost}
             setExtraCosts={setExtraCosts}
             extraCosts={extraCosts}
-            updateExtraCosts={updateExtraCosts}
             phase={phase}
           />
         )}

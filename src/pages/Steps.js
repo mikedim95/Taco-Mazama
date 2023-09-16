@@ -42,7 +42,6 @@ function Steps() {
           firstButtonPosition
           extraCosts={extraCosts}
           setExtraCosts={setExtraCosts}
-          updateExtraCosts={updateExtraCosts}
         />
       );
     } else if (nextPosition === 1) {
@@ -58,7 +57,6 @@ function Steps() {
           subExtraCost={subExtraCost}
           extraCosts={extraCosts}
           setExtraCosts={setExtraCosts}
-          updateExtraCosts={updateExtraCosts}
         />
       );
     } else if (nextPosition === 2) {
@@ -74,7 +72,6 @@ function Steps() {
           subExtraCost={subExtraCost}
           extraCosts={extraCosts}
           setExtraCosts={setExtraCosts}
-          updateExtraCosts={updateExtraCosts}
         />
       );
     } else if (nextPosition === 3) {
@@ -90,7 +87,6 @@ function Steps() {
           subExtraCost={subExtraCost}
           extraCosts={extraCosts}
           setExtraCosts={setExtraCosts}
-          updateExtraCosts={updateExtraCosts}
         />
       );
     } else if (nextPosition === 4) {
@@ -152,9 +148,9 @@ function Steps() {
     setExtraCosts(extraCosts - value);
   };
 
-  const updateExtraCosts = (newExtraCosts) => {
-    setExtraCosts(newExtraCosts);
-  };
+  // const updateExtraCosts = (newExtraCosts) => {
+  //   setExtraCosts(newExtraCosts);
+  // };
 
   const handleMultiplier = (index, value) => {
     if (value > 0) {
