@@ -15,6 +15,7 @@ export const images = [
     middlePrice: 7,
     largePrice: 12,
     img: image2,
+    comment: "",
   },
   {
     title: "Fajita",
@@ -24,6 +25,7 @@ export const images = [
     middlePrice: 7,
     largePrice: 12,
     img: image1,
+    comment: "",
   },
   {
     title: "Bowl Burrito",
@@ -33,6 +35,7 @@ export const images = [
     middlePrice: 7,
     largePrice: 12,
     img: image3,
+    comment: "",
   },
   {
     title: "Bowl Fajita",
@@ -42,6 +45,7 @@ export const images = [
     middlePrice: 7,
     largePrice: 12,
     img: image3,
+    comment: "",
   },
   {
     title: "Quesadilla",
@@ -51,6 +55,7 @@ export const images = [
     middlePrice: 7,
     largePrice: 12,
     img: image4,
+    comment: "",
   },
   {
     title: "Enchilada",
@@ -59,6 +64,7 @@ export const images = [
     price: "8 €",
     middlePrice: 8,
     img: image6,
+    comment: "",
   },
   {
     title: "Taco",
@@ -67,6 +73,7 @@ export const images = [
     price: "2.75 €/τμχ",
     middlePrice: 2.75,
     img: image5,
+    comment: "",
   },
   {
     title: "Mulita",
@@ -75,5 +82,6 @@ export const images = [
     price: "3.23 €/τμχ",
     middlePrice: 3.25,
     img: image7,
+    comment: "",
   },
 ];

@@ -6,6 +6,7 @@ import { HiArrowCircleLeft } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { useMyContext } from "../context/UseMyContext";
 import ReviewLabel from "../components/ReviewLabel";
+
 function BucketPage() {
   const {
     finalDishOrder,
@@ -157,34 +158,6 @@ function BucketPage() {
       })
     : [];
 
-  // const overalPrice = () => {
-  //   let dishPrice = 0;
-  //   let sidePrice = 0;
-  //   let beveragePrice = 0;
-
-  //   // Check if all three arrays are defined and are arrays
-  //   if (Array.isArray(finalDishOrder)) {
-  //     finalDishOrder.forEach((dish) => {
-  //       dishPrice += (dish.basePrice + dish.extraCosts) * dish.multiplier;
-  //     });
-  //   }
-
-  //   if (Array.isArray(finalSidesOrder)) {
-  //     finalSidesOrder.forEach((side) => {
-  //       sidePrice += side.price * side.multiplier;
-  //     });
-  //   }
-
-  //   if (Array.isArray(finalBeveragesOrder)) {
-  //     finalBeveragesOrder.forEach((beverage) => {
-  //       beveragePrice +=
-  //         (beverage.basePrice + beverage.extraCosts) * beverage.multiplier;
-  //     });
-  //   }
-
-  //   return dishPrice + sidePrice + beveragePrice;
-  // };
-
   return (
     <div className="max-w-screen-sm h-screen mx-auto bg-background-light overflow-y-scroll">
       <div className="justify-center items-center relative">
@@ -196,7 +169,7 @@ function BucketPage() {
         <Link to={"/LandingPage"}>
           <HiArrowCircleLeft
             size="35px"
-            className="z-10 absolute top-[10px] left-[20px] bg-primary-regular rounded-full"
+            className="z-0 absolute top-[10px] left-[20px] bg-primary-regular rounded-full"
           />
         </Link>
         <img

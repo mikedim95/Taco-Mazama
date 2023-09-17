@@ -2,6 +2,10 @@ import { CgMathPlus, CgMathMinus } from "react-icons/cg";
 import Lottie from "lottie-react";
 import bin from "../assets/bin.json";
 import pen from "../assets/pen.json";
+import Modal from "../components/Modal";
+import warning from "../assets/warning.json";
+import anime from "../assets/anime.json";
+import { useState } from "react";
 
 function ReviewLabel({
   handleMultiplier,
@@ -16,6 +20,8 @@ function ReviewLabel({
   onDelete,
 }) {
   var content = {};
+  const [showModal, setShowModal] = useState(false);
+  const [completeAnime, setCompleteAnime] = useState(false);
 
   if (currentDish) {
     content = {
@@ -51,6 +57,67 @@ function ReviewLabel({
       multiplier: currentBeverage.multiplier,
     };
   }
+
+  const handleModal = () => {
+    setShowModal(true);
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleDelete = async () => {
+    await onDelete("dish" || "side" || "beverage");
+    setCompleteAnime(true); // Show completion animation
+    setTimeout(() => {
+      handleCloseModal();
+    }, 400);
+  };
+
+  const actionBar = (
+    <div className="mb-[20px] ">
+      <button
+        onClick={() => {
+          setTimeout(() => {
+            handleCloseModal();
+          }, 100);
+        }}
+        className="w-[80px] h-[40px] text-[14px] mr-[5px] font-pop text-background-dark font-semibold bg-[#e2473d] rounded-[40px]"
+      >
+        Όχι
+      </button>
+      <button
+        onClick={handleDelete}
+        className="w-[80px] h-[40px] text-[14px] font-pop text-background-dark font-bold bg-[#bc292f] rounded-[20px]"
+      >
+        Ναι
+      </button>
+    </div>
+  );
+
+  const modal = (
+    <Modal onClick={handleCloseModal} actionBar={actionBar}>
+      <div className="flex flex-col justify-start items-start gap-1">
+        <Lottie
+          animationData={warning}
+          speed={0.5}
+          loop={false}
+          className="w-[60px] h-[60px] mt-[-77px]"
+        />
+        <h1
+          className="text-start font-pop font-bold text-gray-600"
+          style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.5)" }}
+        >
+          ΠΡΟΣΟΧΗ !!!
+        </h1>
+      </div>
+      <p
+        className="text-[16px] mt-[2px] mb-[10px] text-start font-pop text-background-dark font-normal"
+        style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.6)" }}
+      >
+        Είστε σίγουροι ότι θέλετε να το διαγράψεται από το καλάθι
+      </p>
+    </Modal>
+  );
 
   return (
     <div className=" relative">
@@ -93,10 +160,9 @@ function ReviewLabel({
             <div>
               <div
                 className="w-[40px] h-[40px] flex justify-center items-center  absolute bottom-0 right-0 bg-[#cc6655] rounded-tl-[20px] rounded-br-[20px]"
-                onClick={() => {
-                  onDelete("dish" || "side" || "beverage");
-                }}
+                onClick={handleModal}
               >
+                <div className="relative">{showModal && modal}</div>
                 <Lottie
                   animationData={bin}
                   speed={1}
@@ -112,6 +178,15 @@ function ReviewLabel({
                   className="w-[60px] h-[60px] ml-[130px] absolute bottom-0"
                 />
               </div>
+            </div>
+          )}
+          {completeAnime && (
+            <div className="w-[60px] h-[60px] absolute bottom-0 left-0">
+              <Lottie
+                animationData={anime} // Use your completion animation JSON file
+                speed={1}
+                loop={false}
+              />
             </div>
           )}
         </div>
