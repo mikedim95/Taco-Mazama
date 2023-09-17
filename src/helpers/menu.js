@@ -21,14 +21,14 @@ export const stuffing = [
   {
     title: "Κοτόπουλο",
     subtitle: "Παρθένο κοτόπουλο μεγαλωμένο με αγάπη 500γρ.",
-    extraPrice: null,
+    extraPrice: 0,
     spicy: "",
     img: chicken,
   },
   {
     title: "Pull Pork",
     subtitle: "Παρθένο κοτόπουλο μεγαλωμένο με αγάπη 500γρ.",
-    extraPrice: null,
+    extraPrice: 0,
     spicy: "",
     img: pull,
   },
@@ -42,14 +42,14 @@ export const stuffing = [
   {
     title: "Vegie Chilli",
     subtitle: "Γλυκοπατάτα Καλαμπόκι & Πιπεριά",
-    extraPrice: null,
+    extraPrice: 0,
     spicy: "",
     img: vegie,
   },
   {
     title: "Mushroom & Sweetcorn\nChilli",
     subtitle: "Πιπεριά",
-    extraPrice: null,
+    extraPrice: 0,
     spicy: "",
     img: mushroom,
   },
@@ -65,14 +65,14 @@ export const ingredients = [
   {
     title: "Τυρί",
     subtitle: "Φέτα βαλμά, σκληρό Τυρί",
-    extraPrice: null,
+    extraPrice: 0,
     spicy: "",
     img: cheese,
   },
   {
     title: "Μαρούλι",
     subtitle: "Αγνό μαρουλάκι απο τον κήπο μας",
-    extraPrice: null,
+    extraPrice: 0,
     spicy: "",
     img: lettuce,
   },
@@ -86,14 +86,14 @@ export const ingredients = [
   {
     title: "Pickled Onions",
     subtitle: "Κρεμιδάκι τουρσί, παραγωγής μας",
-    extraPrice: null,
+    extraPrice: 0,
     spicy: "",
     img: onions,
   },
   {
     title: "Sour Cream",
     subtitle: "Γλυκόξινη κρέμα - σως",
-    extraPrice: null,
+    extraPrice: 0,
     spicy: "",
     img: cream,
   },
@@ -103,14 +103,14 @@ export const salsa = [
     title: "Pico de Gallo",
     subtitle:
       "Ντομάτες, κρεμμύδια, φρέσκο κινέζικο, πιπεριές, κόλιαντρο και λάιμ ",
-    extraPrice: null,
+    extraPrice: 0,
     spicy: "",
     img: pico,
   },
   {
     title: "Mango & Passionfruit",
     subtitle: "Γλυκό μάνγκο, έντονο παθητικό φρούτο, αρμονική σύνθεση γεύσεων",
-    extraPrice: null,
+    extraPrice: 0,
     spicy: "🌶️",
     img: mango,
   },
@@ -124,14 +124,14 @@ export const salsa = [
   {
     title: "Ανανάς με Ghost Chilli",
     subtitle: "Γλυκός ανανάς με εκρηκτική πικάντικη επίγευση.",
-    extraPrice: null,
+    extraPrice: 0,
     spicy: "🌶️🌶️🌶️",
   },
   {
     title: "Pico Diablo",
     subtitle:
       "Καυτερή πιπεριά, τονωτική λάιμ, φρέσκα ντοματίνια, κρεμώδη αβοκάντο.",
-    extraPrice: null,
+    extraPrice: 0,
     spicy: "🌶️🌶️🌶️🌶️",
   },
 ];

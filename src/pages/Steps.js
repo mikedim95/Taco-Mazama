@@ -40,8 +40,6 @@ function Steps() {
           addExtraCost={addExtraCost}
           subExtraCost={subExtraCost}
           firstButtonPosition
-          extraCosts={extraCosts}
-          setExtraCosts={setExtraCosts}
         />
       );
     } else if (nextPosition === 1) {
@@ -55,8 +53,6 @@ function Steps() {
           message={"Διάλεξε τα υλικά σου"}
           addExtraCost={addExtraCost}
           subExtraCost={subExtraCost}
-          extraCosts={extraCosts}
-          setExtraCosts={setExtraCosts}
         />
       );
     } else if (nextPosition === 2) {
@@ -70,8 +66,6 @@ function Steps() {
           message={"Διάλεξε τη Σάλτσα σου"}
           addExtraCost={addExtraCost}
           subExtraCost={subExtraCost}
-          extraCosts={extraCosts}
-          setExtraCosts={setExtraCosts}
         />
       );
     } else if (nextPosition === 3) {
@@ -85,8 +79,6 @@ function Steps() {
           message={"Extra Υλικά"}
           addExtraCost={addExtraCost}
           subExtraCost={subExtraCost}
-          extraCosts={extraCosts}
-          setExtraCosts={setExtraCosts}
         />
       );
     } else if (nextPosition === 4) {
@@ -132,6 +124,9 @@ function Steps() {
   const addExtraCost = (value) => {
     setExtraCosts(extraCosts + value);
   };
+  const subExtraCost = (value) => {
+    setExtraCosts(extraCosts - value);
+  };
   const handleBasePrice = (size) => {
     switch (size) {
       case "middle":
@@ -144,13 +139,6 @@ function Steps() {
         setBasePrice(0);
     }
   };
-  const subExtraCost = (value) => {
-    setExtraCosts(extraCosts - value);
-  };
-
-  // const updateExtraCosts = (newExtraCosts) => {
-  //   setExtraCosts(newExtraCosts);
-  // };
 
   const handleMultiplier = (index, value) => {
     if (value > 0) {
