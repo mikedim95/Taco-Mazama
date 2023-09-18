@@ -99,14 +99,22 @@ function IngredientDisplayer({
       </div>
       <div className="columns-1 px-[20px] justify-center space-y-[10px] items-center">
         {finalSubmit ? (
-          <ReviewLabel
-            currentDish={currentDish}
-            handleMultiplier={handleMultiplier}
-          />
+          <div>
+            <ReviewLabel
+              currentDish={currentDish}
+              handleMultiplier={handleMultiplier}
+            />
+            {}
+            <ReviewLabel
+              currentDish={currentDish}
+              handleMultiplier={handleMultiplier}
+            />
+          </div>
         ) : (
           content.map((ingredient, index) => {
             return (
               <OptionLabel
+                phase={phase}
                 ingredient={ingredient}
                 index={index + ingredient.title}
                 selectedItems={selectedItems}

@@ -10,9 +10,10 @@ function OptionLabel({
   hasChosen,
   addExtraCost,
   subExtraCost,
+  phase,
 }) {
   console.log("i am child No: " + index);
-  console.log("ingredient.title: " + ingredient.title);
+  console.log(5 + (phase === "stuffing" ? 5 : 6));
   console.log("selectedItems: " + selectedItems);
   console.log(
     "selectedItems.some((item) => item === ingredient.title: " +
@@ -22,7 +23,7 @@ function OptionLabel({
     selectedItems.some((item) => item === ingredient.title)
   );
   const normalPrice = ingredient.extraPrice;
-  const addedPrice = ingredient.extraPrice + 1.5;
+  const addedPrice = ingredient.extraPrice + (phase === "stuffing" ? 1.5 : 0);
   const [extraPrice, setExtraPrice] = useState(ingredient.extraPrice || 0); //The local extra price for this particular option
 
   console.log(extraPrice);
@@ -37,8 +38,8 @@ function OptionLabel({
         setExtraPrice(ingredient.extraPrice);
         subExtraCost(ingredient.extraPrice);
       } else {
-        setExtraPrice(ingredient.extraPrice + 1.5);
-        subExtraCost(ingredient.extraPrice + 1.5);
+        setExtraPrice(ingredient.extraPrice + (phase === "stuffing" ? 1.5 : 0));
+        subExtraCost(ingredient.extraPrice + (phase === "stuffing" ? 1.5 : 0));
       }
     } else {
       if (selectedItems.length == 0) {
@@ -46,8 +47,8 @@ function OptionLabel({
         setExtraPrice(ingredient.extraPrice);
         addExtraCost(ingredient.extraPrice);
       } else {
-        setExtraPrice(ingredient.extraPrice + 1.5);
-        addExtraCost(ingredient.extraPrice + 1.5);
+        setExtraPrice(ingredient.extraPrice + (phase === "stuffing" ? 1.5 : 0));
+        addExtraCost(ingredient.extraPrice + (phase === "stuffing" ? 1.5 : 0));
       }
     }
 

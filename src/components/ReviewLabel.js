@@ -114,7 +114,7 @@ function ReviewLabel({
         className="text-[16px] mt-[2px] mb-[10px] text-start font-pop text-background-dark font-normal"
         style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.6)" }}
       >
-        Είστε σίγουροι ότι θέλετε να το διαγράψεται από το καλάθι
+        Είστε σίγουροι ότι θέλετε να το διαγράψετε από το καλάθι
       </p>
     </Modal>
   );
