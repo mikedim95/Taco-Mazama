@@ -22,6 +22,7 @@ function Steps() {
   const [basePrice, setBasePrice] = useState(currentDish.middlePrice);
   const [multiplier, setMultiplier] = useState(1);
   const [extraCosts, setExtraCosts] = useState(0);
+  console.log("extraCosts", extraCosts);
   const [nextPosition, setNextPosition] = useState(0); /* 
   setCurrentDish({ ...currentDish, multiplier: multiplier }); */
   const [size, setSize] = useState("middle");
@@ -123,9 +124,13 @@ function Steps() {
   };
   const addExtraCost = (value) => {
     setExtraCosts(extraCosts + value);
+    console.log("value: " + value);
+    console.log("extraCosts: " + extraCosts);
   };
   const subExtraCost = (value) => {
+    console.log("value: " + value);
     setExtraCosts(extraCosts - value);
+    console.log("extraCosts: " + extraCosts);
   };
   const handleBasePrice = (size) => {
     switch (size) {

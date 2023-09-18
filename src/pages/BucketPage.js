@@ -6,7 +6,7 @@ import { HiArrowCircleLeft } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { useMyContext } from "../context/UseMyContext";
 import ReviewLabel from "../components/ReviewLabel";
-
+import postJsonData from "../helpers/functionalComponents/postRequestToBack";
 function BucketPage() {
   const {
     finalDishOrder,
@@ -74,7 +74,6 @@ function BucketPage() {
     }
     return price;
   };
-
   const sidePrice = () => {
     let price = 0;
     if (Array.isArray(finalSidesOrder)) {
@@ -84,7 +83,13 @@ function BucketPage() {
     }
     return price;
   };
-
+  const finalSubmit = async (order) => {
+    try {
+      await postJsonData(order);
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
   const beveragePrice = () => {
     let price = 0;
     if (Array.isArray(finalBeveragesOrder)) {
@@ -217,6 +222,12 @@ function BucketPage() {
         {renderSideOrder}
         {renderBeveragesOrder}
       </div>
+      <button
+        className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
+        onClick={() => finalSubmit(finalDishOrder)}
+      >
+        Επόμενο
+      </button>
     </div>
   );
 }

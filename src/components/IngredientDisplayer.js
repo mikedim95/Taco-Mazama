@@ -21,6 +21,7 @@ function IngredientDisplayer({
 
   const [selectedItems, setSelectedItems] = useState([]);
   const [hasChosen, setHasChosen] = useState(false);
+
   console.log("selectedItems: ");
   console.log(selectedItems);
   useEffect(() => {
@@ -48,20 +49,14 @@ function IngredientDisplayer({
     new Audio(mariachi).play();
   };
 
-  const handleClick = (ingredient, extraPrice) => {
+  const handleClick = (ingredient) => {
     if (selectedItems.includes(ingredient.title)) {
-      console.log("i am filtering: " + ingredient);
       const updatedSelectedItems = selectedItems.filter(
         (item) => item !== ingredient.title
       );
       setSelectedItems(updatedSelectedItems);
-
-      subExtraCost(extraPrice);
     } else {
       setSelectedItems([...selectedItems, ingredient.title]);
-      console.log("i am adding: " + ingredient);
-
-      addExtraCost(extraPrice);
     }
   };
 
@@ -117,6 +112,8 @@ function IngredientDisplayer({
                 selectedItems={selectedItems}
                 handleClick={handleClick}
                 hasChosen={hasChosen} // Pass the handleClick function as a prop
+                addExtraCost={addExtraCost}
+                subExtraCost={subExtraCost}
               />
             );
           })

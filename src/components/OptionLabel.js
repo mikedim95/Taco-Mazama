@@ -8,6 +8,8 @@ function OptionLabel({
   index,
   handleClick,
   hasChosen,
+  addExtraCost,
+  subExtraCost,
 }) {
   console.log("i am child No: " + index);
   console.log("ingredient.title: " + ingredient.title);
@@ -19,27 +21,45 @@ function OptionLabel({
   const [isClicked, setIsClicked] = useState(() =>
     selectedItems.some((item) => item === ingredient.title)
   );
+  const normalPrice = ingredient.extraPrice;
+  const addedPrice = ingredient.extraPrice + 1.5;
+  const [extraPrice, setExtraPrice] = useState(ingredient.extraPrice || 0); //The local extra price for this particular option
 
-  const [extraPrice, setExtraPrice] = useState(ingredient.extraPrice || 0);
   console.log(extraPrice);
-  /* const isClicked = selectedItems.includes(ingredient.title); */
   // eslint-disable-next-line
   useEffect(() => {
     setIsClicked(selectedItems.some((item) => item === ingredient.title));
   });
   const optionClicked = () => {
-    const updatedExtraPrice = ingredient.extraPrice + (hasChosen ? 1.5 : 0);
-    setExtraPrice(updatedExtraPrice);
     setIsClicked(!isClicked);
-    handleClick(ingredient, updatedExtraPrice);
+    if (selectedItems.includes(ingredient.title)) {
+      if (selectedItems.length == 1) {
+        setExtraPrice(ingredient.extraPrice);
+        subExtraCost(ingredient.extraPrice);
+      } else {
+        setExtraPrice(ingredient.extraPrice + 1.5);
+        subExtraCost(ingredient.extraPrice + 1.5);
+      }
+    } else {
+      if (selectedItems.length == 0) {
+        console.log("adding " + ingredient.extraPrice + " extarcost");
+        setExtraPrice(ingredient.extraPrice);
+        addExtraCost(ingredient.extraPrice);
+      } else {
+        setExtraPrice(ingredient.extraPrice + 1.5);
+        addExtraCost(ingredient.extraPrice + 1.5);
+      }
+    }
+
+    handleClick(ingredient);
   };
   const extraPriceElement = hasChosen ? (
     <div className="absolute bottom-[10px] left-[90px] text-[14px] font-pop text-left font-black">
-      +{isClicked ? ingredient.extraPrice : ingredient.extraPrice + 1.5}€
+      {isClicked ? null : "+" + addedPrice + "€"}
     </div>
   ) : (
     <div className="absolute bottom-[10px] left-[90px] text-[14px] font-pop text-left font-black">
-      +{ingredient.extraPrice}€
+      +{normalPrice}€
     </div>
   );
   console.log("ligo prin to krisimo kommati:" + isClicked);
@@ -54,7 +74,8 @@ function OptionLabel({
   return (
     <div key={index} className="relative ">
       <div
-        className="w-auto h-[120px] rounded-[20px] bg-[#DFE3BA] shadow-[1px_4px_6px_rgba(0,0,0,0.4)]"
+        className="  w-auto h-[120px] rounded-[20px] bg-[#DFE3BA] shadow-[1px_4px_6px_rgba(0,0,0,0.4)]"
+        style={{ opacity: isClicked ? 0.6 : 1 }}
         onClick={() => optionClicked()}
       >
         <p
