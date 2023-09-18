@@ -34,7 +34,7 @@ function OptionLabel({
   const optionClicked = () => {
     setIsClicked(!isClicked);
     if (selectedItems.includes(ingredient.title)) {
-      if (selectedItems.length == 1) {
+      if (selectedItems.length === 1) {
         setExtraPrice(ingredient.extraPrice);
         subExtraCost(ingredient.extraPrice);
       } else {
@@ -42,7 +42,7 @@ function OptionLabel({
         subExtraCost(ingredient.extraPrice + (phase === "stuffing" ? 1.5 : 0));
       }
     } else {
-      if (selectedItems.length == 0) {
+      if (selectedItems.length === 0) {
         console.log("adding " + ingredient.extraPrice + " extarcost");
         setExtraPrice(ingredient.extraPrice);
         addExtraCost(ingredient.extraPrice);
@@ -60,7 +60,7 @@ function OptionLabel({
     </div>
   ) : (
     <div className="absolute bottom-[10px] left-[90px] text-[14px] font-pop text-left font-black">
-      +{normalPrice}€
+      {normalPrice !== 0 ? `+${normalPrice}€` : null}
     </div>
   );
   console.log("ligo prin to krisimo kommati:" + isClicked);

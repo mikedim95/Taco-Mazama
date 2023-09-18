@@ -114,6 +114,7 @@ function IngredientDisplayer({
           content.map((ingredient, index) => {
             return (
               <OptionLabel
+                key={index}
                 phase={phase}
                 ingredient={ingredient}
                 index={index + ingredient.title}
@@ -161,9 +162,9 @@ function IngredientDisplayer({
             className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
             onClick={() => handleNextStep(phase, selectedItems)}
             disabled={
-              (phase == "stuffing" && !hasChosen) ||
-              (phase == "ingredients" && !hasChosen) ||
-              (phase == "salsa" && !hasChosen)
+              (phase === "stuffing" && !hasChosen) ||
+              (phase === "ingredients" && !hasChosen) ||
+              (phase === "salsa" && !hasChosen)
             }
           >
             Επόμενο
