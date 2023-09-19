@@ -12,13 +12,6 @@ function OptionLabel({
   subExtraCost,
   phase,
 }) {
-  console.log("i am child No: " + index);
-  console.log(5 + (phase === "stuffing" ? 5 : 6));
-  console.log("selectedItems: " + selectedItems);
-  console.log(
-    "selectedItems.some((item) => item === ingredient.title: " +
-      selectedItems.some((item) => item === ingredient.title)
-  );
   const [isClicked, setIsClicked] = useState(() =>
     selectedItems.some((item) => item === ingredient.title)
   );
@@ -43,7 +36,6 @@ function OptionLabel({
       }
     } else {
       if (selectedItems.length === 0) {
-        console.log("adding " + ingredient.extraPrice + " extarcost");
         setExtraPrice(ingredient.extraPrice);
         addExtraCost(ingredient.extraPrice);
       } else {
@@ -56,51 +48,53 @@ function OptionLabel({
   };
   const extraPriceElement = hasChosen ? (
     <div className="absolute bottom-[10px] left-[90px] text-[14px] font-pop text-left font-black">
-      {isClicked ? null : "+" + addedPrice + "€"}
+      {isClicked ? null : addedPrice !== 0 ? `+${addedPrice} €` : null}
     </div>
   ) : (
     <div className="absolute bottom-[10px] left-[90px] text-[14px] font-pop text-left font-black">
-      {normalPrice !== 0 ? `+${normalPrice}€` : null}
+      {normalPrice !== 0 ? `+${normalPrice} €` : null}
     </div>
   );
-  console.log("ligo prin to krisimo kommati:" + isClicked);
+
   const icons = isClicked ? (
-    <img src={tick} alt="" size="20px" />
+    <img src={tick} alt="" className="w-5 h-5" />
   ) : (
     <CgMathPlus size="20px" />
   );
 
   const color = isClicked ? "bg-primary-dark" : "bg-[#E6C013]";
+  const bgGray = isClicked ? "opacity-60" : "";
 
   return (
     <div key={index} className="relative ">
       <div
-        className="  w-auto h-[120px] rounded-[20px] bg-[#DFE3BA] shadow-[1px_4px_6px_rgba(0,0,0,0.4)]"
-        style={{ opacity: isClicked ? 0.6 : 1 }}
+        className="w-auto h-[120px] rounded-[20px] bg-[#DFE3BA] shadow-[1px_4px_6px_rgba(0,0,0,0.4)]"
         onClick={() => optionClicked()}
       >
         <p
-          className="pt-[10px] pl-[5px] text-[18px] font-pop text-left font-bold text-textFont-dark"
+          className={`${bgGray} pt-[10px] pl-[5px] text-[18px] font-pop text-left font-bold text-textFont-dark`}
           style={{ whiteSpace: "pre-line" }}
         >
           {ingredient.title}
         </p>
-        <p className="pl-[5px] pr-[100px] text-[14px] font-pop text-left font-normal text-textFont-dark">
+        <p
+          className={`${bgGray} pl-[5px] pr-[100px] text-[14px] font-pop text-left font-normal text-textFont-dark`}
+        >
           {ingredient.subtitle}
         </p>
         <div className="flex row-span-3 ">
           <img
             src={ingredient.img}
             alt=""
-            className="w-[90px] h-[120px] absolute top-0 right-0 aspect-[3/2] object-cover items-center rounded-tr-[20px] rounded-br-[20px]"
+            className={`${bgGray} w-[90px] h-[120px] absolute top-0 right-0 aspect-[3/2] object-cover items-center rounded-tr-[20px] rounded-br-[20px]`}
           />
           <div
-            className={`w-[80px] h-[40px] pl-[-10px] absolute bottom-0 left-0 ${color} rounded-tr-[20px] rounded-bl-[20px]`}
+            className={` w-[80px] h-[40px] pl-[-10px] absolute bottom-0 left-0 ${color} rounded-tr-[20px] rounded-bl-[20px]`}
           >
             <div className="px-[30px] py-[10px]">{icons}</div>
           </div>
           {extraPriceElement}
-          <div className="absolute bottom-[10px] left-[130px]">
+          <div className={`${bgGray} absolute bottom-[10px] left-[130px]`}>
             {ingredient.spicy}
           </div>
         </div>

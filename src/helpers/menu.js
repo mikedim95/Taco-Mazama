@@ -155,6 +155,19 @@ export const extra = [
     extraPrice: 0.5,
     spicy: "",
   },
+  {
+    title: "Καλαμπόκι",
+    subtitle:
+      "Χοιρινό ή κοτόπουλο, πολύχρωμες πιπεριές, κρεμμύδια και μπαχαρικά.",
+    extraPrice: 0.5,
+    spicy: "",
+  },
+  {
+    title: "Κάνε upgrade το meal σου",
+    subtitle: "Χ2 Tortillas + extra λιωμένη Μοτσαρέλα",
+    extraPrice: 2,
+    spicy: "",
+  },
 ];
 export const sides = [
   {

@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
+import MandatoryModal from "./MandatoryModal";
 import Line from "../assets/Line.svg";
 import { useMyContext } from "../context/UseMyContext";
 import OptionLabel from "../components/OptionLabel";
 import ReviewLabel from "../components/ReviewLabel";
 import mariachi from "../assets/mariachi.wav";
+import bell from "../assets/bell.json";
+import Lottie from "lottie-react";
 
 function IngredientDisplayer({
   phase,
@@ -11,6 +14,7 @@ function IngredientDisplayer({
   handleNextStep,
   handlePreviousStep,
   message,
+  messageSub,
   addExtraCost,
   subExtraCost,
   finalSubmit,
@@ -21,9 +25,8 @@ function IngredientDisplayer({
 
   const [selectedItems, setSelectedItems] = useState([]);
   const [hasChosen, setHasChosen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  console.log("selectedItems: ");
-  console.log(selectedItems);
   useEffect(() => {
     // Populate selectedItems with currentDish.stuffing when component mounts
     setSelectedItems(currentDish[phase] || []);
@@ -32,10 +35,8 @@ function IngredientDisplayer({
   useEffect(() => {
     if (selectedItems.length === 0) {
       setHasChosen(false);
-      console.log("Selected items now are empty");
     } else {
       setHasChosen(true);
-      console.log("Selected items now are not empty");
     }
   }, [selectedItems]);
   //vibration notification
@@ -84,14 +85,68 @@ function IngredientDisplayer({
     ];
   }
 
+  const handleModal = () => {
+    setShowModal(true);
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const actionBar = (
+    <div className="mb-[20px]">
+      <button
+        onClick={() => {
+          setTimeout(() => {
+            handleCloseModal();
+          }, 100);
+        }}
+        className="w-[80px] h-[40px] text-[14px] font-pop text-background-dark font-bold bg-[#b3b878] rounded-[40px]"
+      >
+        ΟΚ
+      </button>
+    </div>
+  );
+
+  const modal = (
+    <MandatoryModal onClick={handleCloseModal} actionBar={actionBar}>
+      <div className="flex flex-col justify-start items-start gap-1">
+        <Lottie
+          animationData={bell}
+          speed={0.5}
+          loop={false}
+          className="w-[60px] h-[60px] mt-[-77px]"
+        />
+        <h1
+          className="text-start font-pop font-bold text-gray-600"
+          style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.5)" }}
+        >
+          Ουυπςς !!!
+        </h1>
+      </div>
+      <p
+        className="text-[14px] mt-[2px] mb-[10px] text-start font-pop text-background-dark font-normal"
+        style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.6)" }}
+      >
+        Συγνώμη αλλα θα πρέπει να κάνετε τουλάχιστον μία επιλογή για να
+        συνεχίσεται στο επόμενο βήμα.
+      </p>
+    </MandatoryModal>
+  );
+
   return (
     <>
       <div className="flex justify-start relative ">
         <h1
-          className="absolute top-[10px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
+          className="absolute top-[5px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
           style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
         >
           {message}
+          <div
+            className="absolute top-[25px] mr-[-20px] left-[5px] font-pop text-[10px] font-bold text-textFont-dark"
+            style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
+          >
+            {messageSub}
+          </div>
         </h1>
       </div>
       <div className="pt-[45px] pl-[30px] mr-[20px]">
@@ -160,13 +215,23 @@ function IngredientDisplayer({
         ) : (
           <button
             className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
-            onClick={() => handleNextStep(phase, selectedItems)}
-            disabled={
-              (phase === "stuffing" && !hasChosen) ||
-              (phase === "ingredients" && !hasChosen) ||
-              (phase === "salsa" && !hasChosen)
-            }
+            onClick={() => {
+              if (
+                (phase === "stuffing" && !hasChosen) ||
+                (phase === "ingredients" && !hasChosen) ||
+                (phase === "salsa" && !hasChosen)
+              ) {
+                handleModal();
+                console.log(handleModal());
+              } else handleNextStep(phase, selectedItems);
+            }}
+            // disabled={
+            //   (phase === "stuffing" && !hasChosen) ||
+            //   (phase === "ingredients" && !hasChosen) ||
+            //   (phase === "salsa" && !hasChosen)
+            // }
           >
+            <div>{showModal && modal}</div>
             Επόμενο
           </button>
         )}
