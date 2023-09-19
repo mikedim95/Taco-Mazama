@@ -166,21 +166,34 @@ function IngredientDisplayer({
             />
           </div>
         ) : (
-          content.map((ingredient, index) => {
-            return (
-              <OptionLabel
-                key={index}
-                phase={phase}
-                ingredient={ingredient}
-                index={index + ingredient.title}
-                selectedItems={selectedItems}
-                handleClick={handleClick}
-                hasChosen={hasChosen} // Pass the handleClick function as a prop
-                addExtraCost={addExtraCost}
-                subExtraCost={subExtraCost}
-              />
-            );
-          })
+          content
+            .filter((ingredient) => {
+              if (
+                (currentDish.title === "Quesadilla" ||
+                  currentDish.title === "Enchilada" ||
+                  currentDish.title === "Taco" ||
+                  currentDish.title === "Mulita") &&
+                ingredient.title === "Κάνε upgrade το meal σου"
+              ) {
+                return false;
+              }
+              return true;
+            })
+            .map((ingredient, index) => {
+              return (
+                <OptionLabel
+                  key={index}
+                  phase={phase}
+                  ingredient={ingredient}
+                  index={index + ingredient.title}
+                  selectedItems={selectedItems}
+                  handleClick={handleClick}
+                  hasChosen={hasChosen} // Pass the handleClick function as a prop
+                  addExtraCost={addExtraCost}
+                  subExtraCost={subExtraCost}
+                />
+              );
+            })
         )}
       </div>
       <div
