@@ -142,7 +142,7 @@ function IngredientDisplayer({
         >
           {message}
           <div
-            className="absolute top-[25px] mr-[-20px] left-[5px] font-pop text-[10px] font-bold text-textFont-dark"
+            className="absolute top-[25px] mr-[-100px] left-[5px] font-pop text-[10px] font-bold text-textFont-dark"
             style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
           >
             {messageSub}
@@ -174,6 +174,12 @@ function IngredientDisplayer({
                   currentDish.title === "Taco" ||
                   currentDish.title === "Mulita") &&
                 ingredient.title === "Κάνε upgrade το meal σου"
+              ) {
+                return false;
+              }
+              if (
+                currentDish.title === "Enchilada" &&
+                ingredient.title === "Μαρούλι"
               ) {
                 return false;
               }
@@ -240,7 +246,6 @@ function IngredientDisplayer({
                 (phase === "salsa" && !hasChosen)
               ) {
                 handleModal();
-                console.log(handleModal());
               } else handleNextStep(phase, selectedItems);
             }}
             // disabled={

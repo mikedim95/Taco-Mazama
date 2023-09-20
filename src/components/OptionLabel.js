@@ -17,10 +17,21 @@ function OptionLabel({
   const [isClicked, setIsClicked] = useState(() =>
     selectedItems.some((item) => item === ingredient.title)
   );
-  const normalPrice = ingredient.extraPrice;
-  // || ((currentDish.title === "Taco" || "Mulita" || "Enchilada") ? (ingredient.title !== "Καλαμπόκι" || "Fajita Mix" ? -0.5 : 0) : (ingredient.title === "Fajita Mix" && ingredient.title !== "Καλαμπόκι" ? -0.25 : 0) );
+  const normalPrice =
+    ingredient.extraPrice > 0
+      ? currentDish.title === "Taco" ||
+        currentDish.title === "Mulita" ||
+        currentDish.title === "Enchilada"
+        ? ingredient.title === "Fajita Mix"
+          ? ingredient.extraPrice - 0.25
+          : ingredient.title === "Καλαμπόκι"
+          ? ingredient.extraPrice
+          : ingredient.extraPrice - 0.5
+        : ingredient.extraPrice
+      : ingredient.extraPrice;
+
   const addedPrice =
-    ingredient.extraPrice +
+    normalPrice +
     (phase === "stuffing" &&
     currentDish.title !== "Taco" &&
     currentDish.title !== "Mulita" &&
@@ -32,9 +43,10 @@ function OptionLabel({
         phase === "stuffing"
       ? 0.5
       : 0);
-  const [extraPrice, setExtraPrice] = useState(ingredient.extraPrice || 0); //The local extra price for this particular option
 
-  console.log(extraPrice);
+  const [extraPrice, setExtraPrice] = useState(normalPrice || 0); //The local extra price for this particular option
+
+  console.log("erxetai", extraPrice);
   // eslint-disable-next-line
   useEffect(() => {
     setIsClicked(selectedItems.some((item) => item === ingredient.title));
@@ -43,11 +55,11 @@ function OptionLabel({
     setIsClicked(!isClicked);
     if (selectedItems.includes(ingredient.title)) {
       if (selectedItems.length === 1) {
-        setExtraPrice(ingredient.extraPrice);
-        subExtraCost(ingredient.extraPrice);
+        setExtraPrice(normalPrice);
+        subExtraCost(normalPrice);
       } else {
         setExtraPrice(
-          ingredient.extraPrice +
+          normalPrice +
             (phase === "stuffing" &&
             currentDish.title !== "Taco" &&
             currentDish.title !== "Mulita" &&
@@ -61,7 +73,7 @@ function OptionLabel({
               : 0)
         );
         subExtraCost(
-          ingredient.extraPrice +
+          normalPrice +
             (phase === "stuffing" &&
             currentDish.title !== "Taco" &&
             currentDish.title !== "Mulita" &&
@@ -77,11 +89,11 @@ function OptionLabel({
       }
     } else {
       if (selectedItems.length === 0) {
-        setExtraPrice(ingredient.extraPrice);
-        addExtraCost(ingredient.extraPrice);
+        setExtraPrice(normalPrice);
+        addExtraCost(normalPrice);
       } else {
         setExtraPrice(
-          ingredient.extraPrice +
+          normalPrice +
             (phase === "stuffing" &&
             currentDish.title !== "Taco" &&
             currentDish.title !== "Mulita" &&
@@ -95,7 +107,7 @@ function OptionLabel({
               : 0)
         );
         addExtraCost(
-          ingredient.extraPrice +
+          normalPrice +
             (phase === "stuffing" &&
             currentDish.title !== "Taco" &&
             currentDish.title !== "Mulita" &&
