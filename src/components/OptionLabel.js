@@ -1,6 +1,7 @@
 import { CgMathPlus } from "react-icons/cg";
 import tick from "../assets/tick.svg";
 import { useState, useEffect } from "react";
+import { useMyContext } from "../context/UseMyContext";
 
 function OptionLabel({
   ingredient,
@@ -12,11 +13,25 @@ function OptionLabel({
   subExtraCost,
   phase,
 }) {
+  const { currentDish } = useMyContext();
   const [isClicked, setIsClicked] = useState(() =>
     selectedItems.some((item) => item === ingredient.title)
   );
   const normalPrice = ingredient.extraPrice;
-  const addedPrice = ingredient.extraPrice + (phase === "stuffing" ? 1.5 : 0);
+  // || ((currentDish.title === "Taco" || "Mulita" || "Enchilada") ? (ingredient.title !== "Καλαμπόκι" || "Fajita Mix" ? -0.5 : 0) : (ingredient.title === "Fajita Mix" && ingredient.title !== "Καλαμπόκι" ? -0.25 : 0) );
+  const addedPrice =
+    ingredient.extraPrice +
+    (phase === "stuffing" &&
+    currentDish.title !== "Taco" &&
+    currentDish.title !== "Mulita" &&
+    currentDish.title !== "Enchilada"
+      ? 1.5
+      : (currentDish.title === "Taco" ||
+          currentDish.title === "Mulita" ||
+          currentDish.title === "Enchilada") &&
+        phase === "stuffing"
+      ? 0.5
+      : 0);
   const [extraPrice, setExtraPrice] = useState(ingredient.extraPrice || 0); //The local extra price for this particular option
 
   console.log(extraPrice);
@@ -31,16 +46,68 @@ function OptionLabel({
         setExtraPrice(ingredient.extraPrice);
         subExtraCost(ingredient.extraPrice);
       } else {
-        setExtraPrice(ingredient.extraPrice + (phase === "stuffing" ? 1.5 : 0));
-        subExtraCost(ingredient.extraPrice + (phase === "stuffing" ? 1.5 : 0));
+        setExtraPrice(
+          ingredient.extraPrice +
+            (phase === "stuffing" &&
+            currentDish.title !== "Taco" &&
+            currentDish.title !== "Mulita" &&
+            currentDish.title !== "Enchilada"
+              ? 1.5
+              : (currentDish.title === "Taco" ||
+                  currentDish.title === "Mulita" ||
+                  currentDish.title === "Enchilada") &&
+                phase === "stuffing"
+              ? 0.5
+              : 0)
+        );
+        subExtraCost(
+          ingredient.extraPrice +
+            (phase === "stuffing" &&
+            currentDish.title !== "Taco" &&
+            currentDish.title !== "Mulita" &&
+            currentDish.title !== "Enchilada"
+              ? 1.5
+              : (currentDish.title === "Taco" ||
+                  currentDish.title === "Mulita" ||
+                  currentDish.title === "Enchilada") &&
+                phase === "stuffing"
+              ? 0.5
+              : 0)
+        );
       }
     } else {
       if (selectedItems.length === 0) {
         setExtraPrice(ingredient.extraPrice);
         addExtraCost(ingredient.extraPrice);
       } else {
-        setExtraPrice(ingredient.extraPrice + (phase === "stuffing" ? 1.5 : 0));
-        addExtraCost(ingredient.extraPrice + (phase === "stuffing" ? 1.5 : 0));
+        setExtraPrice(
+          ingredient.extraPrice +
+            (phase === "stuffing" &&
+            currentDish.title !== "Taco" &&
+            currentDish.title !== "Mulita" &&
+            currentDish.title !== "Enchilada"
+              ? 1.5
+              : (currentDish.title === "Taco" ||
+                  currentDish.title === "Mulita" ||
+                  currentDish.title === "Enchilada") &&
+                phase === "stuffing"
+              ? 0.5
+              : 0)
+        );
+        addExtraCost(
+          ingredient.extraPrice +
+            (phase === "stuffing" &&
+            currentDish.title !== "Taco" &&
+            currentDish.title !== "Mulita" &&
+            currentDish.title !== "Enchilada"
+              ? 1.5
+              : (currentDish.title === "Taco" ||
+                  currentDish.title === "Mulita" ||
+                  currentDish.title === "Enchilada") &&
+                phase === "stuffing"
+              ? 0.5
+              : 0)
+        );
       }
     }
 

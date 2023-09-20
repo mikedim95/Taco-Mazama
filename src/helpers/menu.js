@@ -79,7 +79,7 @@ export const ingredients = [
   {
     title: "Jalapenos",
     subtitle: "Μικρές λαχταριστές Μεξικάνικες pickles",
-    extraPrice: 1,
+    extraPrice: 0,
     spicy: "",
     img: jalapenos,
   },

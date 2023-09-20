@@ -177,7 +177,12 @@ function IngredientDisplayer({
               ) {
                 return false;
               }
-              return true;
+              return !(
+                (currentDish.title === "Bowl Fajita" ||
+                  currentDish.title === "Fajita" ||
+                  currentDish.title === "Enchilada") &&
+                ingredient.title === "Fajita Mix"
+              );
             })
             .map((ingredient, index) => {
               return (

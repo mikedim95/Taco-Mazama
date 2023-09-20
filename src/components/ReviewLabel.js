@@ -4,8 +4,8 @@ import bin from "../assets/bin.json";
 import pen from "../assets/pen.json";
 import Modal from "../components/Modal";
 import warning from "../assets/warning.json";
-import anime from "../assets/anime.json";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function ReviewLabel({
   handleMultiplier,
@@ -21,7 +21,6 @@ function ReviewLabel({
 }) {
   var content = {};
   const [showModal, setShowModal] = useState(false);
-  const [completeAnime, setCompleteAnime] = useState(false);
 
   if (currentDish) {
     content = {
@@ -67,7 +66,7 @@ function ReviewLabel({
 
   const handleDelete = async () => {
     await onDelete("dish" || "side" || "beverage");
-    setCompleteAnime(true); // Show completion animation
+    // Show completion animation
     setTimeout(() => {
       handleCloseModal();
     }, 400);
@@ -81,13 +80,13 @@ function ReviewLabel({
             handleCloseModal();
           }, 100);
         }}
-        className="w-[80px] h-[40px] text-[14px] mr-[5px] font-pop text-background-dark font-semibold bg-[#e2473d] rounded-[40px]"
+        className="w-[80px] h-[40px] text-[14px] mr-[5px] font-pop text-[#535353] font-semibold bg-[#dadada] rounded-[40px]"
       >
         Όχι
       </button>
       <button
         onClick={handleDelete}
-        className="w-[80px] h-[40px] text-[14px] font-pop text-background-dark font-bold bg-[#bc292f] rounded-[20px]"
+        className="w-[80px] h-[40px] text-[14px] font-pop text-[#f1d9f6] font-bold bg-[#e2473d] rounded-[20px]"
       >
         Ναι
       </button>
@@ -171,22 +170,15 @@ function ReviewLabel({
                 />
               </div>
               <div className="flex justify-start align-bottom">
-                <Lottie
-                  animationData={pen}
-                  speed={0.2}
-                  loop={false}
-                  className="w-[60px] h-[60px] ml-[130px] absolute bottom-0"
-                />
+                <Link key={index} to={`/Steps`}>
+                  <Lottie
+                    animationData={pen}
+                    speed={0.2}
+                    loop={false}
+                    className="w-[60px] h-[60px] ml-[130px] absolute bottom-0"
+                  />
+                </Link>
               </div>
-            </div>
-          )}
-          {completeAnime && (
-            <div className="w-[60px] h-[60px] absolute bottom-0 left-0">
-              <Lottie
-                animationData={anime} // Use your completion animation JSON file
-                speed={1}
-                loop={false}
-              />
             </div>
           )}
         </div>

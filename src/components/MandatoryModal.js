@@ -5,7 +5,7 @@ function MandatoryModal({ children, actionBar, onClick }) {
     <div className="relative">
       <div
         onClick={onClick}
-        className="fixed inset-0 bg-gray-300 opacity-80"
+        className="fixed inset-0 bg-gray-500 opacity-80"
       ></div>
       <div className="fixed inset-y-1/3 z-[100] mx-[40px] my-[30px] px-[20px] py-[40px]  outline outline-1 outline-black rounded-[20px] bg-[#f8fcbd] shadow-[1px_4px_6px_rgba(0,0,0,0.4)]">
         <div className="flex flex-col">{children}</div>
