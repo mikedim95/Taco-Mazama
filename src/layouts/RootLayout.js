@@ -4,7 +4,7 @@ export default function RootLayout() {
   return (
     <div>
       <div>
-        <Link to="/Table:tableNo"></Link>
+        <Link to="/"></Link>
         <Link to="LandingPage"></Link>
         <Link to="Steps"></Link>
         <Link to="BucketPage"></Link>
