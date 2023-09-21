@@ -1,7 +1,9 @@
 import { CgMathPlus } from "react-icons/cg";
-import tick from "../assets/tick.svg";
+// import tick from "../assets/tick.svg";
+import tick from "../assets/tick.json";
 import { useState, useEffect } from "react";
 import { useMyContext } from "../context/UseMyContext";
+import Lottie from "lottie-react";
 
 function OptionLabel({
   ingredient,
@@ -136,7 +138,12 @@ function OptionLabel({
   );
 
   const icons = isClicked ? (
-    <img src={tick} alt="" className="w-5 h-5" />
+    <Lottie
+      animationData={tick}
+      speed={100}
+      loop={false}
+      className="w-[50px] h-[50px] mt-[-15px] ml-[-15px]"
+    />
   ) : (
     <CgMathPlus size="20px" />
   );

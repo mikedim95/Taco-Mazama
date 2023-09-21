@@ -159,11 +159,6 @@ function IngredientDisplayer({
               currentDish={currentDish}
               handleMultiplier={handleMultiplier}
             />
-            {}
-            <ReviewLabel
-              currentDish={currentDish}
-              handleMultiplier={handleMultiplier}
-            />
           </div>
         ) : (
           content

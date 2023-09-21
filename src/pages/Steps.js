@@ -252,6 +252,7 @@ function Steps() {
                   : "bg-[#AEAEAE]"
               } font-pop text-[16px] font-semibold text-center`}
               onClick={() => handleSetSize("middle")}
+              disabled={true}
             >
               Ένα μέγεθος {currentDish.middlePrice} €
             </button>

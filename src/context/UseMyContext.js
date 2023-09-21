@@ -12,6 +12,9 @@ export const MyProvider = ({ children }) => {
   const [finalDishOrder, setFinalDishOrder] = useState([]);
   const [finalSidesOrder, setFinalSidesOrder] = useState([]);
   const [finalBeveragesOrder, setFinalBeveragesOrder] = useState([]);
+  const [tableNo, setTableNo] = useState();
+
+  console.log(tableNo);
 
   return (
     <MyContext.Provider
@@ -30,6 +33,8 @@ export const MyProvider = ({ children }) => {
         setCurrentDishIndex,
         cartItemCount,
         setCartItemCount,
+        tableNo,
+        setTableNo,
       }}
     >
       {children}
