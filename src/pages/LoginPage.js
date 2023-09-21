@@ -4,8 +4,18 @@ import circle from "../assets/circle.svg";
 import taco from "../assets/taco_logo.jpg";
 import { motion as m } from "framer-motion";
 import { Link } from "react-router-dom";
-
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useMyContext } from "../context/UseMyContext";
 function LoginPage() {
+  const { setTableNo } = useMyContext();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const tableNo = params.get("tableNo");
+  useEffect(() => {
+    setTableNo(tableNo);
+  }, []);
+
   return (
     <div className="max-w-screen-sm h-screen mx-auto bg-background-dark overflow-y-scroll ">
       <div className="flex justify-center items-center relative">
