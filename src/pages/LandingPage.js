@@ -74,12 +74,6 @@ function LandingPage() {
       </div>
       <div className="w-full h-full flex flex-col ">
         <div className="pt-[130px] pl-[30px]">
-          {/* <p className="text-[16px] font-pop font-normal text-textFont-dark">
-            Food
-          </p>
-          <p className="mt-[-10px] text-[32px] font-pop font-bold text-textFont-dark">
-            Delivery
-          </p> */}
           <Search onChange={handleSearch} />
           <div className="flex space-x-[-60px]">
             <img className="pl-[34px] pr-[30px] mt-[-10px]" src={Line} alt="" />

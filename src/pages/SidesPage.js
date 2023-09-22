@@ -1,5 +1,9 @@
 import { useMyContext } from "../context/UseMyContext";
-import { motion as m, useAnimate, stagger } from "framer-motion";
+import { motion as m } from "framer-motion";
+import SidesDisplayer from "../components/SidesDisplayer";
+import { useState, useRef, useEffect } from "react";
+import { stuffing, ingredients, salsa, extra } from "../helpers/menu";
+import Stepper from "../components/Stepper";
 
 // import postJsonData from "../helpers/functionalComponents/postRequestToBack"; */
 import Line from "../assets/Line.svg";
@@ -7,8 +11,8 @@ import { useNavigate } from "react-router-dom"; /*
 import useMultiplier from "../hooks/useMultiplier"; */
 import { HiArrowCircleLeft } from "react-icons/hi";
 import { Link } from "react-router-dom";
-// /* debugger; */
-import ReviewLabel from "../components/ReviewLabel";
+// import ReviewLabel from "../components/ReviewLabel";
+
 function SidesPage() {
   const {
     currentSide,
@@ -18,26 +22,116 @@ function SidesPage() {
     setCartItemCount,
     cartItemCount,
   } = useMyContext();
-  const [scope, animate] = useAnimate();
 
-  const handleMultiplier = (index, value) => {
-    if (value > 0) {
-      setCurrentSide({ ...currentSide, multiplier: value });
+  const [nextPosition, setNextPosition] = useState(0);
+  const scrollToTopRef = useRef(null);
+  const [extraCosts, setExtraCosts] = useState(0);
+  const [multiplier, setMultiplier] = useState(1);
+
+  const order = () => {
+    if (nextPosition === 0) {
+      return (
+        <SidesDisplayer
+          key="salsa"
+          phase={"salsa"}
+          content={salsa}
+          handleNextStep={handleNextStep}
+          message={"Διάλεξε Salsas"}
+          addExtraCost={addExtraCost}
+          subExtraCost={subExtraCost}
+          firstButtonPosition
+        />
+      );
+    } else if (nextPosition === 1) {
+      return (
+        <SidesDisplayer
+          key="extra"
+          phase={"extra" && "ingredients"}
+          content={extra && ingredients}
+          handleNextStep={handleNextStep}
+          handlePreviousStep={handlePreviousStep}
+          message={"Extra Υλικά"}
+          addExtraCost={addExtraCost}
+          subExtraCost={subExtraCost}
+        />
+      );
+    } else if (nextPosition === 2) {
+      return (
+        <SidesDisplayer
+          key="stuffing"
+          phase={"stuffing"}
+          content={stuffing}
+          handleNextStep={handleNextStep}
+          handlePreviousStep={handlePreviousStep}
+          addExtraCost={addExtraCost}
+          subExtraCost={subExtraCost}
+          message={"Διάλεξε γέμιση"}
+          messageSub={"*Θα πρέπει να κάνετε τουλάχιστον 1 επιλογή"}
+        />
+      );
+    } else if (nextPosition === 4) {
+      return (
+        <SidesDisplayer
+          key="review"
+          phase={"review"}
+          currentSide={currentSide}
+          finalSideSubmit={finalSideSubmit}
+          handlePreviousStep={handlePreviousStep}
+          addExtraCost={addExtraCost}
+          subExtraCost={subExtraCost}
+          message={"Δες τι έχτισες ..."}
+          handleMultiplier={handleMultiplier}
+          multiplier={multiplier}
+        />
+      );
     }
   };
 
-  const onButtonClick = () => {
-    animate([
-      [".letter", { y: -32 }, { duration: 0.2, delay: stagger(0.05) }],
-      ["button", { scale: 0.8 }, { duration: 0.1, at: "<" }],
-      ["button", { scale: 1 }, { duration: 0.1 }],
-      [".letter", { y: 0 }, { duration: 0.000001, at: 0.5 }],
-    ]);
+  useEffect(() => {
+    setCurrentSide({ ...currentSide, multiplier: multiplier });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleNextStep = (category, selection) => {
+    setCurrentSide({ ...currentSide, [category]: selection });
+    setNextPosition(nextPosition + 1);
+    // scrolling to the top of the page
+    scrollToTopRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handlePreviousStep = (category, selection) => {
+    setNextPosition(nextPosition - 1);
+    setCurrentSide({ ...currentSide, [category]: selection });
+    // scrolling to the top of the page
+    scrollToTopRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const addExtraCost = (value) => {
+    setExtraCosts(extraCosts + value);
+  };
+  const subExtraCost = (value) => {
+    setExtraCosts(extraCosts - value);
+  };
+
+  const handleMultiplier = (index, value) => {
+    if (value > 0) {
+      setMultiplier(value);
+      setCurrentSide({ ...currentSide, multiplier: value });
+    }
   };
 
   const navigate = useNavigate();
 
   const finalSideSubmit = () => {
+    const addingLastValues = {
+      ...currentSide,
+      multiplier: multiplier,
+      extraCosts: extraCosts,
+    };
+    delete addingLastValues.img;
+    delete addingLastValues.subtitle;
+    delete addingLastValues.extraPrice;
+
     setCartItemCount(cartItemCount + currentSide.multiplier);
     // Use the callback form of setFinalDishOrder to access the most recent state
     setFinalSidesOrder([...finalSidesOrder, currentSide]);
@@ -56,6 +150,7 @@ function SidesPage() {
         animate="visible"
         variants={initialImage}
         transition={{ duration: 1.4, delay: 0.7, ease: "easeInOut" }}
+        ref={scrollToTopRef}
         className="justify-center items-center relative"
       >
         <img
@@ -69,6 +164,12 @@ function SidesPage() {
             className="z-10 absolute top-[10px] left-[20px] bg-primary-regular rounded-full"
           />
         </Link>
+        <div
+          className="z-30 p-1 mx-[20px] my-[-10px] absolute top-[90px] left-[20px] right-[20px] rounded-[20px] font-pop italic text-[14px] font-normal backdrop-blur-xl text-center text-white outline-textFont-dark outline outline-[0.2px]"
+          style={{ textShadow: "0 2px 4px rgba(0, 0, 0, 0.8)" }}
+        >
+          {currentSide.subtitle}
+        </div>
       </m.div>
       <m.div
         initial={{ opacity: 0, y: "100%" }}
@@ -76,12 +177,15 @@ function SidesPage() {
         transition={{ duration: 2, ease: "easeInOut" }}
         className="w-full h-full flex flex-col "
       >
+        <div className="flex justify-center pl-[5px]">
+          <Stepper nextPosition={nextPosition} />
+        </div>
         <div className="flex justify-end relative ">
           <h1
             className="absolute right-[30px] top-[-20px] font-pop text-[20px] font-bold text-textFont-dark"
             style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
           >
-            Συνολική Τιμή: {currentSide.price * currentSide.multiplier} €
+            Συνολική Τιμή: {(currentSide.price + extraCosts) * multiplier} €
           </h1>
           <h1
             className="absolute pt-[20px] top-[10px] left-[30px] font-pop text-[18px] font-bold text-textFont-dark"
@@ -94,12 +198,13 @@ function SidesPage() {
           </div>
         </div>
         <div className="columns-1 px-[20px] justify-center space-y-[10px] items-center">
-          <ReviewLabel
+          {/* <ReviewLabel
             currentSide={currentSide}
             handleMultiplier={handleMultiplier}
-          />
+          /> */}
+          <div className="pt-[10px]">{order()}</div>
         </div>
-        <div
+        {/* <div
           ref={scope}
           className="flex justify-end items-end mt-[20px] mr-[20px]"
         >
@@ -128,7 +233,7 @@ function SidesPage() {
               ))}
             </span>
           </button>
-        </div>
+        </div> */}
       </m.div>
     </div>
   );

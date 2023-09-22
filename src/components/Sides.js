@@ -30,10 +30,13 @@ function Sides({ sides }) {
               alt=""
             ></img>
 
-            <div className="flex w-[95px] h-[50px] shadow-[2px_2px_3px_rgba(0,0,0,0.5)] bg-secondary-light rounded-b-[20px]">
+            <div className="flex w-[95px] h-[70px] shadow-[2px_2px_3px_rgba(0,0,0,0.5)] bg-secondary-light rounded-b-[20px]">
               <h1
-                className="px-[18px] text-[16px] font-semibold font-pop text-white"
-                style={{ textShadow: "0 1px 2px rgba(0, 0, 0, 0.4)" }}
+                className="text-[14px] mx-[8px] text-center font-semibold font-pop text-white"
+                style={{
+                  textShadow: "0 1px 2px rgba(0, 0, 0, 0.4)",
+                  whiteSpace: "pre-line",
+                }}
               >
                 {side.title}
               </h1>

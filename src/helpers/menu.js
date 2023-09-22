@@ -47,7 +47,7 @@ export const stuffing = [
     img: vegie,
   },
   {
-    title: "Mushroom & Sweetcorn\nChilli",
+    title: "Mushroom & Sweetcorn Chilli",
     subtitle: "Πιπεριά",
     extraPrice: 0,
     spicy: "",
@@ -184,13 +184,19 @@ export const sides = [
     img: loadNacho,
   },
   {
-    title: "Tortilla",
+    title: "Tortilla Salsas",
     subtitle: "",
-    price: 2,
+    price: 3,
     img: tortilla,
   },
   {
-    title: "Tortilla Loaded",
+    title: "Tortilla Salsas & Guacamole",
+    subtitle: "",
+    price: 3,
+    img: loadTortilla,
+  },
+  {
+    title: "Tortilla Chips",
     subtitle: "",
     price: 3,
     img: loadTortilla,

@@ -14,8 +14,6 @@ export const MyProvider = ({ children }) => {
   const [finalBeveragesOrder, setFinalBeveragesOrder] = useState([]);
   const [tableNo, setTableNo] = useState();
 
-  console.log(tableNo);
-
   return (
     <MyContext.Provider
       value={{

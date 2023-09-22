@@ -46,7 +46,22 @@ function ReviewLabel({
   } else if (currentSide) {
     content = {
       title: currentSide.title,
-      subtitle: currentSide.subtitle,
+      subtitle: [
+        currentDish.stuffing && currentDish.stuffing.length > 0
+          ? currentDish.stuffing.join(", ")
+          : null,
+        currentSide.ingredients && currentSide.ingredients.length > 0
+          ? currentSide.ingredients.join(", ")
+          : null,
+        currentSide.salsa && currentSide.salsa.length > 0
+          ? currentSide.salsa.join(", ")
+          : null,
+        currentSide.extra && currentSide.extra.length > 0
+          ? currentSide.extra.join(", ")
+          : null,
+      ]
+        .filter((item) => item !== null) // Remove null entries
+        .join(", "),
       multiplier: currentSide.multiplier,
     };
   } else if (currentBeverage) {

@@ -14,7 +14,7 @@ function LoginPage() {
   const tableNo = params.get("tableNo");
   useEffect(() => {
     setTableNo(tableNo);
-  }, []);
+  }, [setTableNo, tableNo]);
 
   return (
     <div className="max-w-screen-sm h-screen mx-auto bg-background-dark overflow-y-scroll ">
