@@ -13,6 +13,8 @@ export const MyProvider = ({ children }) => {
   const [finalSidesOrder, setFinalSidesOrder] = useState([]);
   const [finalBeveragesOrder, setFinalBeveragesOrder] = useState([]);
   const [tableNo, setTableNo] = useState();
+  const [totalPrice, setTotalPrice] = useState();
+  console.log(tableNo);
 
   return (
     <MyContext.Provider
@@ -33,6 +35,8 @@ export const MyProvider = ({ children }) => {
         setCartItemCount,
         tableNo,
         setTableNo,
+        setTotalPrice,
+        totalPrice,
       }}
     >
       {children}

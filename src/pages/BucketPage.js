@@ -17,6 +17,9 @@ function BucketPage() {
     setFinalBeveragesOrder,
     cartItemCount,
     setCartItemCount,
+    tableNo,
+    setTotalPrice,
+    totalPrice,
   } = useMyContext();
 
   const deleteOrder = (index, type) => {
@@ -83,9 +86,17 @@ function BucketPage() {
     }
     return price;
   };
-  const finalSubmit = async (order) => {
+  const finalSubmit = async () => {
+    const finalOrder = {
+      tableNo: parseInt(tableNo),
+      dish: finalDishOrder,
+      sides: finalSidesOrder,
+      beverages: finalBeveragesOrder,
+      price: parseInt(totalPrice),
+    };
+
     try {
-      await postJsonData(order);
+      await postJsonData(finalOrder);
     } catch (error) {
       console.error("Error:", error.message);
     }
@@ -102,7 +113,7 @@ function BucketPage() {
   };
 
   const overalPrice = dishPrice() + sidePrice() + beveragePrice();
-
+  setTotalPrice(overalPrice);
   const renderDishOrder = Array.isArray(finalDishOrder)
     ? finalDishOrder.map((foodOrder, index) => {
         return (
@@ -224,7 +235,7 @@ function BucketPage() {
       </div>
       <button
         className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
-        onClick={() => finalSubmit(finalDishOrder)}
+        onClick={() => finalSubmit()}
       >
         Επόμενο
       </button>
