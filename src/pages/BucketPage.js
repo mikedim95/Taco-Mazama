@@ -140,6 +140,7 @@ function BucketPage() {
     return price;
   };
   const finalSubmit = async () => {
+    console.log("perasa apo edw");
     const finalOrder = {
       tableNo: parseInt(tableNo),
       dish: finalDishOrder,
@@ -152,9 +153,9 @@ function BucketPage() {
     try {
       const result = await postJsonData(finalOrder);
       console.log(result);
-      if (result.statusText !== "OK") {
+      /* if (result.statusText !== "OK") {
         handleModal(result.data);
-      }
+      } */
     } catch (error) {
       console.error("Error:", error);
     }
@@ -302,9 +303,9 @@ function BucketPage() {
         //   (phase === "salsa" && !hasChosen)
         // }
       >
-        <div>{showModal && modal}</div>
         Υποβολή
       </button>
+      <div>{showModal && modal}</div>
     </div>
   );
 }
