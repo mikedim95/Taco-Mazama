@@ -20,8 +20,9 @@ function BucketPage() {
     tableNo,
     setTotalPrice,
     totalPrice,
+    publicIP,
   } = useMyContext();
-
+  console.log(publicIP);
   const deleteOrder = (index, type) => {
     if (type === "dish") {
       const updatedFinalDishOrder = [...finalDishOrder];
@@ -93,6 +94,7 @@ function BucketPage() {
       sides: finalSidesOrder,
       beverages: finalBeveragesOrder,
       price: parseInt(totalPrice),
+      publicIP: publicIP,
     };
 
     try {

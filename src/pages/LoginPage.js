@@ -7,14 +7,26 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useMyContext } from "../context/UseMyContext";
-import testip from "../helpers/functionalComponents/testip";
+import getUsersPublicIP from "../helpers/functionalComponents/getUsersPublicIP";
 function LoginPage() {
-  const { setTableNo } = useMyContext();
+  const { setTableNo, setPublicIP } = useMyContext();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const tableNo = params.get("tableNo");
+
   useEffect(() => {
+    async function fetchData() {
+      try {
+        const temp = await getUsersPublicIP(); // Assuming getUsersPublicIP is a function
+        setPublicIP(temp);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    fetchData();
     setTableNo(tableNo);
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -72,11 +84,8 @@ function LoginPage() {
             transition={{ delay: 2, duration: 0.5 }}
             className=" flex justify-center items-center w-full h-[80px] bg-primary-regular rounded-full"
           >
-            <Link /*  to="/LandingPage" */>
-              <button
-                className=" text-[24px] font-pop text-background-dark font-bold"
-                onClick={() => testip()}
-              >
+            <Link to="/LandingPage">
+              <button className=" text-[24px] font-pop text-background-dark font-bold">
                 Explore Menu
               </button>
             </Link>
@@ -118,7 +127,6 @@ function LoginPage() {
               },
             }}
             className="text-[16px] font-pop text-primary-dark ml-[5px] "
-            onClick={() => testip()}
           >
             Αμέσως!!!
           </m.p>

@@ -1,14 +1,15 @@
 // api.js
 import axios from "axios";
 
-const testip = async () => {
+const getUsersPublicIP = async () => {
   try {
     const response = await axios.get("https://api.ipify.org?format=json");
     const publicIP = response.data.ip; // Extract the public IP from the response
-    console.log("Public IP:", publicIP);
+    console.log(`User reports PublicIP: ${publicIP}`);
+    return publicIP;
   } catch (error) {
-    console.error("Error getting public IP:", error.message);
+    return null;
   }
 };
 
-export default testip;
+export default getUsersPublicIP;

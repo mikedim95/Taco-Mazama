@@ -14,6 +14,7 @@ export const MyProvider = ({ children }) => {
   const [finalBeveragesOrder, setFinalBeveragesOrder] = useState([]);
   const [tableNo, setTableNo] = useState();
   const [totalPrice, setTotalPrice] = useState();
+  const [publicIP, setPublicIP] = useState();
   console.log(tableNo);
 
   return (
@@ -37,6 +38,8 @@ export const MyProvider = ({ children }) => {
         setTableNo,
         setTotalPrice,
         totalPrice,
+        publicIP,
+        setPublicIP,
       }}
     >
       {children}
