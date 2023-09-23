@@ -22,7 +22,6 @@ function BucketPage() {
     totalPrice,
     publicIP,
   } = useMyContext();
-  console.log(publicIP);
   const deleteOrder = (index, type) => {
     if (type === "dish") {
       const updatedFinalDishOrder = [...finalDishOrder];

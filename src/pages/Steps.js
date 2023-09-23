@@ -155,6 +155,7 @@ function Steps() {
       multiplier: multiplier,
       basePrice: basePrice,
       extraCosts: extraCosts,
+      size: size,
     };
     delete addingLastValues.middlePrice;
     delete addingLastValues.largePrice;
@@ -164,6 +165,7 @@ function Steps() {
     // Use the callback form of setFinalDishOrder to access the most recent state
     setFinalDishOrder((prevFinalDishOrder) => {
       const updatedFinalDishOrder = [...prevFinalDishOrder, addingLastValues];
+      console.log(updatedFinalDishOrder);
       return updatedFinalDishOrder;
     });
 
