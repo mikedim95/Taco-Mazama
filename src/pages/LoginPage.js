@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useMyContext } from "../context/UseMyContext";
+import testip from "../helpers/functionalComponents/testip";
 function LoginPage() {
   const { setTableNo } = useMyContext();
   const location = useLocation();
@@ -71,8 +72,11 @@ function LoginPage() {
             transition={{ delay: 2, duration: 0.5 }}
             className=" flex justify-center items-center w-full h-[80px] bg-primary-regular rounded-full"
           >
-            <Link to="/LandingPage">
-              <button className=" text-[24px] font-pop text-background-dark font-bold">
+            <Link /*  to="/LandingPage" */>
+              <button
+                className=" text-[24px] font-pop text-background-dark font-bold"
+                onClick={() => testip()}
+              >
                 Explore Menu
               </button>
             </Link>
@@ -114,6 +118,7 @@ function LoginPage() {
               },
             }}
             className="text-[16px] font-pop text-primary-dark ml-[5px] "
+            onClick={() => testip()}
           >
             Αμέσως!!!
           </m.p>
