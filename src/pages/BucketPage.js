@@ -11,9 +11,7 @@ import postJsonData from "../helpers/functionalComponents/postRequestToBack";
 import MandatoryModal from "../components/MandatoryModal";
 import bell from "../assets/bell.json";
 import Lottie from "lottie-react";
-import { useHistory } from "react-router-dom";
 function BucketPage() {
-  const history = useHistory();
   const [showModal, setShowModal] = useState(false);
   const [errorMesasge, setErrorMesage] = useState();
   const {
@@ -154,7 +152,6 @@ function BucketPage() {
     try {
       const result = await postJsonData(finalOrder);
       console.log(result);
-      history.push("/LandingPage");
     } catch (error) {
       handleModal(error.response.data);
       console.error("Error:", error.response.data);
