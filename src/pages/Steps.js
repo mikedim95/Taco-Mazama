@@ -150,6 +150,7 @@ function Steps() {
     }
   };
   const finalSubmit = () => {
+    console.log(currentDish);
     const addingLastValues = {
       ...currentDish,
       multiplier: multiplier,

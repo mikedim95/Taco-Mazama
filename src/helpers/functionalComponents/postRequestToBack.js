@@ -5,7 +5,6 @@ const postJsonData = async (jsonData) => {
   try {
     const response = await axios.post(
       "https://taco-mazama-api.onrender.com/order",
-      /* "http://localhost:4000/order", */
       jsonData,
       {
         headers: {
@@ -14,10 +13,15 @@ const postJsonData = async (jsonData) => {
       }
     );
     console.log(response.data);
+
+    // Check for a non-OK status and throw an error if needed
+    if (response.status !== 200) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+
     return response;
   } catch (error) {
-    console.error("Error:", error);
-    return error.response;
+    throw error; // Throw the error to ensure it's caught in the catch block in the main workflow
   }
 };
 

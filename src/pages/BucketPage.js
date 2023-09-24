@@ -11,8 +11,9 @@ import postJsonData from "../helpers/functionalComponents/postRequestToBack";
 import MandatoryModal from "../components/MandatoryModal";
 import bell from "../assets/bell.json";
 import Lottie from "lottie-react";
-
+import { useHistory } from "react-router-dom";
 function BucketPage() {
+  const history = useHistory();
   const [showModal, setShowModal] = useState(false);
   const [errorMesasge, setErrorMesage] = useState();
   const {
@@ -29,6 +30,7 @@ function BucketPage() {
     totalPrice,
     publicIP,
   } = useMyContext();
+
   const handleModal = (errorMesasge) => {
     setShowModal(true);
     setErrorMesage(errorMesasge);
@@ -140,24 +142,22 @@ function BucketPage() {
     return price;
   };
   const finalSubmit = async () => {
-    console.log("perasa apo edw");
     const finalOrder = {
       tableNo: parseInt(tableNo),
       dish: finalDishOrder,
       sides: finalSidesOrder,
       beverages: finalBeveragesOrder,
-      price: parseInt(totalPrice),
+      price: totalPrice,
       publicIP: publicIP,
     };
 
     try {
       const result = await postJsonData(finalOrder);
       console.log(result);
-      /* if (result.statusText !== "OK") {
-        handleModal(result.data);
-      } */
+      history.push("/LandingPage");
     } catch (error) {
-      console.error("Error:", error);
+      handleModal(error.response.data);
+      console.error("Error:", error.response.data);
     }
   };
   const beveragePrice = () => {
