@@ -7,22 +7,51 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useMyContext } from "../context/UseMyContext";
-import getUsersPublicIP from "../helpers/functionalComponents/getUsersPublicIP";
+import {
+  fetchPublicIP,
+  fetchAPIResponse,
+} from "../helpers/functionalComponents/validateIPAddress";
 function LoginPage() {
-  const { setTableNo, setPublicIP } = useMyContext();
+  const { setTableNo, setPublicIP, setLegitIP } = useMyContext();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const tableNo = params.get("tableNo");
 
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
+      var publicIP;
+      var theRightIP;
       try {
-        const temp = await getUsersPublicIP(); // Assuming getUsersPublicIP is a function
-        setPublicIP(temp);
+        // Fetch the public IP
+        publicIP = await fetchPublicIP();
+        if (publicIP) {
+          setPublicIP(publicIP);
+        } else {
+          // Handle the case where publicIP is null or undefined
+        }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching public IP:", error);
+        // Handle the error
       }
-    }
+
+      try {
+        // Fetch the API response
+        theRightIP = await fetchAPIResponse();
+        if (theRightIP) {
+          // Compare public IP and the API response
+          if (publicIP === theRightIP) {
+            setLegitIP(true);
+          } else {
+            setLegitIP(false);
+          }
+        } else {
+          // Handle the case where theRightIP is null or undefined
+        }
+      } catch (error) {
+        console.error("Error fetching API response:", error);
+        // Handle the error
+      }
+    };
 
     fetchData();
     setTableNo(tableNo);

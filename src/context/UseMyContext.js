@@ -15,7 +15,7 @@ export const MyProvider = ({ children }) => {
   const [tableNo, setTableNo] = useState();
   const [totalPrice, setTotalPrice] = useState();
   const [publicIP, setPublicIP] = useState();
-  console.log(tableNo);
+  const [legitIP, setLegitIP] = useState(false);
 
   return (
     <MyContext.Provider
@@ -40,6 +40,8 @@ export const MyProvider = ({ children }) => {
         totalPrice,
         publicIP,
         setPublicIP,
+        legitIP,
+        setLegitIP,
       }}
     >
       {children}
