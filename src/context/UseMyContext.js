@@ -14,7 +14,8 @@ export const MyProvider = ({ children }) => {
   const [finalBeveragesOrder, setFinalBeveragesOrder] = useState([]);
   const [tableNo, setTableNo] = useState();
   const [totalPrice, setTotalPrice] = useState();
-  console.log(tableNo);
+  const [publicIP, setPublicIP] = useState();
+  const [legitIP, setLegitIP] = useState(false);
 
   return (
     <MyContext.Provider
@@ -37,6 +38,10 @@ export const MyProvider = ({ children }) => {
         setTableNo,
         setTotalPrice,
         totalPrice,
+        publicIP,
+        setPublicIP,
+        legitIP,
+        setLegitIP,
       }}
     >
       {children}

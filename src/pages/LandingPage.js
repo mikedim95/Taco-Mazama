@@ -15,13 +15,19 @@ import { motion as m } from "framer-motion";
 import { useMyContext } from "../context/UseMyContext";
 import { Link } from "react-router-dom";
 import { sides } from "../helpers/menu";
+import Fab from "@mui/material/Fab";
+import Error from "@mui/icons-material/Error";
 import "./Cart.css";
 
 function LandingPage() {
   const { cartItemCount } = useMyContext();
   const [searchTerm, setSearchTerm] = useState("");
   const [position, setPosition] = useState(1);
-
+  const [expanded, setExpanded] = useState(false);
+  const handleFabClick = () => {
+    setExpanded(!expanded);
+  };
+  const { legitIP } = useMyContext();
   const handleSearch = (term) => {
     const lowercaseTerm = term.toLowerCase();
     setSearchTerm(lowercaseTerm);
@@ -122,6 +128,16 @@ function LandingPage() {
               alt=""
             />
           </div>
+          {!legitIP ? (
+            <Fab
+              color="error"
+              aria-label="add"
+              onClick={handleFabClick}
+              style={{ position: "fixed", bottom: "16px", right: "16px" }}
+            >
+              <Error />
+            </Fab>
+          ) : null}
           <div className="mt-[-35px] ml-[-30px]">
             <div className="flex flex-col items-center">
               <p className="text-black font-pop font-bold">Follow us in</p>

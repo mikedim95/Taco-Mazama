@@ -4,10 +4,16 @@ import cactus from "../assets/cactus.svg";
 import Line from "../assets/Line.svg";
 import { HiArrowCircleLeft } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { useMyContext } from "../context/UseMyContext";
 import ReviewLabel from "../components/ReviewLabel";
 import postJsonData from "../helpers/functionalComponents/postRequestToBack";
+import MandatoryModal from "../components/MandatoryModal";
+import bell from "../assets/bell.json";
+import Lottie from "lottie-react";
 function BucketPage() {
+  const [showModal, setShowModal] = useState(false);
+  const [errorMesasge, setErrorMesage] = useState();
   const {
     finalDishOrder,
     setFinalDishOrder,
@@ -20,8 +26,55 @@ function BucketPage() {
     tableNo,
     setTotalPrice,
     totalPrice,
+    publicIP,
   } = useMyContext();
 
+  const handleModal = (errorMesasge) => {
+    setShowModal(true);
+    setErrorMesage(errorMesasge);
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+  const actionBar = (
+    <div className="mb-[20px]">
+      <button
+        onClick={() => {
+          setTimeout(() => {
+            handleCloseModal();
+          }, 100);
+        }}
+        className="w-[80px] h-[40px] text-[14px] font-pop text-background-dark font-bold bg-[#b3b878] rounded-[40px]"
+      >
+        ΟΚ
+      </button>
+    </div>
+  );
+
+  const modal = (
+    <MandatoryModal onClick={handleCloseModal} actionBar={actionBar}>
+      <div className="flex flex-col justify-start items-start gap-1">
+        <Lottie
+          animationData={bell}
+          speed={0.5}
+          loop={false}
+          className="w-[60px] h-[60px] mt-[-77px]"
+        />
+        <h1
+          className="text-start font-pop font-bold text-gray-600"
+          style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.5)" }}
+        >
+          Ουυπςς !!!
+        </h1>
+      </div>
+      <p
+        className="text-[14px] mt-[2px] mb-[10px] text-start font-pop text-background-dark font-normal"
+        style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.6)" }}
+      >
+        {errorMesasge}
+      </p>
+    </MandatoryModal>
+  );
   const deleteOrder = (index, type) => {
     if (type === "dish") {
       const updatedFinalDishOrder = [...finalDishOrder];
@@ -92,13 +145,16 @@ function BucketPage() {
       dish: finalDishOrder,
       sides: finalSidesOrder,
       beverages: finalBeveragesOrder,
-      price: parseInt(totalPrice),
+      price: totalPrice,
+      publicIP: publicIP,
     };
 
     try {
-      await postJsonData(finalOrder);
+      const result = await postJsonData(finalOrder);
+      console.log(result);
     } catch (error) {
-      console.error("Error:", error.message);
+      handleModal(error.response.data);
+      console.error("Error:", error.response.data);
     }
   };
   const beveragePrice = () => {
@@ -235,10 +291,18 @@ function BucketPage() {
       </div>
       <button
         className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
-        onClick={() => finalSubmit()}
+        onClick={() => {
+          finalSubmit();
+        }}
+        // disabled={
+        //   (phase === "stuffing" && !hasChosen) ||
+        //   (phase === "ingredients" && !hasChosen) ||
+        //   (phase === "salsa" && !hasChosen)
+        // }
       >
-        Επόμενο
+        Υποβολή
       </button>
+      <div>{showModal && modal}</div>
     </div>
   );
 }
