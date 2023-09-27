@@ -16,7 +16,15 @@ export const MyProvider = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState();
   const [publicIP, setPublicIP] = useState();
   const [legitIP, setLegitIP] = useState(false);
-
+  const setCurrentDishToEdit = (key) => {
+    console.log("accepted key: " + key);
+    setCurrentDish(finalDishOrder[key]);
+    console.log("current dish should be: ");
+    console.log(finalDishOrder[key]);
+  };
+  function setCurrentSideToEdit(key) {
+    setCurrentSide(finalSidesOrder[key]);
+  }
   return (
     <MyContext.Provider
       value={{
@@ -42,6 +50,8 @@ export const MyProvider = ({ children }) => {
         setPublicIP,
         legitIP,
         setLegitIP,
+        setCurrentDishToEdit,
+        setCurrentSideToEdit,
       }}
     >
       {children}

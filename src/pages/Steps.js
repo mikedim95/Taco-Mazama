@@ -17,14 +17,24 @@ function Steps() {
     setCurrentDish,
     setFinalDishOrder,
   } = useMyContext();
-
+  console.log(currentDish);
   const navigate = useNavigate();
-  const [basePrice, setBasePrice] = useState(currentDish.middlePrice);
-  const [multiplier, setMultiplier] = useState(1);
-  const [extraCosts, setExtraCosts] = useState(0);
-  const [nextPosition, setNextPosition] = useState(0); /* 
-  setCurrentDish({ ...currentDish, multiplier: multiplier }); */
-  const [size, setSize] = useState("middle");
+  const [basePrice, setBasePrice] = useState(
+    currentDish.basePrice ? currentDish.basePrice : currentDish.middlePrice
+  );
+  const [multiplier, setMultiplier] = useState(
+    currentDish.multiplier ? currentDish.multiplier : 1
+  );
+  const [extraCosts, setExtraCosts] = useState(
+    currentDish.extraCosts ? currentDish.extraCosts : 0
+  );
+  const [nextPosition, setNextPosition] = useState(0);
+  const [comment, setComment] = useState(
+    currentDish.comment ? currentDish.comment : ""
+  );
+  const [size, setSize] = useState(
+    currentDish.size ? currentDish.size : "middle"
+  );
   const scrollToTopRef = useRef(null);
   //count clicks
 
@@ -97,6 +107,8 @@ function Steps() {
           subExtraCost={subExtraCost}
           handleMultiplier={handleMultiplier}
           multiplier={multiplier}
+          handleCommentChange={handleCommentChange}
+          comment={comment}
         />
       );
     }
@@ -106,7 +118,9 @@ function Steps() {
     setCurrentDish({ ...currentDish, multiplier: multiplier });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  const handleCommentChange = (newComment) => {
+    setComment(newComment);
+  };
   const handleSetSize = (size) => {
     setSize(size);
     handleBasePrice(size);
@@ -150,18 +164,15 @@ function Steps() {
     }
   };
   const finalSubmit = () => {
-    console.log(currentDish);
     const addingLastValues = {
       ...currentDish,
       multiplier: multiplier,
       basePrice: basePrice,
       extraCosts: extraCosts,
       size: size,
+      comment: comment,
     };
-    delete addingLastValues.middlePrice;
-    delete addingLastValues.largePrice;
-    delete addingLastValues.img;
-    delete addingLastValues.subtitle;
+
     setCartItemCount(cartItemCount + multiplier);
     // Use the callback form of setFinalDishOrder to access the most recent state
     setFinalDishOrder((prevFinalDishOrder) => {

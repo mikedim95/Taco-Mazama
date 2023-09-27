@@ -7,9 +7,7 @@ import Lottie from "lottie-react";
 
 function OptionLabel({
   ingredient,
-  sidesIngredient,
   selectedItems,
-  selectedSides,
   index,
   handleClick,
   hasChosen,
@@ -17,13 +15,9 @@ function OptionLabel({
   subExtraCost,
   phase,
 }) {
-  const { currentDish, currentSide } = useMyContext();
-  const [isClicked, setIsClicked] = useState(
-    () =>
-      (selectedItems &&
-        selectedItems.some((item) => item === ingredient.title)) ||
-      (selectedSides &&
-        selectedSides.some((piece) => piece === sidesIngredient.title))
+  const { currentDish } = useMyContext();
+  const [isClicked, setIsClicked] = useState(() =>
+    selectedItems.some((item) => item === ingredient.title)
   );
   const normalPrice =
     ingredient.extraPrice > 0
@@ -57,20 +51,12 @@ function OptionLabel({
   console.log("erxetai", extraPrice);
   // eslint-disable-next-line
   useEffect(() => {
-    setIsClicked(
-      (selectedItems &&
-        selectedItems.some((item) => item === ingredient.title)) ||
-        (selectedSides &&
-          selectedSides.some((piece) => piece === sidesIngredient.title))
-    );
+    setIsClicked(selectedItems.some((item) => item === ingredient.title));
   });
   const optionClicked = () => {
     setIsClicked(!isClicked);
-    if (
-      selectedItems.includes(ingredient.title) ||
-      selectedSides.includes(sidesIngredient.title)
-    ) {
-      if (selectedItems.length === 1 || selectedSides.length === 1) {
+    if (selectedItems.includes(ingredient.title)) {
+      if (selectedItems.length === 1) {
         setExtraPrice(normalPrice);
         subExtraCost(normalPrice);
       } else {
@@ -104,7 +90,7 @@ function OptionLabel({
         );
       }
     } else {
-      if (selectedItems.length === 0 || selectedSides.length === 0) {
+      if (selectedItems.length === 0) {
         setExtraPrice(normalPrice);
         addExtraCost(normalPrice);
       } else {
@@ -140,7 +126,6 @@ function OptionLabel({
     }
 
     handleClick(ingredient);
-    handleClick(sidesIngredient);
   };
   const extraPriceElement = hasChosen ? (
     <div className="absolute bottom-[10px] left-[90px] text-[14px] font-pop text-left font-black">
@@ -177,17 +162,15 @@ function OptionLabel({
           style={{ whiteSpace: "pre-line" }}
         >
           {ingredient.title}
-          {sidesIngredient.title}
         </p>
         <p
           className={`${bgGray} pl-[5px] pr-[100px] text-[14px] font-pop text-left font-normal text-textFont-dark`}
         >
           {ingredient.subtitle}
-          {sidesIngredient.subtitle}
         </p>
         <div className="flex row-span-3 ">
           <img
-            src={ingredient.img || sidesIngredient.img}
+            src={ingredient.img}
             alt=""
             className={`${bgGray} w-[90px] h-[120px] absolute top-0 right-0 aspect-[3/2] object-cover items-center rounded-tr-[20px] rounded-br-[20px]`}
           />
@@ -199,7 +182,6 @@ function OptionLabel({
           {extraPriceElement}
           <div className={`${bgGray} absolute bottom-[10px] left-[130px]`}>
             {ingredient.spicy}
-            {sidesIngredient.spicy}
           </div>
         </div>
       </div>

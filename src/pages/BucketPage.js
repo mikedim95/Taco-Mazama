@@ -27,6 +27,7 @@ function BucketPage() {
     setTotalPrice,
     totalPrice,
     publicIP,
+    setCurrentDishToEdit,
   } = useMyContext();
 
   const handleModal = (errorMesasge) => {
@@ -225,6 +226,7 @@ function BucketPage() {
               beverageOrder.multiplier
             }
             onDelete={() => deleteOrder(index, "beverage")}
+            setCurrentDishToEdit={setCurrentDishToEdit}
           />
         );
       })

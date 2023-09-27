@@ -187,9 +187,9 @@ function SidesDisplayer({
                 <OptionLabel
                   key={index}
                   phase={phase}
-                  sidesIngredient={sidesIngredient}
+                  ingredient={sidesIngredient}
                   index={index + sidesIngredient.title}
-                  selectedSides={selectedSides}
+                  selectedItems={selectedSides}
                   handleClick={handleClick}
                   hasChosen={hasChosen}
                   addExtraCost={addExtraCost}

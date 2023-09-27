@@ -6,7 +6,8 @@ import Modal from "../components/Modal";
 import warning from "../assets/warning.json";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import { useMyContext } from "../context/UseMyContext";
 function ReviewLabel({
   handleMultiplier,
   currentDish,
@@ -19,9 +20,10 @@ function ReviewLabel({
   beveragePrice,
   onDelete,
 }) {
+  const { setCurrentDishToEdit } = useMyContext();
   var content = {};
   const [showModal, setShowModal] = useState(false);
-
+  const navigate = useNavigate();
   if (currentDish) {
     content = {
       title: currentDish.title,
@@ -185,14 +187,17 @@ function ReviewLabel({
                 />
               </div>
               <div className="flex justify-start align-bottom">
-                <Link key={index} to={`/Steps`}>
-                  <Lottie
-                    animationData={pen}
-                    speed={0.2}
-                    loop={false}
-                    className="w-[60px] h-[60px] ml-[130px] absolute bottom-0"
-                  />
-                </Link>
+                <Lottie
+                  animationData={pen}
+                  speed={0.2}
+                  loop={false}
+                  className="w-[60px] h-[60px] ml-[130px] absolute bottom-0"
+                  onClick={() => {
+                    setCurrentDishToEdit(index);
+                    // Navigate to the desired link programmatically
+                    navigate(`/Steps`); // Assuming you have access to 'history' from react-router
+                  }}
+                />
               </div>
             </div>
           )}

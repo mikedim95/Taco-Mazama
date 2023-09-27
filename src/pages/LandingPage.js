@@ -17,16 +17,17 @@ import { Link } from "react-router-dom";
 import { sides } from "../helpers/menu";
 import Fab from "@mui/material/Fab";
 import Error from "@mui/icons-material/Error";
+import MandatoryModal from "../components/MandatoryModal";
+import bell from "../assets/bell.json";
+import Lottie from "lottie-react";
 import "./Cart.css";
 
 function LandingPage() {
+  const [showModal, setShowModal] = useState(false);
   const { cartItemCount } = useMyContext();
   const [searchTerm, setSearchTerm] = useState("");
   const [position, setPosition] = useState(1);
-  const [expanded, setExpanded] = useState(false);
-  const handleFabClick = () => {
-    setExpanded(!expanded);
-  };
+
   const { legitIP } = useMyContext();
   const handleSearch = (term) => {
     const lowercaseTerm = term.toLowerCase();
@@ -40,7 +41,52 @@ function LandingPage() {
       setPosition(1);
     }
   };
+  const handleModal = () => {
+    setShowModal(true);
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+  const actionBar = (
+    <div className="mb-[20px]">
+      <button
+        onClick={() => {
+          setTimeout(() => {
+            handleCloseModal();
+          }, 100);
+        }}
+        className="w-[80px] h-[40px] text-[14px] font-pop text-background-dark font-bold bg-[#b3b878] rounded-[40px]"
+      >
+        ΟΚ
+      </button>
+    </div>
+  );
 
+  const modal = (
+    <MandatoryModal onClick={handleCloseModal} actionBar={actionBar}>
+      <div className="flex flex-col justify-start items-start gap-1">
+        <Lottie
+          animationData={bell}
+          speed={0.5}
+          loop={false}
+          className="w-[60px] h-[60px] mt-[-77px]"
+        />
+        <h1
+          className="text-start font-pop font-bold text-gray-600"
+          style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.5)" }}
+        >
+          Προστασία IP
+        </h1>
+      </div>
+      <p
+        className="text-[14px] mt-[2px] mb-[10px] text-start font-pop text-background-dark font-normal"
+        style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.6)" }}
+      >
+        Για λόγους ασφαλείας η εφαρμογή είναι διαθέσιμη μόνο μέσω του WiFi του
+        μαγαζιού.
+      </p>
+    </MandatoryModal>
+  );
   const handleCarouselSwipe = (newPosition, eventData) => {
     setPosition(newPosition);
   };
@@ -132,7 +178,7 @@ function LandingPage() {
             <Fab
               color="error"
               aria-label="add"
-              onClick={handleFabClick}
+              onClick={() => handleModal()}
               style={{ position: "fixed", bottom: "16px", right: "16px" }}
             >
               <Error />
@@ -171,6 +217,7 @@ function LandingPage() {
           </div>
         </div>
       </div>
+      <div>{showModal && modal}</div>
     </div>
   );
 }

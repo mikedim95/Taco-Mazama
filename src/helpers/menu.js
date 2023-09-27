@@ -179,7 +179,7 @@ export const sides = [
   },
   {
     title: "Loaded Nachos",
-    subtitle: "",
+    subtitle: "subtitle",
     price: 7.5,
     img: loadNacho,
   },

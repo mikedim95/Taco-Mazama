@@ -4,6 +4,7 @@ import Line from "../assets/Line.svg";
 import { useMyContext } from "../context/UseMyContext";
 import OptionLabel from "../components/OptionLabel";
 import ReviewLabel from "../components/ReviewLabel";
+import AddComment from "../components/AddComment";
 import mariachi from "../assets/mariachi.wav";
 import bell from "../assets/bell.json";
 import Lottie from "lottie-react";
@@ -20,6 +21,8 @@ function IngredientDisplayer({
   finalSubmit,
   firstButtonPosition,
   handleMultiplier,
+  handleCommentChange,
+  comment,
 }) {
   const { currentDish } = useMyContext();
 
@@ -158,6 +161,13 @@ function IngredientDisplayer({
             <ReviewLabel
               currentDish={currentDish}
               handleMultiplier={handleMultiplier}
+            />
+            <AddComment
+              // Apply style here
+              currentDish={currentDish}
+              handleMultiplier={handleMultiplier}
+              handleCommentChange={handleCommentChange}
+              comment={comment}
             />
           </div>
         ) : (
