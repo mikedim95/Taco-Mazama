@@ -239,7 +239,7 @@ function IngredientDisplayer({
               play();
             }}
           >
-            Υποβολή
+            {currentDish.index ? "Ολοκλήρωση Επεξεργασίας" : "ΥποΒολή"}
           </button>
         ) : (
           <button

@@ -17,8 +17,10 @@ function Steps() {
     setCurrentDish,
     setFinalDishOrder,
   } = useMyContext();
-  console.log(currentDish);
+  console.log(currentDish.index); // Logs the length of the array
+
   const navigate = useNavigate();
+
   const [basePrice, setBasePrice] = useState(
     currentDish.basePrice ? currentDish.basePrice : currentDish.middlePrice
   );
@@ -176,8 +178,21 @@ function Steps() {
     setCartItemCount(cartItemCount + multiplier);
     // Use the callback form of setFinalDishOrder to access the most recent state
     setFinalDishOrder((prevFinalDishOrder) => {
-      const updatedFinalDishOrder = [...prevFinalDishOrder, addingLastValues];
-      console.log(updatedFinalDishOrder);
+      console.log(prevFinalDishOrder);
+      console.log("+");
+      console.log(addingLastValues);
+      var updatedFinalDishOrder;
+      if (!currentDish.index) {
+        console.log("= (πρωτη φορα)");
+        updatedFinalDishOrder = [...prevFinalDishOrder, addingLastValues];
+        console.log(updatedFinalDishOrder);
+      } else {
+        console.log("= (editing)");
+
+        prevFinalDishOrder[currentDish.index] = addingLastValues;
+        updatedFinalDishOrder = prevFinalDishOrder;
+        console.log(updatedFinalDishOrder);
+      }
       return updatedFinalDishOrder;
     });
 

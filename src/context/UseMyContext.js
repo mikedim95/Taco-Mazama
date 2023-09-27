@@ -18,7 +18,7 @@ export const MyProvider = ({ children }) => {
   const [legitIP, setLegitIP] = useState(false);
   const setCurrentDishToEdit = (key) => {
     console.log("accepted key: " + key);
-    setCurrentDish(finalDishOrder[key]);
+    setCurrentDish({ ...finalDishOrder[key], index: key });
     console.log("current dish should be: ");
     console.log(finalDishOrder[key]);
   };

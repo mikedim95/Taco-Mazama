@@ -191,7 +191,7 @@ function BucketPage() {
         );
       })
     : [];
-
+  console.log(finalDishOrder);
   const renderSideOrder = Array.isArray(finalSidesOrder)
     ? finalSidesOrder.map((sideOrder, index) => {
         return (
