@@ -18,7 +18,7 @@ function BeverageOptionLabel({
   console.log(selectedItem);
   // eslint-disable-next-line
   const [localMultiplier, setLocalMultiplier] = useState(
-    selectedItem !== null ? selectedItem.multiplier : 0
+    selectedItem !== undefined ? selectedItem.multiplier : 0
   );
   /*  useEffect(( const [isClicked, setIsClicked] = useState(() =>
     selectedItems.some((item) => item === ingredient.title)

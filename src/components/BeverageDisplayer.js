@@ -66,8 +66,9 @@ function IngredientDisplayer({
             item = selectedItems.find((item) => item.title === beverage.title);
           } catch (warning) {
             console.warn("There are no preselected items");
-            item = null; // or any other default value you want to assign
+            item = undefined; // or any other default value you want to assign
           }
+          console.log(item);
           return (
             <BeverageOptionLabel
               key={index}
@@ -87,7 +88,7 @@ function IngredientDisplayer({
             : "px-[20px] flex justify-between space-x-[10px] items-end"
         } `}
       >
-        {/*  {phase !== "stuffing" ? (
+        {phase !== "softDrinks" ? (
           <button
             className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
             onClick={() => handlePreviousStep(phase, selectedItems)}
@@ -96,40 +97,21 @@ function IngredientDisplayer({
           </button>
         ) : null}
 
-        {phase === "review" ? (
+        {phase !== "drinks" ? (
           <button
             className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center "
-            onClick={() => {
+            onClick={() => handleNextStep(phase, selectedItems)}
+            /*  onClick={() => {
               finalSubmit();
               if (VibrationActive()) {
                 navigator.vibrate([1000, 50, 1000]); // Trigger vibration if VibrationActive returns true
               }
               play();
-            }}
-          >
-            {currentDish.index ? "Ολοκλήρωση Επεξεργασίας" : "Υποολή"}
-          </button>
-        ) : (
-          <button
-            className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
-            onClick={() => {
-              if (
-                (phase === "stuffing" && !hasChosen) ||
-                (phase === "ingredients" && !hasChosen) ||
-                (phase === "salsa" && !hasChosen)
-              ) {
-                handleModal();
-              } else handleNextStep(phase, selectedItems);
-            }}
-            // disabled={
-            //   (phase === "stuffing" && !hasChosen) ||
-            //   (phase === "ingredients" && !hasChosen) ||
-            //   (phase === "salsa" && !hasChosen)
-            // }
+            }} */
           >
             Επόμενο
           </button>
-        )} */}
+        ) : null}
       </div>
     </>
   );

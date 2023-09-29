@@ -9,7 +9,6 @@ function Steps({ nextPosition, stepsNumber }) {
     };
     jsonArray.push(jsonObject);
   }
-  console.log(jsonArray);
   const renderedSteps = jsonArray.map((stp, index) => {
     const clickNext = index === nextPosition;
 

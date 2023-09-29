@@ -62,6 +62,7 @@ function Steps() {
         />
       );
     } else if (nextPosition === 1) {
+      console.log("trying to render the beers");
       return (
         <BeverageDisplayer
           key="beers"
@@ -92,7 +93,7 @@ function Steps() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleNextStep = (category, selection) => {
+  const handleNextStep = () => {
     /*  setCurrentDish({ ...currentDish, [category]: selection }); */
     setNextPosition(nextPosition + 1);
     // scrolling to the top of the page
