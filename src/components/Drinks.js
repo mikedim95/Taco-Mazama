@@ -10,7 +10,13 @@ function Drinks() {
             key={index}
             className="relative w-[50px] h-[50px] rounded-full bg-primary-regular shadow-[2px_2px_3px_rgba(0,0,0,0.5)]"
           >
-            <Link key={index} to={"/BeveragesPage"}>
+            <Link
+              key={index}
+              to={{
+                pathname: "/BeveragesPage",
+                search: `?index=${index}`,
+              }}
+            >
               <img
                 className="absolute top-[10px] left-[10px] w-[30px] h-[30px]"
                 src={drink.img}

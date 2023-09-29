@@ -11,7 +11,7 @@ import LandingPage from "./pages/LandingPage";
 import Steps from "./pages/Steps";
 import RootLayout from "./layouts/RootLayout";
 import BucketPage from "./pages/BucketPage";
-import BeveragesPage from "./pages/BeveragesPage";
+import BeverageSteps from "./pages/BeverageSteps";
 import SidesPage from "./pages/SidesPage";
 // import Table from "./components/Table";
 
@@ -23,7 +23,7 @@ const router = createBrowserRouter(
       <Route path="Steps" element={<Steps />} />
       <Route path="BucketPage" element={<BucketPage />} />
       <Route path="SidesPage" element={<SidesPage />} />
-      <Route path="BeveragesPage" element={<BeveragesPage />} />
+      <Route path="BeveragesPage" element={<BeverageSteps />} />
       {/* <Route path="Table/:tableNo" element={<Table />} /> */}
     </Route>
   )

@@ -9,7 +9,7 @@ import Drinks from "../components/Drinks";
 import fb from "../assets/fb.svg";
 import insta from "../assets/insta.svg";
 import Search from "../components/Search";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { images } from "../helpers/images";
 import { motion as m } from "framer-motion";
 import { useMyContext } from "../context/UseMyContext";
@@ -24,10 +24,42 @@ import "./Cart.css";
 
 function LandingPage() {
   const [showModal, setShowModal] = useState(false);
-  const { cartItemCount } = useMyContext();
+  const {
+    cartItemCount,
+    setCartItemCount,
+    finalDishOrder,
+    finalSidesOrder,
+    finalBeveragesOrder,
+  } = useMyContext();
   const [searchTerm, setSearchTerm] = useState("");
   const [position, setPosition] = useState(1);
+  useEffect(() => {
+    var totalCount = 0;
+    if (Array.isArray(finalDishOrder)) {
+      finalDishOrder.forEach((item) => {
+        console.log(item);
+        // Assuming 'key' is the specific key you want to accumulate
+        totalCount += item.multiplier;
+      });
+    }
+    if (Array.isArray(finalSidesOrder)) {
+      finalSidesOrder.forEach((item) => {
+        console.log(item);
+        // Assuming 'key' is the specific key you want to accumulate
+        totalCount += item.multiplier;
+      });
+    }
+    if (Array.isArray(finalBeveragesOrder)) {
+      finalSidesOrder.forEach((item) => {
+        console.log(item);
+        // Assuming 'key' is the specific key you want to accumulate
+        totalCount += item.multiplier;
+      });
+    }
+    setCartItemCount(totalCount);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const { legitIP } = useMyContext();
   const handleSearch = (term) => {
     const lowercaseTerm = term.toLowerCase();

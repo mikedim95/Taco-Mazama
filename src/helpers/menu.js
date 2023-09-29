@@ -203,96 +203,111 @@ export const sides = [
   },
 ];
 
-export const beverages = [
+export const softDrinks = [
   {
     title: "Coca Cola",
     subtitle: "Κουτάκι Coca Cola 250ml",
     price: 1.5,
     img: nacho,
-    category: "soft drinks",
   },
   {
     title: "Πορτοκαλάδα",
     subtitle: "Κουτάκι Πορτοκαλάδα 250ml",
     price: 1.5,
     img: nacho,
-    category: "soft drinks",
   },
   {
     title: "Λεμονάδα",
     subtitle: "Κουτάκι Λεμονάδα 250ml",
     price: 1.5,
     img: nacho,
-    category: "soft drinks",
   },
   {
     title: "Γκαζόζα",
     subtitle: "Κουτάκι Γκαζόζα 250ml",
     price: 1.5,
     img: nacho,
-    category: "soft drinks",
   },
   {
     title: "Σουρωτή",
     subtitle: "Κουτάκι Σουρωτή 250ml",
     price: 1.5,
     img: nacho,
-    category: "soft drinks",
   },
+];
+export const beers = [
   {
     title: "Νύμφη",
     subtitle: "Μπύρα σε μπουκάλι 330ml",
     price: 3,
     img: nacho,
-    category: "beers",
   },
   {
     title: "Μάμος",
     subtitle: "Μπύρα σε μπουκάλι 330ml",
     price: 3,
     img: nacho,
-    category: "beers",
   },
   {
     title: "Sol",
     subtitle: "Μπύρα σε μπουκάλι 330ml",
     price: 3,
     img: nacho,
-    category: "beers",
   },
   {
     title: "Desperados",
     subtitle: "Μπύρα σε μπουκάλι 330ml",
     price: 5,
     img: nacho,
-    category: "beers",
   },
   {
     title: "Erdinger Weiss",
     subtitle: "Μπύρα σε μπουκάλι 330ml",
     price: 5,
     img: nacho,
-    category: "beers",
   },
   {
     title: "Lagunitas IPA",
     subtitle: "Μπύρα σε μπουκάλι 330ml",
     price: 5,
     img: nacho,
-    category: "beers",
   },
+];
+export const drinks = [
   {
     title: "Frozen Margarita Strawberry",
     subtitle: "Παγωμένη γρανίτα",
-    price: 6,
+    price: 4,
     img: nacho,
-    category: "drinks",
   },
   {
     title: "Frozen Margarita Lime",
     subtitle: "Παγωμένη γρανίτα",
+    price: 4,
+    img: nacho,
+  },
+  {
+    title: "Margarita Classic",
+    subtitle: "Margarita Classic",
     price: 6,
     img: nacho,
-    category: "drinks",
+  },
+  {
+    title: "Paloma",
+    subtitle: "Paloma",
+    price: 6,
+    img: nacho,
+  },
+  {
+    title: "Tequila Sunrise",
+    subtitle: "Tequila",
+    price: 6,
+    img: nacho,
+  },
+  {
+    title: "Tequila σφινάκι",
+    subtitle: "Tequila",
+    price: 2,
+    img: nacho,
   },
 ];

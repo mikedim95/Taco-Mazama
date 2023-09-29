@@ -1,182 +1,121 @@
 import Stepper from "../components/Stepper";
-import { stuffing, ingredients, salsa, extra } from "../helpers/menu";
+import { softDrinks, beers, drinks } from "../helpers/menu";
 import { useMyContext } from "../context/UseMyContext";
-import IngredientDisplayer from "../components/IngredientDisplayer";
+import BeverageDisplayer from "../components/BeverageDisplayer";
 import { motion as m } from "framer-motion";
 import { useNavigate } from "react-router-dom"; /* 
 import postJsonData from "../helpers/functionalComponents/postRequestToBack"; */
 import { useState, useEffect, useRef } from "react";
 import { HiArrowCircleLeft } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import softDrinksImage from "../assets/softDrinks.jpg";
+import beersImage from "../assets/beers.jpg";
+import drinksImage from "../assets/drinks.jpg";
+import { useLocation } from "react-router-dom";
 /* debugger; */
 function Steps() {
-  const {
-    setCartItemCount,
-    cartItemCount,
-    currentDish,
-    setCurrentDish,
-    setFinalDishOrder,
-  } = useMyContext();
-  console.log(currentDish.index); // Logs the length of the array
-
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const step = parseInt(params.get("index"));
+  console.log(step);
+  console.log(softDrinks, beers, drinks);
+  const { finalBeveragesOrderContext, setFinalBeveragesOrderContext } =
+    useMyContext();
   const navigate = useNavigate();
 
-  const [basePrice, setBasePrice] = useState(
-    currentDish.basePrice ? currentDish.basePrice : currentDish.middlePrice
+  const [finalBeveragesOrder, setNexsetFinalBeveragesOrdertPosition] = useState(
+    finalBeveragesOrderContext === undefined
+      ? {
+          beers: [
+            {
+              title: "Νύμφη",
+              subtitle: "Μπύρα σε μπουκάλι 330ml",
+              price: 3,
+              multiplier: 1,
+            },
+            {
+              title: "Μάμος",
+              subtitle: "Μπύρα σε μπουκάλι 330ml",
+              price: 3,
+              multiplier: 2,
+            },
+          ],
+        }
+      : finalBeveragesOrderContext
   );
-  const [multiplier, setMultiplier] = useState(
-    currentDish.multiplier ? currentDish.multiplier : 1
-  );
-  const [extraCosts, setExtraCosts] = useState(
-    currentDish.extraCosts ? currentDish.extraCosts : 0
-  );
-  const [nextPosition, setNextPosition] = useState(0);
-  const [comment, setComment] = useState(
-    currentDish.comment ? currentDish.comment : ""
-  );
-  const [size, setSize] = useState(
-    currentDish.size ? currentDish.size : "middle"
-  );
+  console.log(finalBeveragesOrder.beers);
+  const [nextPosition, setNextPosition] = useState(step);
+  console.log(nextPosition);
   const scrollToTopRef = useRef(null);
   //count clicks
 
   const order = () => {
     if (nextPosition === 0) {
       return (
-        <IngredientDisplayer
-          key="stuffing"
-          phase={"stuffing"}
-          content={stuffing}
+        <BeverageDisplayer
+          key="softDrinks"
+          phase={"softDrinks"}
+          content={softDrinks}
+          selectedItems={finalBeveragesOrder.softDrinks}
           handleNextStep={handleNextStep}
-          message={"Διάλεξε τη Γέμισή σου"}
-          messageSub={"*Θα πρέπει να κάνετε τουλάχιστον 1 επιλογή"}
-          addExtraCost={addExtraCost}
-          subExtraCost={subExtraCost}
-          firstButtonPosition
+          message={"Διάλεξετα αναψυκτικά σου"}
         />
       );
     } else if (nextPosition === 1) {
       return (
-        <IngredientDisplayer
-          key="ingredients"
-          phase={"ingredients"}
-          content={ingredients}
+        <BeverageDisplayer
+          key="beers"
+          phase={"beers"}
+          content={beers}
+          selectedItems={finalBeveragesOrder.beers}
           handleNextStep={handleNextStep}
           handlePreviousStep={handlePreviousStep}
-          message={"Διάλεξε τα υλικά σου"}
-          messageSub={"*Θα πρέπει να κάνετε τουλάχιστον 1 επιλογή"}
-          addExtraCost={addExtraCost}
-          subExtraCost={subExtraCost}
+          message={"Διάλεξε τις μπύρες σου"}
         />
       );
     } else if (nextPosition === 2) {
       return (
-        <IngredientDisplayer
-          key="salsa"
-          phase={"salsa"}
-          content={salsa}
-          handleNextStep={handleNextStep}
+        <BeverageDisplayer
+          key="drinks"
+          phase={"drinks"}
+          content={drinks}
+          selectedItems={finalBeveragesOrder.drinks}
           handlePreviousStep={handlePreviousStep}
-          message={"Διάλεξε τη Salsas"}
-          messageSub={"*Θα πρέπει να κάνετε τουλάχιστον 1 επιλογή"}
-          addExtraCost={addExtraCost}
-          subExtraCost={subExtraCost}
-        />
-      );
-    } else if (nextPosition === 3) {
-      return (
-        <IngredientDisplayer
-          key="extra"
-          phase={"extra"}
-          content={extra}
-          handleNextStep={handleNextStep}
-          handlePreviousStep={handlePreviousStep}
-          message={"Extra Υλικά"}
-          addExtraCost={addExtraCost}
-          subExtraCost={subExtraCost}
-        />
-      );
-    } else if (nextPosition === 4) {
-      return (
-        <IngredientDisplayer
-          key="review"
-          phase={"review"}
-          currentDish={currentDish}
-          finalSubmit={finalSubmit}
-          handlePreviousStep={handlePreviousStep}
-          message={"Δες τι έχτισες ..."}
-          addExtraCost={addExtraCost}
-          subExtraCost={subExtraCost}
-          handleMultiplier={handleMultiplier}
-          multiplier={multiplier}
-          handleCommentChange={handleCommentChange}
-          comment={comment}
+          message={"Διάλεξε το ποτό σου"}
         />
       );
     }
   };
 
   useEffect(() => {
-    setCurrentDish({ ...currentDish, multiplier: multiplier });
+    /*  setCurrentDish({ ...currentDish, multiplier: multiplier }); */
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const handleCommentChange = (newComment) => {
-    setComment(newComment);
-  };
-  const handleSetSize = (size) => {
-    setSize(size);
-    handleBasePrice(size);
-  };
 
   const handleNextStep = (category, selection) => {
-    setCurrentDish({ ...currentDish, [category]: selection });
+    /*  setCurrentDish({ ...currentDish, [category]: selection }); */
     setNextPosition(nextPosition + 1);
     // scrolling to the top of the page
     scrollToTopRef.current.scrollIntoView({ behavior: "smooth" });
   };
   const handlePreviousStep = (category, selection) => {
     setNextPosition(nextPosition - 1);
-    setCurrentDish({ ...currentDish, [category]: selection });
+    /* setCurrentDish({ ...currentDish, [category]: selection }); */
     // scrolling to the top of the page
     scrollToTopRef.current.scrollIntoView({ behavior: "smooth" });
   };
-  const addExtraCost = (value) => {
-    setExtraCosts(extraCosts + value);
-  };
-  const subExtraCost = (value) => {
-    setExtraCosts(extraCosts - value);
-  };
-  const handleBasePrice = (size) => {
-    switch (size) {
-      case "middle":
-        setBasePrice(7);
-        break;
-      case "big":
-        setBasePrice(12);
-        break;
-      default:
-        setBasePrice(0);
-    }
-  };
 
-  const handleMultiplier = (index, value) => {
-    if (value > 0) {
-      setMultiplier(value);
-      setCurrentDish({ ...currentDish, multiplier: value });
-    }
-  };
   const finalSubmit = () => {
-    const addingLastValues = {
+    /* const addingLastValues = {
       ...currentDish,
       multiplier: multiplier,
       basePrice: basePrice,
       extraCosts: extraCosts,
       size: size,
       comment: comment,
-    };
-
+    }; */
     // Use the callback form of setFinalDishOrder to access the most recent state
-    setFinalDishOrder((prevFinalDishOrder) => {
+    /*  setFinalDishOrder((prevFinalDishOrder) => {
       console.log(prevFinalDishOrder);
       console.log("+");
       console.log(addingLastValues);
@@ -195,7 +134,7 @@ function Steps() {
       return updatedFinalDishOrder;
     });
 
-    navigate("/LandingPage");
+    navigate("/LandingPage"); */
   };
 
   const initialImage = {
@@ -215,7 +154,15 @@ function Steps() {
       >
         <img
           className="w-full h-full mb-[30px] z-0 aspect-[3/2] object-cover items-center rounded-b-[30px]"
-          src={currentDish.img}
+          src={
+            nextPosition === 0
+              ? softDrinksImage
+              : nextPosition === 1
+              ? beersImage
+              : nextPosition === 2
+              ? drinksImage
+              : ""
+          }
           alt=""
         />
         <Link to={"/LandingPage"}>
@@ -224,12 +171,6 @@ function Steps() {
             className="z-10 absolute top-[10px] left-[20px] bg-primary-regular rounded-full"
           />
         </Link>
-        <div
-          className="z-30 p-1 mx-[20px] my-[-10px] absolute top-[90px] left-[20px] right-[20px] rounded-[20px] font-pop italic text-[14px] font-normal backdrop-blur-xl text-center text-white outline-textFont-dark outline outline-[0.2px]"
-          style={{ textShadow: "0 2px 4px rgba(0, 0, 0, 0.8)" }}
-        >
-          {currentDish.subtitle}
-        </div>
       </m.div>
       <m.div
         initial={{ opacity: 0, y: "100%" }}
@@ -238,17 +179,17 @@ function Steps() {
         className="w-full h-full flex flex-col "
       >
         <div className="flex justify-center pl-[5px]">
-          <Stepper nextPosition={nextPosition} stepsNumber={5} />
+          <Stepper nextPosition={nextPosition} stepsNumber={3} />
         </div>
         <div className="flex justify-end relative">
           <h1
             className="absolute right-[30px] top-[-40px] font-pop text-[20px] font-bold text-textFont-dark"
             style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
           >
-            Συνολική Τιμή: {(basePrice + extraCosts) * multiplier} €
+            {/*  Συνολική Τιμή: {(basePrice + extraCosts) * multiplier} € */}
           </h1>
         </div>
-        {currentDish.largePrice !== undefined ? (
+        {/*    {currentDish.largePrice !== undefined ? (
           <div className="flex justify-between mx-[20px] gap-[20px]">
             <button
               className={`w-[150px] h-[40px] top-[5px] ml-[10px] rounded-full ${
@@ -258,7 +199,7 @@ function Steps() {
               } font-pop text-[16px] font-semibold text-center`}
               onClick={() => handleSetSize("middle")}
             >
-              Μεσαίο {currentDish.middlePrice} €
+             Μεσαίο {currentDish.middlePrice} € 
             </button>
             <button
               className={`w-[150px] h-[40px] top-[5px]  rounded-full ${
@@ -285,7 +226,7 @@ function Steps() {
               Ένα μέγεθος {currentDish.middlePrice} €
             </button>
           </div>
-        )}
+        )} */}
 
         <div className="pt-[10px]">{order()}</div>
       </m.div>

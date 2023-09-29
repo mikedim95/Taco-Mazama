@@ -1,9 +1,16 @@
-import { stepnum } from "../helpers/stepnum";
 import img from "../assets/ht.svg";
 import { motion as m } from "framer-motion";
 
-function Steps({ nextPosition }) {
-  const renderedSteps = stepnum.map((stp, index) => {
+function Steps({ nextPosition, stepsNumber }) {
+  const jsonArray = [];
+  for (let i = 0; i < stepsNumber; i++) {
+    const jsonObject = {
+      title: i.toString(),
+    };
+    jsonArray.push(jsonObject);
+  }
+  console.log(jsonArray);
+  const renderedSteps = jsonArray.map((stp, index) => {
     const clickNext = index === nextPosition;
 
     const hat = clickNext ? (

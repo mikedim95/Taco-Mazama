@@ -11,7 +11,8 @@ export const MyProvider = ({ children }) => {
   const [currentDishIndex, setCurrentDishIndex] = useState(0);
   const [finalDishOrder, setFinalDishOrder] = useState([]);
   const [finalSidesOrder, setFinalSidesOrder] = useState([]);
-  const [finalBeveragesOrder, setFinalBeveragesOrder] = useState([]);
+  const [finalBeveragesOrderContext, setFinalBeveragesOrderContext] =
+    useState();
   const [tableNo, setTableNo] = useState();
   const [totalPrice, setTotalPrice] = useState();
   const [publicIP, setPublicIP] = useState();
@@ -36,8 +37,8 @@ export const MyProvider = ({ children }) => {
         setFinalDishOrder,
         finalSidesOrder,
         setFinalSidesOrder,
-        finalBeveragesOrder,
-        setFinalBeveragesOrder,
+        finalBeveragesOrderContext,
+        setFinalBeveragesOrderContext,
         currentDishIndex,
         setCurrentDishIndex,
         cartItemCount,
