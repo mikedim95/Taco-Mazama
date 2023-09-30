@@ -19,36 +19,34 @@ function Steps() {
   const step = parseInt(params.get("index"));
   console.log(step);
   console.log(softDrinks, beers, drinks);
-  const { finalBeveragesOrderContext, setFinalBeveragesOrderContext } =
+  const { finalBeveragesOrder, setFinalBeveragesOrder, setCartItemCount } =
     useMyContext();
   const navigate = useNavigate();
+  console.log(finalBeveragesOrder);
 
-  const [finalBeveragesOrder, setNexsetFinalBeveragesOrdertPosition] = useState(
-    finalBeveragesOrderContext === undefined
-      ? {
-          beers: [
-            {
-              title: "Νύμφη",
-              subtitle: "Μπύρα σε μπουκάλι 330ml",
-              price: 3,
-              multiplier: 1,
-            },
-            {
-              title: "Μάμος",
-              subtitle: "Μπύρα σε μπουκάλι 330ml",
-              price: 3,
-              multiplier: 2,
-            },
-          ],
-        }
-      : finalBeveragesOrderContext
-  );
-  console.log(finalBeveragesOrder.beers);
   const [nextPosition, setNextPosition] = useState(step);
   console.log(nextPosition);
   const scrollToTopRef = useRef(null);
   //count clicks
 
+  const updateSelectedItems = (key, newBeveragesArray, totalLocalPrice) => {
+    console.log(newBeveragesArray);
+    setFinalBeveragesOrder((prevState) => ({
+      ...prevState,
+      [key]: newBeveragesArray,
+    }));
+  };
+  const calculateTotalPrice = (category) => {
+    const beverages = finalBeveragesOrder[category];
+    let totalPrice = 0;
+
+    for (const beverage of beverages) {
+      totalPrice += beverage.price * beverage.multiplier;
+    }
+
+    return totalPrice;
+  };
+  console.log(calculateTotalPrice("beers"));
   const order = () => {
     if (nextPosition === 0) {
       return (
@@ -57,8 +55,10 @@ function Steps() {
           phase={"softDrinks"}
           content={softDrinks}
           selectedItems={finalBeveragesOrder.softDrinks}
+          updateSelectedItems={updateSelectedItems}
           handleNextStep={handleNextStep}
           message={"Διάλεξετα αναψυκτικά σου"}
+          totalPrice={calculateTotalPrice("softDrinks")}
         />
       );
     } else if (nextPosition === 1) {
@@ -69,9 +69,11 @@ function Steps() {
           phase={"beers"}
           content={beers}
           selectedItems={finalBeveragesOrder.beers}
+          updateSelectedItems={updateSelectedItems}
           handleNextStep={handleNextStep}
           handlePreviousStep={handlePreviousStep}
           message={"Διάλεξε τις μπύρες σου"}
+          totalPrice={calculateTotalPrice("beers")}
         />
       );
     } else if (nextPosition === 2) {
@@ -81,17 +83,14 @@ function Steps() {
           phase={"drinks"}
           content={drinks}
           selectedItems={finalBeveragesOrder.drinks}
+          updateSelectedItems={updateSelectedItems}
           handlePreviousStep={handlePreviousStep}
           message={"Διάλεξε το ποτό σου"}
+          totalPrice={calculateTotalPrice("drinks")}
         />
       );
     }
   };
-
-  useEffect(() => {
-    /*  setCurrentDish({ ...currentDish, multiplier: multiplier }); */
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleNextStep = () => {
     /*  setCurrentDish({ ...currentDish, [category]: selection }); */
@@ -104,38 +103,6 @@ function Steps() {
     /* setCurrentDish({ ...currentDish, [category]: selection }); */
     // scrolling to the top of the page
     scrollToTopRef.current.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const finalSubmit = () => {
-    /* const addingLastValues = {
-      ...currentDish,
-      multiplier: multiplier,
-      basePrice: basePrice,
-      extraCosts: extraCosts,
-      size: size,
-      comment: comment,
-    }; */
-    // Use the callback form of setFinalDishOrder to access the most recent state
-    /*  setFinalDishOrder((prevFinalDishOrder) => {
-      console.log(prevFinalDishOrder);
-      console.log("+");
-      console.log(addingLastValues);
-      var updatedFinalDishOrder;
-      if (currentDish.index === undefined) {
-        console.log("= (πρωτη φορα)");
-        updatedFinalDishOrder = [...prevFinalDishOrder, addingLastValues];
-        console.log(updatedFinalDishOrder);
-      } else {
-        console.log("= (editing)");
-
-        prevFinalDishOrder[currentDish.index] = addingLastValues;
-        updatedFinalDishOrder = prevFinalDishOrder;
-        console.log(updatedFinalDishOrder);
-      }
-      return updatedFinalDishOrder;
-    });
-
-    navigate("/LandingPage"); */
   };
 
   const initialImage = {
@@ -187,7 +154,11 @@ function Steps() {
             className="absolute right-[30px] top-[-40px] font-pop text-[20px] font-bold text-textFont-dark"
             style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
           >
-            {/*  Συνολική Τιμή: {(basePrice + extraCosts) * multiplier} € */}
+            Συνολική Τιμή:
+            {parseFloat(calculateTotalPrice("softDrinks")) +
+              parseFloat(calculateTotalPrice("beers")) +
+              parseFloat(calculateTotalPrice("drinks"))}
+            €
           </h1>
         </div>
         {/*    {currentDish.largePrice !== undefined ? (

@@ -9,13 +9,17 @@ function BeverageOptionLabel({
   beverage,
   selectedItem,
   index,
-  handleClick,
-  hasChosen,
-  addExtraCost,
-  subExtraCost,
+  handleMultiplier,
+
   phase,
 }) {
-  console.log(selectedItem);
+  console.log(beverage);
+  const extraPriceElement = (
+    <div className="absolute bottom-[10px] ml-[150px] text-[14px] font-pop text-left font-black">
+      {beverage.price} €
+    </div>
+  );
+
   // eslint-disable-next-line
   const [localMultiplier, setLocalMultiplier] = useState(
     selectedItem !== undefined ? selectedItem.multiplier : 0
@@ -23,7 +27,10 @@ function BeverageOptionLabel({
   /*  useEffect(( const [isClicked, setIsClicked] = useState(() =>
     selectedItems.some((item) => item === ingredient.title)
   );) => {}); */
-
+  const handleLocalMultiplier = (value) => {
+    handleMultiplier(beverage, phase, value);
+    setLocalMultiplier(value);
+  };
   return (
     <div key={index} className="relative ">
       <div
@@ -50,11 +57,16 @@ function BeverageOptionLabel({
           <div
             className={` w-[80px] h-[40px] pl-[-10px] absolute bottom-0 left-0  rounded-tr-[20px] rounded-bl-[20px]`}
           ></div>
+
           <div className="w-[140px] h-[40px] absolute bottom-0 left-0 bg-[#E6C013] rounded-tr-[20px] rounded-bl-[20px]">
             <div className="columns-3">
               <div
                 className=" text-[18px] py-[10px] px-[20px] font-pop text-center font-bold text-black"
-                /*  onClick={() => handleMultiplier(index, content.multiplier - 1)} */
+                onClick={() => {
+                  if (localMultiplier !== 0) {
+                    handleLocalMultiplier(localMultiplier - 1);
+                  }
+                }}
               >
                 <CgMathMinus size="20px" />
               </div>
@@ -63,12 +75,13 @@ function BeverageOptionLabel({
               </div>
               <div
                 className=" text-[18px] py-[10px] font-pop text-center font-bold text-black"
-                /*  onClick={() => handleMultiplier(index, content.multiplier + 1)} */
+                onClick={() => handleLocalMultiplier(localMultiplier + 1)}
               >
                 <CgMathPlus size="20px" />
               </div>
             </div>
           </div>
+          {extraPriceElement}
         </div>
       </div>
     </div>

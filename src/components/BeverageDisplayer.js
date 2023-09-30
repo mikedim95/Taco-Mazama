@@ -12,10 +12,12 @@ function IngredientDisplayer({
   handlePreviousStep,
   message,
   selectedItems,
-  finalSubmit,
+  totalPrice,
+  updateSelectedItems,
   firstButtonPosition,
 }) {
-  console.log(selectedItems);
+  console.log(totalPrice);
+
   useEffect(() => {}, []);
   //vibration notification
   const VibrationActive = () => {
@@ -28,15 +30,26 @@ function IngredientDisplayer({
     new Audio(mariachi).play();
   };
 
-  const handleClick = (beverage, multiplier) => {
-    /*  if (finalBeveragesOrder.includes(beverage.title)) {
-      const updatedBeverages = selectedItems.filter(
-        (item) => item !== ingredient.title
+  const handleMultiplier = (beverage, phase, multiplier) => {
+    if (multiplier === 0) {
+      const temp = selectedItems.filter(
+        (item) => item.title !== beverage.title
       );
-      setFinalBeveragesOrder(updatedBeverages);
-    } else {
-      setFinalBeveragesOrder([...finalBeveragesOrder, beverage.title]);
-    } */
+      updateSelectedItems(phase, temp);
+      return;
+    }
+
+    const temp = selectedItems.map((item) =>
+      item.title === beverage.title ? { ...item, multiplier } : item
+    );
+
+    const flag = temp.some((item) => item.title === beverage.title);
+
+    if (!flag) {
+      temp.push({ ...beverage, multiplier });
+    }
+
+    updateSelectedItems(phase, temp);
   };
 
   return (
@@ -46,7 +59,7 @@ function IngredientDisplayer({
           className="absolute top-[5px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
           style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
         >
-          {message}
+          {message} {totalPrice} €
           <div
             className="absolute top-[25px] mr-[-100px] left-[5px] font-pop text-[10px] font-bold text-textFont-dark"
             style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
@@ -76,7 +89,7 @@ function IngredientDisplayer({
               beverage={beverage}
               index={index + beverage.title}
               selectedItem={item}
-              handleClick={handleClick}
+              handleMultiplier={handleMultiplier}
             />
           );
         })}

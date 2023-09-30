@@ -49,12 +49,13 @@ function LandingPage() {
         totalCount += item.multiplier;
       });
     }
-    if (Array.isArray(finalBeveragesOrder)) {
-      finalSidesOrder.forEach((item) => {
-        console.log(item);
-        // Assuming 'key' is the specific key you want to accumulate
-        totalCount += item.multiplier;
-      });
+    for (const category in finalBeveragesOrder) {
+      if (finalBeveragesOrder.hasOwnProperty(category)) {
+        // Iterate over each item in the category and add up the multipliers
+        finalBeveragesOrder[category].forEach((beverage) => {
+          totalCount += beverage.multiplier;
+        });
+      }
     }
     setCartItemCount(totalCount);
 
