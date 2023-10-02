@@ -5,6 +5,7 @@ const MyContext = createContext();
 
 // Create a custom provider component
 export const MyProvider = ({ children }) => {
+  console.log("mounting context");
   const [currentDish, setCurrentDish] = useState();
   const [currentSide, setCurrentSide] = useState();
   const [cartItemCount, setCartItemCount] = useState(0);
@@ -16,7 +17,6 @@ export const MyProvider = ({ children }) => {
     beers: [],
     drinks: [],
   });
-
   const [tableNo, setTableNo] = useState();
   const [totalPrice, setTotalPrice] = useState();
   const [publicIP, setPublicIP] = useState();

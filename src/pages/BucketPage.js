@@ -29,7 +29,7 @@ function BucketPage() {
     publicIP,
     setCurrentDishToEdit,
   } = useMyContext();
-
+  console.log(finalBeveragesOrder);
   const handleModal = (errorMesasge) => {
     setShowModal(true);
     setErrorMesage(errorMesasge);
@@ -96,32 +96,34 @@ function BucketPage() {
     }
   };
 
-  const handleDishMultipliers = (index, value) => {
-    if (value > 0) {
-      const updatedFinalDishOrder = [...finalDishOrder];
-      const oldMultiplier = updatedFinalDishOrder[index].multiplier;
-      updatedFinalDishOrder[index].multiplier = value;
-      setFinalDishOrder(updatedFinalDishOrder);
-      setCartItemCount(cartItemCount - oldMultiplier + value);
-    }
-  };
-  const handleSideMultipliers = (index, value) => {
-    if (value > 0) {
-      const updatedFinalSideOrder = [...finalSidesOrder];
-      const oldMultiplier = updatedFinalSideOrder[index].multiplier;
-      updatedFinalSideOrder[index].multiplier = value;
-      setFinalSidesOrder(updatedFinalSideOrder);
-      setCartItemCount(cartItemCount - oldMultiplier + value);
-    }
-  };
-  const handleBeveragesMultipliers = (index, value) => {
-    if (value > 0) {
-      const updatedFinalBeveragesOrder = [...finalBeveragesOrder];
-      updatedFinalBeveragesOrder[index].multiplier = value;
-      setFinalBeveragesOrder(updatedFinalBeveragesOrder);
-    }
-  };
+  const handleMultiplier = (index, value, type) => {
+    console.log(index, value, type);
+    console.log(finalBeveragesOrder[type]);
+    if (type === "dish") {
+      if (value > 0) {
+        const updatedFinalDishOrder = [...finalDishOrder];
+        const oldMultiplier = updatedFinalDishOrder[index].multiplier;
+        updatedFinalDishOrder[index].multiplier = value;
+        setFinalDishOrder(updatedFinalDishOrder);
+        setCartItemCount(cartItemCount - oldMultiplier + value);
+      }
+    } else if (type === "side") {
+      if (value > 0) {
+        const updatedFinalSideOrder = [...finalSidesOrder];
+        const oldMultiplier = updatedFinalSideOrder[index].multiplier;
+        updatedFinalSideOrder[index].multiplier = value;
+        setFinalSidesOrder(updatedFinalSideOrder);
+        setCartItemCount(cartItemCount - oldMultiplier + value);
+      }
+    } else {
+      if (value > 0) {
+        const updatedFinalBeveragesOrder = { ...finalBeveragesOrder };
 
+        updatedFinalBeveragesOrder[type][index].multiplier = value;
+        setFinalBeveragesOrder(updatedFinalBeveragesOrder);
+      }
+    }
+  };
   const dishPrice = () => {
     let price = 0;
     if (Array.isArray(finalDishOrder)) {
@@ -171,66 +173,30 @@ function BucketPage() {
 
   const overalPrice = dishPrice() + sidePrice() + beveragePrice();
   setTotalPrice(overalPrice);
-  const renderDishOrder = Array.isArray(finalDishOrder)
-    ? finalDishOrder.map((foodOrder, index) => {
-        return (
-          <ReviewLabel
-            key={index}
-            currentDish={foodOrder}
-            index={index}
-            handleMultiplier={handleDishMultipliers}
-            buttonDelete={true}
-            dishPrice={
-              (foodOrder.basePrice + foodOrder.extraCosts) *
-              foodOrder.multiplier
-            }
-            sidePrice={0}
-            beveragePrice={0}
-            onDelete={() => deleteOrder(index, "dish")}
-          />
-        );
-      })
-    : [];
-  console.log(finalDishOrder);
-  const renderSideOrder = Array.isArray(finalSidesOrder)
-    ? finalSidesOrder.map((sideOrder, index) => {
-        return (
-          <ReviewLabel
-            key={index}
-            currentSide={sideOrder}
-            index={index}
-            handleMultiplier={handleSideMultipliers}
-            buttonDelete={true}
-            dishPrice={0}
-            sidePrice={sideOrder.price * sideOrder.multiplier}
-            beveragePrice={0}
-            onDelete={() => deleteOrder(index, "side")}
-          />
-        );
-      })
-    : [];
-
-  const renderBeveragesOrder = Array.isArray(finalBeveragesOrder)
-    ? finalBeveragesOrder.map((beverageOrder, index) => {
-        return (
-          <ReviewLabel
-            key={index}
-            currentBeverage={beverageOrder}
-            index={index}
-            handleMultiplier={handleBeveragesMultipliers}
-            buttonDelete={true}
-            dishPrice={0}
-            sidePrice={0}
-            beveragePrice={
-              (beverageOrder.basePrice + beverageOrder.extraCosts) *
-              beverageOrder.multiplier
-            }
-            onDelete={() => deleteOrder(index, "beverage")}
-            setCurrentDishToEdit={setCurrentDishToEdit}
-          />
-        );
-      })
-    : [];
+  const renderOrder = (order, type) =>
+    Array.isArray(order)
+      ? order.map((selection, index) => {
+          return (
+            <ReviewLabel
+              key={index}
+              selection={selection}
+              index={index}
+              handleMultiplier={handleMultiplier}
+              buttonDelete={true}
+              type={type}
+              selectionPrice={
+                selection.basePrice
+                  ? (selection.basePrice + selection.extraCosts) *
+                    selection.multiplier
+                  : selection.price
+              }
+              sidePrice={0}
+              beveragePrice={0}
+              onDelete={() => deleteOrder(index, "dish")}
+            />
+          );
+        }, console.log(order))
+      : [];
 
   return (
     <div className="max-w-screen-sm h-screen mx-auto bg-background-light overflow-y-scroll">
@@ -275,32 +241,101 @@ function BucketPage() {
           Συνολική Τιμή: {overalPrice} €
         </h1>
       </div>
-      <div className="flex justify-start relative ">
-        <h1
-          className="absolute top-[30px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
-          style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
-        >
-          Η Παραγγελία σου ...
-        </h1>
-      </div>
-      <div className="pt-[65px] pl-[30px] mr-[20px]">
-        <img className="w-full" src={Line} alt="" />
-      </div>
-      <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
-        {renderDishOrder}
-        {renderSideOrder}
-        {renderBeveragesOrder}
-      </div>
+      {finalDishOrder.length > 0 ? (
+        <div>
+          <div className="flex justify-start relative ">
+            <h1
+              className="absolute top-[30px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
+              style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
+            >
+              Για πρώτο πιάτο ...
+            </h1>
+          </div>
+          <div className="pt-[65px] pl-[30px] mr-[20px]">
+            <img className="w-full" src={Line} alt="" />
+          </div>
+          <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
+            {renderOrder(finalDishOrder, "dish")}
+          </div>
+        </div>
+      ) : null}
+      {finalSidesOrder.length > 0 ? (
+        <div>
+          <div className="flex justify-start relative ">
+            <h1
+              className="absolute top-[30px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
+              style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
+            >
+              Για συνοδευτικό ...
+            </h1>
+          </div>
+          <div className="pt-[65px] pl-[30px] mr-[20px]">
+            <img className="w-full" src={Line} alt="" />
+          </div>
+          <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
+            {renderOrder(finalSidesOrder, "side")}
+          </div>
+        </div>
+      ) : null}{" "}
+      {finalBeveragesOrder.beers.length > 0 ? (
+        <div>
+          <div className="flex justify-start relative ">
+            <h1
+              className="absolute top-[30px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
+              style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
+            >
+              Για μπύρες ...
+            </h1>
+          </div>
+          <div className="pt-[65px] pl-[30px] mr-[20px]">
+            <img className="w-full" src={Line} alt="" />
+          </div>
+          <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
+            {renderOrder(finalBeveragesOrder.beers, "beers")}
+          </div>
+        </div>
+      ) : null}{" "}
+      {finalBeveragesOrder.softDrinks.length > 0 ? (
+        <div>
+          <div className="flex justify-start relative ">
+            <h1
+              className="absolute top-[30px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
+              style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
+            >
+              Για αναψυκτικά ...
+            </h1>
+          </div>
+          <div className="pt-[65px] pl-[30px] mr-[20px]">
+            <img className="w-full" src={Line} alt="" />
+          </div>
+          <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
+            {renderOrder(finalBeveragesOrder.softDrinks, "softDrinks")}
+          </div>
+        </div>
+      ) : null}{" "}
+      {finalBeveragesOrder.drinks.length > 0 ? (
+        <div>
+          <div className="flex justify-start relative ">
+            <h1
+              className="absolute top-[30px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
+              style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
+            >
+              Για ποτά ...
+            </h1>
+          </div>
+          <div className="pt-[65px] pl-[30px] mr-[20px]">
+            <img className="w-full" src={Line} alt="" />
+          </div>
+          <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
+            {renderOrder(finalBeveragesOrder.drinks, "drinks")}
+          </div>
+        </div>
+      ) : null}
       <button
         className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
         onClick={() => {
           finalSubmit();
         }}
-        // disabled={
-        //   (phase === "stuffing" && !hasChosen) ||
-        //   (phase === "ingredients" && !hasChosen) ||
-        //   (phase === "salsa" && !hasChosen)
-        // }
       >
         Υποβολή
       </button>
@@ -308,5 +343,4 @@ function BucketPage() {
     </div>
   );
 }
-
 export default BucketPage;

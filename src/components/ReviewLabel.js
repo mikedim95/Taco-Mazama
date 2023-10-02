@@ -10,68 +10,56 @@ import { useNavigate } from "react-router-dom";
 import { useMyContext } from "../context/UseMyContext";
 function ReviewLabel({
   handleMultiplier,
-  currentDish,
-  currentSide,
-  currentBeverage,
+  selection,
+  selectionPrice,
   index,
   buttonDelete,
-  dishPrice,
-  sidePrice,
-  beveragePrice,
   onDelete,
+  type,
 }) {
+  console.log(selection);
+  console.log(selectionPrice);
   const { setCurrentDishToEdit } = useMyContext();
   var content = {};
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-  if (currentDish) {
+  console.log(type);
+  if (type === "dish") {
     content = {
-      title: currentDish.title,
+      title: selection.title,
       subtitle: [
-        currentDish.stuffing && currentDish.stuffing.length > 0
-          ? currentDish.stuffing.join(", ")
+        selection.stuffing && selection.stuffing.length > 0
+          ? selection.stuffing.join(", ")
           : null,
-        currentDish.ingredients && currentDish.ingredients.length > 0
-          ? currentDish.ingredients.join(", ")
+        selection.ingredients && selection.ingredients.length > 0
+          ? selection.ingredients.join(", ")
           : null,
-        currentDish.salsa && currentDish.salsa.length > 0
-          ? currentDish.salsa.join(", ")
+        selection.salsa && selection.salsa.length > 0
+          ? selection.salsa.join(", ")
           : null,
-        currentDish.extra && currentDish.extra.length > 0
-          ? currentDish.extra.join(", ")
+        selection.extra && selection.extra.length > 0
+          ? selection.extra.join(", ")
           : null,
       ]
         .filter((item) => item !== null) // Remove null entries
         .join(", "),
-      multiplier: currentDish.multiplier,
+      multiplier: selection.multiplier,
     };
-  } else if (currentSide) {
+    console.log(content);
+  } else if (type === "side") {
+    /* content = {
+      title: selection.title,
+      subtitle: selection.subtitle,
+      multiplier: selection.multiplier,
+    }; */
+  } else {
+    // Θα είναι είτε μπύρα είτε ποτό είτε αναψυκτικό
     content = {
-      title: currentSide.title,
-      subtitle: [
-        currentDish.stuffing && currentDish.stuffing.length > 0
-          ? currentDish.stuffing.join(", ")
-          : null,
-        currentSide.ingredients && currentSide.ingredients.length > 0
-          ? currentSide.ingredients.join(", ")
-          : null,
-        currentSide.salsa && currentSide.salsa.length > 0
-          ? currentSide.salsa.join(", ")
-          : null,
-        currentSide.extra && currentSide.extra.length > 0
-          ? currentSide.extra.join(", ")
-          : null,
-      ]
-        .filter((item) => item !== null) // Remove null entries
-        .join(", "),
-      multiplier: currentSide.multiplier,
+      title: selection.title,
+      subtitle: selection.subtitle,
+      multiplier: selection.multiplier,
     };
-  } else if (currentBeverage) {
-    content = {
-      title: currentBeverage.title,
-      subtitle: currentBeverage.subtitle,
-      multiplier: currentBeverage.multiplier,
-    };
+    console.log(content);
   }
 
   const handleModal = () => {
@@ -142,9 +130,9 @@ function ReviewLabel({
           className="absolute right-[10px] top-[10px] font-pop text-[13px] font-bold text-textFont-dark"
           style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
         >
-          {dishPrice > 0 && <span>{dishPrice} €</span>}
-          {sidePrice > 0 && <span>{sidePrice} €</span>}
-          {beveragePrice > 0 && <span>{beveragePrice} €</span>}
+          <span>
+            {selectionPrice !== undefined ? selectionPrice + "€" : ""}{" "}
+          </span>
         </div>
         <div className="pt-[20px] pl-[10px] text-[18px] font-pop text-left font-bold text-textFont-dark">
           {content.title}
@@ -157,7 +145,9 @@ function ReviewLabel({
             <div className="columns-3">
               <div
                 className=" text-[18px] py-[10px] px-[20px] font-pop text-center font-bold text-black"
-                onClick={() => handleMultiplier(index, content.multiplier - 1)}
+                onClick={() =>
+                  handleMultiplier(index, content.multiplier - 1, type)
+                }
               >
                 <CgMathMinus size="20px" />
               </div>
@@ -166,7 +156,9 @@ function ReviewLabel({
               </div>
               <div
                 className=" text-[18px] py-[10px] font-pop text-center font-bold text-black"
-                onClick={() => handleMultiplier(index, content.multiplier + 1)}
+                onClick={() =>
+                  handleMultiplier(index, content.multiplier + 1, type)
+                }
               >
                 <CgMathPlus size="20px" />
               </div>
@@ -193,9 +185,18 @@ function ReviewLabel({
                   loop={false}
                   className="w-[60px] h-[60px] ml-[130px] absolute bottom-0"
                   onClick={() => {
-                    setCurrentDishToEdit(index);
-                    // Navigate to the desired link programmatically
-                    navigate(`/Steps`); // Assuming you have access to 'history' from react-router
+                    if (type === "dish") {
+                      setCurrentDishToEdit(index);
+                      navigate(`/Steps`);
+                    } else if (type === "sides") {
+                      /*   navigate(`/Steps`); */
+                    } else if (type === "drinks") {
+                      navigate(`/BeveragesPage?index=2`);
+                    } else if (type === "beers") {
+                      navigate(`/BeveragesPage?index=1`);
+                    } else if (type === "softDrinks") {
+                      navigate(`/BeveragesPage?index=0`);
+                    }
                   }}
                 />
               </div>

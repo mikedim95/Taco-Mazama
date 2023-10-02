@@ -135,7 +135,7 @@ function IngredientDisplayer({
       </p>
     </MandatoryModal>
   );
-
+  console.log(currentDish);
   return (
     <>
       <div className="flex justify-start relative ">
@@ -159,8 +159,9 @@ function IngredientDisplayer({
         {finalSubmit ? (
           <div>
             <ReviewLabel
-              currentDish={currentDish}
+              selection={currentDish}
               handleMultiplier={handleMultiplier}
+              type={"dish"}
             />
             <AddComment
               // Apply style here
