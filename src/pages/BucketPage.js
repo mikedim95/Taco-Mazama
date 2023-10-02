@@ -14,6 +14,7 @@ import Lottie from "lottie-react";
 function BucketPage() {
   const [showModal, setShowModal] = useState(false);
   const [errorMesasge, setErrorMesage] = useState();
+  const [overalPrice, setOveralPrice] = useState(0);
   const {
     finalDishOrder,
     setFinalDishOrder,
@@ -27,7 +28,6 @@ function BucketPage() {
     setTotalPrice,
     totalPrice,
     publicIP,
-    setCurrentDishToEdit,
   } = useMyContext();
   console.log(finalBeveragesOrder);
   const handleModal = (errorMesasge) => {
@@ -51,10 +51,10 @@ function BucketPage() {
       </button>
     </div>
   );
-  let overalPrice = 0;
   useEffect(() => {
-    overalPrice = dishPrice() + sidePrice() + beveragePrice();
-    setTotalPrice(overalPrice);
+    const temp = dishPrice() + sidePrice() + beveragePrice();
+    setOveralPrice(temp);
+    setTotalPrice(temp);
   }, [finalDishOrder, finalSidesOrder, finalBeveragesOrder]);
   const modal = (
     <MandatoryModal onClick={handleCloseModal} actionBar={actionBar}>
