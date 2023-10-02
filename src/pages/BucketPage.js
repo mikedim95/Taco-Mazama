@@ -4,7 +4,7 @@ import cactus from "../assets/cactus.svg";
 import Line from "../assets/Line.svg";
 import { HiArrowCircleLeft } from "react-icons/hi";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMyContext } from "../context/UseMyContext";
 import ReviewLabel from "../components/ReviewLabel";
 import postJsonData from "../helpers/functionalComponents/postRequestToBack";
@@ -51,7 +51,11 @@ function BucketPage() {
       </button>
     </div>
   );
-
+  let overalPrice = 0;
+  useEffect(() => {
+    overalPrice = dishPrice() + sidePrice() + beveragePrice();
+    setTotalPrice(overalPrice);
+  }, [finalDishOrder, finalSidesOrder, finalBeveragesOrder]);
   const modal = (
     <MandatoryModal onClick={handleCloseModal} actionBar={actionBar}>
       <div className="flex flex-col justify-start items-start gap-1">
@@ -171,8 +175,6 @@ function BucketPage() {
     return price;
   };
 
-  const overalPrice = dishPrice() + sidePrice() + beveragePrice();
-  setTotalPrice(overalPrice);
   const renderOrder = (order, type) =>
     Array.isArray(order)
       ? order.map((selection, index) => {
