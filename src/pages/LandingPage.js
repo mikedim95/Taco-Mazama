@@ -34,6 +34,7 @@ function LandingPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [position, setPosition] = useState(1);
   useEffect(() => {
+    console.log(finalDishOrder);
     var totalCount = 0;
     if (Array.isArray(finalDishOrder)) {
       finalDishOrder.forEach((item) => {

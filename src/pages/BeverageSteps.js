@@ -31,6 +31,16 @@ function Steps() {
 
   const updateSelectedItems = (key, newBeveragesArray, totalLocalPrice) => {
     console.log(newBeveragesArray);
+    const updatedLocalStorageValue = {
+      ...JSON.parse(localStorage.getItem("finalBeveragesOrder")),
+      [key]: newBeveragesArray,
+    };
+    console.log(updatedLocalStorageValue);
+    localStorage.setItem(
+      "finalBeveragesOrder",
+      JSON.stringify(updatedLocalStorageValue)
+    );
+
     setFinalBeveragesOrder((prevState) => ({
       ...prevState,
       [key]: newBeveragesArray,

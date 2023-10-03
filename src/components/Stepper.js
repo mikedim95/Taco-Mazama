@@ -3,7 +3,7 @@ import { motion as m } from "framer-motion";
 
 function Steps({ nextPosition, stepsNumber }) {
   const jsonArray = [];
-  for (let i = 0; i < stepsNumber; i++) {
+  for (let i = 1; i < stepsNumber + 1; i++) {
     const jsonObject = {
       title: i.toString(),
     };

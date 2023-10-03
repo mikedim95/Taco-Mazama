@@ -5,7 +5,6 @@ import pen from "../assets/pen.json";
 import Modal from "../components/Modal";
 import warning from "../assets/warning.json";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useMyContext } from "../context/UseMyContext";
 function ReviewLabel({
@@ -178,28 +177,30 @@ function ReviewLabel({
                   className="mb-[10px]"
                 />
               </div>
-              <div className="flex justify-start align-bottom">
-                <Lottie
-                  animationData={pen}
-                  speed={0.2}
-                  loop={false}
-                  className="w-[60px] h-[60px] ml-[130px] absolute bottom-0"
-                  onClick={() => {
-                    if (type === "dish") {
-                      setCurrentDishToEdit(index);
-                      navigate(`/Steps`);
-                    } else if (type === "sides") {
-                      /*   navigate(`/Steps`); */
-                    } else if (type === "drinks") {
-                      navigate(`/BeveragesPage?index=2`);
-                    } else if (type === "beers") {
-                      navigate(`/BeveragesPage?index=1`);
-                    } else if (type === "softDrinks") {
-                      navigate(`/BeveragesPage?index=0`);
-                    }
-                  }}
-                />
-              </div>
+              {type === "dish" || type === "side" ? (
+                <div className="flex justify-start align-bottom">
+                  <Lottie
+                    animationData={pen}
+                    speed={0.2}
+                    loop={false}
+                    className="w-[60px] h-[60px] ml-[130px] absolute bottom-0"
+                    onClick={() => {
+                      if (type === "dish") {
+                        setCurrentDishToEdit(index);
+                        navigate(`/Steps`);
+                      } else if (type === "sides") {
+                        /*   navigate(`/Steps`); */
+                      } else if (type === "drinks") {
+                        navigate(`/BeveragesPage?index=2`);
+                      } else if (type === "beers") {
+                        navigate(`/BeveragesPage?index=1`);
+                      } else if (type === "softDrinks") {
+                        navigate(`/BeveragesPage?index=0`);
+                      }
+                    }}
+                  />
+                </div>
+              ) : null}
             </div>
           )}
         </div>

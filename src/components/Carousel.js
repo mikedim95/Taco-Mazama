@@ -20,13 +20,18 @@ function Carousel({ images, position, searchTerm, onSwipe, onClick }) {
   const { setCurrentDish } = useMyContext();
 
   const handleItemClick = (item) => {
-    setCurrentDish({
+    const temp = {
       img: item.img,
       middlePrice: item.middlePrice,
       largePrice: item.largePrice,
       title: item.title,
       subtitle: item.subtitle,
-    });
+    };
+
+    setCurrentDish(temp);
+
+    // Update LocalStorage
+    localStorage.setItem("currentDish", JSON.stringify(temp));
   };
   return (
     <div {...swipeHandlers} className="App">

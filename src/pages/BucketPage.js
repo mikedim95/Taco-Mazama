@@ -81,21 +81,34 @@ function BucketPage() {
     </MandatoryModal>
   );
   const deleteOrder = (index, type) => {
+    console.log(type);
     if (type === "dish") {
       const updatedFinalDishOrder = [...finalDishOrder];
       const deletedMultiplier = updatedFinalDishOrder[index].multiplier;
       updatedFinalDishOrder.splice(index, 1);
+      localStorage.setItem(
+        "finalDishOrder",
+        JSON.stringify(updatedFinalDishOrder)
+      );
       setFinalDishOrder(updatedFinalDishOrder);
       setCartItemCount(cartItemCount - deletedMultiplier);
     } else if (type === "side") {
       const updatedFinalSideOrder = [...finalSidesOrder];
       const deletedMultiplier = updatedFinalSideOrder[index].multiplier;
       updatedFinalSideOrder.splice(index, 1);
+      localStorage.setItem(
+        "finalSidesOrder",
+        JSON.stringify(updatedFinalSideOrder)
+      );
       setFinalSidesOrder(updatedFinalSideOrder);
       setCartItemCount(cartItemCount - deletedMultiplier);
-    } else if (type === "beverage") {
-      const updatedFinalBeveragesOrder = [...finalBeveragesOrder];
-      updatedFinalBeveragesOrder.splice(index, 1);
+    } else {
+      const updatedFinalBeveragesOrder = { ...finalBeveragesOrder };
+      updatedFinalBeveragesOrder[type].splice(index, 1);
+      localStorage.setItem(
+        "finalBeveragesOrder",
+        JSON.stringify(updatedFinalBeveragesOrder)
+      );
       setFinalBeveragesOrder(updatedFinalBeveragesOrder);
     }
   };
@@ -124,6 +137,7 @@ function BucketPage() {
         const updatedFinalBeveragesOrder = { ...finalBeveragesOrder };
 
         updatedFinalBeveragesOrder[type][index].multiplier = value;
+        console.log(updatedFinalBeveragesOrder[type][index]);
         setFinalBeveragesOrder(updatedFinalBeveragesOrder);
       }
     }
@@ -166,10 +180,19 @@ function BucketPage() {
   };
   const beveragePrice = () => {
     let price = 0;
-    if (Array.isArray(finalBeveragesOrder)) {
-      finalBeveragesOrder.forEach((beverage) => {
-        price +=
-          (beverage.basePrice + beverage.extraCosts) * beverage.multiplier;
+    if (Array.isArray(finalBeveragesOrder.beers)) {
+      finalBeveragesOrder.beers.forEach((beverage) => {
+        price += beverage.price * beverage.multiplier;
+      });
+    }
+    if (Array.isArray(finalBeveragesOrder.drinks)) {
+      finalBeveragesOrder.drinks.forEach((beverage) => {
+        price += beverage.price * beverage.multiplier;
+      });
+    }
+    if (Array.isArray(finalBeveragesOrder.softDrinks)) {
+      finalBeveragesOrder.softDrinks.forEach((beverage) => {
+        price += beverage.price * beverage.multiplier;
       });
     }
     return price;
@@ -194,7 +217,7 @@ function BucketPage() {
               }
               sidePrice={0}
               beveragePrice={0}
-              onDelete={() => deleteOrder(index, "dish")}
+              onDelete={() => deleteOrder(index, type)}
             />
           );
         }, console.log(order))
@@ -333,14 +356,20 @@ function BucketPage() {
           </div>
         </div>
       ) : null}
-      <button
-        className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
-        onClick={() => {
-          finalSubmit();
-        }}
-      >
-        Υποβολή
-      </button>
+      {finalBeveragesOrder.beers.length !== 0 ||
+      finalBeveragesOrder.drinks.length !== 0 ||
+      finalBeveragesOrder.softDrinks.length !== 0 ||
+      finalDishOrder.length !== 0 ||
+      finalSidesOrder.length !== 0 ? (
+        <button
+          className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
+          onClick={() => {
+            finalSubmit();
+          }}
+        >
+          Υποβολή
+        </button>
+      ) : null}
       <div>{showModal && modal}</div>
     </div>
   );

@@ -10,14 +10,8 @@ import { HiArrowCircleLeft } from "react-icons/hi";
 import { Link } from "react-router-dom";
 /* debugger; */
 function Steps() {
-  const {
-    setCartItemCount,
-    cartItemCount,
-    currentDish,
-    setCurrentDish,
-    setFinalDishOrder,
-  } = useMyContext();
-  console.log(currentDish.index); // Logs the length of the array
+  const { currentDish, setCurrentDish, setFinalDishOrder } = useMyContext();
+  console.log(currentDish); // Logs the length of the array
 
   const navigate = useNavigate();
 
@@ -175,7 +169,6 @@ function Steps() {
       comment: comment,
     };
 
-    // Use the callback form of setFinalDishOrder to access the most recent state
     setFinalDishOrder((prevFinalDishOrder) => {
       console.log(prevFinalDishOrder);
       console.log("+");
@@ -192,9 +185,13 @@ function Steps() {
         updatedFinalDishOrder = prevFinalDishOrder;
         console.log(updatedFinalDishOrder);
       }
+      localStorage.setItem(
+        "finalDishOrder",
+        JSON.stringify(updatedFinalDishOrder)
+      );
       return updatedFinalDishOrder;
     });
-
+    localStorage.removeItem("currentDish");
     navigate("/LandingPage");
   };
 
