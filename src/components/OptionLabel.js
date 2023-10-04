@@ -24,16 +24,18 @@ function OptionLabel({
       ? currentDish.title === "Taco" ||
         currentDish.title === "Mulita" ||
         currentDish.title === "Enchilada"
-        ? ingredient.title === "Fajita Mix"
+        ? ingredient.title === "Fajita Mix" || ingredient.title === "Καλαμπόκι"
           ? ingredient.extraPrice - 0.25
-          : ingredient.title === "Καλαμπόκι"
-          ? ingredient.extraPrice
           : ingredient.extraPrice - 0.5
         : ingredient.extraPrice
       : ingredient.extraPrice;
 
   const addedPrice =
-    normalPrice +
+    (phase === "stuffing"
+      ? ingredient.title === "Μοσχαρίσιο Chilli"
+        ? 0
+        : normalPrice
+      : normalPrice) +
     (phase === "stuffing" &&
     currentDish.title !== "Taco" &&
     currentDish.title !== "Mulita" &&
@@ -61,7 +63,11 @@ function OptionLabel({
         subExtraCost(normalPrice);
       } else {
         setExtraPrice(
-          normalPrice +
+          (phase === "stuffing"
+            ? ingredient.title === "Μοσχαρίσιο Chilli"
+              ? 0
+              : normalPrice
+            : normalPrice) +
             (phase === "stuffing" &&
             currentDish.title !== "Taco" &&
             currentDish.title !== "Mulita" &&
@@ -75,7 +81,11 @@ function OptionLabel({
               : 0)
         );
         subExtraCost(
-          normalPrice +
+          (phase === "stuffing"
+            ? ingredient.title === "Μοσχαρίσιο Chilli"
+              ? 0
+              : normalPrice
+            : normalPrice) +
             (phase === "stuffing" &&
             currentDish.title !== "Taco" &&
             currentDish.title !== "Mulita" &&
@@ -95,7 +105,11 @@ function OptionLabel({
         addExtraCost(normalPrice);
       } else {
         setExtraPrice(
-          normalPrice +
+          (phase === "stuffing"
+            ? ingredient.title === "Μοσχαρίσιο Chilli"
+              ? 0
+              : normalPrice
+            : normalPrice) +
             (phase === "stuffing" &&
             currentDish.title !== "Taco" &&
             currentDish.title !== "Mulita" &&
@@ -109,7 +123,11 @@ function OptionLabel({
               : 0)
         );
         addExtraCost(
-          normalPrice +
+          (phase === "stuffing"
+            ? ingredient.title === "Μοσχαρίσιο Chilli"
+              ? 0
+              : normalPrice
+            : normalPrice) +
             (phase === "stuffing" &&
             currentDish.title !== "Taco" &&
             currentDish.title !== "Mulita" &&

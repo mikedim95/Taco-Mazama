@@ -141,7 +141,7 @@ function LoginPage() {
           >
             Πατήστε για να παραγγείλετε...
           </m.p>
-          <m.p
+          {/* <m.p
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{
@@ -158,14 +158,14 @@ function LoginPage() {
             className="text-[16px] font-pop text-primary-dark ml-[5px] "
           >
             Αμέσως!!!
-          </m.p>
+          </m.p> */}
         </div>
         {/* Bottom Sign Up */}
         <div className="flex justify-end items-end -mt-8">
           <m.img
             initial={{ x: 100, opacity: 0, scale: 0 }}
             animate={{ x: 0, opacity: 1, scale: 1, rotateY: [0, 360, 360, 0] }}
-            transition={{ delay: 3.3, duration: 2 }}
+            transition={{ delay: 2, duration: 1.4 }}
             className="w-[85px] h-[170px]"
             src={cactus}
             alt=""

@@ -3,7 +3,6 @@ import pull from "../assets/pulled.jpeg";
 import beef from "../assets/beef.jpeg";
 import vegie from "../assets/vegie.jpeg";
 import mushroom from "../assets/mushroom.jpeg";
-import vegan from "../assets/vegan.jpeg";
 import cheese from "../assets/cheese.jpg";
 import lettuce from "../assets/lettuce.jpg";
 import jalapenos from "../assets/jalapenos.jpeg";
@@ -52,13 +51,6 @@ export const stuffing = [
     extraPrice: 0,
     spicy: "",
     img: mushroom,
-  },
-  {
-    title: "Vegan Special",
-    subtitle: "Παρθένο κοτόπουλο μεγαλωμένο με αγάπη 500γρ.",
-    extraPrice: 1,
-    spicy: "",
-    img: vegan,
   },
 ];
 export const ingredients = [
@@ -117,7 +109,7 @@ export const salsa = [
   {
     title: "Roast Tomato & Chipotle",
     subtitle: "Ψητές ντομάτες, πικάντικο chipotle, αρωματική εναλλαγή γεύσεων.",
-    extraPrice: 1,
+    extraPrice: 0,
     spicy: "🌶️🌶️",
     img: tomato,
   },
