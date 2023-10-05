@@ -118,6 +118,10 @@ function BucketPage() {
         const updatedFinalDishOrder = [...finalDishOrder];
         const oldMultiplier = updatedFinalDishOrder[index].multiplier;
         updatedFinalDishOrder[index].multiplier = value;
+        localStorage.setItem(
+          "finalDishOrder",
+          JSON.stringify(updatedFinalDishOrder)
+        );
         setFinalDishOrder(updatedFinalDishOrder);
         setCartItemCount(cartItemCount - oldMultiplier + value);
       }
@@ -169,7 +173,7 @@ function BucketPage() {
 
     try {
       const result = await postJsonData(finalOrder);
-
+      console.log(result);
       localStorage.removeItem("finalDishOrder");
       localStorage.removeItem("finalSidesOrder");
       localStorage.removeItem("finalBeveragesOrder");
@@ -212,7 +216,7 @@ function BucketPage() {
                 selection.basePrice
                   ? (selection.basePrice + selection.extraCosts) *
                     selection.multiplier
-                  : selection.price
+                  : selection.price * selection.multiplier
               }
               sidePrice={0}
               beveragePrice={0}

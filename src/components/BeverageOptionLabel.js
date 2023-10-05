@@ -1,9 +1,7 @@
 import { CgMathPlus, CgMathMinus } from "react-icons/cg";
 // import tick from "../assets/tick.svg";
-import tick from "../assets/tick.json";
-import { useState, useEffect } from "react";
-import { useMyContext } from "../context/UseMyContext";
-import Lottie from "lottie-react";
+
+import { useState } from "react";
 
 function BeverageOptionLabel({
   beverage,

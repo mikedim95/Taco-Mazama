@@ -18,6 +18,7 @@ function LoginPage() {
   const tableNo = params.get("tableNo");
 
   useEffect(() => {
+    localStorage.setItem("tableNo", JSON.stringify(tableNo));
     const fetchData = async () => {
       var publicIP;
       var theRightIP;

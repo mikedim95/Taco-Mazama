@@ -50,7 +50,6 @@ function OptionLabel({
 
   const [extraPrice, setExtraPrice] = useState(normalPrice || 0); //The local extra price for this particular option
 
-  console.log("erxetai", extraPrice);
   // eslint-disable-next-line
   useEffect(() => {
     setIsClicked(selectedItems.some((item) => item === ingredient.title));
@@ -59,10 +58,10 @@ function OptionLabel({
     setIsClicked(!isClicked);
     if (selectedItems.includes(ingredient.title)) {
       if (selectedItems.length === 1) {
-        setExtraPrice(normalPrice);
+        /* setExtraPrice(normalPrice); */
         subExtraCost(normalPrice);
       } else {
-        setExtraPrice(
+        /*  setExtraPrice(
           (phase === "stuffing"
             ? ingredient.title === "Μοσχαρίσιο Chilli"
               ? 0
@@ -79,7 +78,7 @@ function OptionLabel({
                 phase === "stuffing"
               ? 0.5
               : 0)
-        );
+        ); */
         subExtraCost(
           (phase === "stuffing"
             ? ingredient.title === "Μοσχαρίσιο Chilli"
@@ -101,10 +100,10 @@ function OptionLabel({
       }
     } else {
       if (selectedItems.length === 0) {
-        setExtraPrice(normalPrice);
+        /*  setExtraPrice(normalPrice); */
         addExtraCost(normalPrice);
       } else {
-        setExtraPrice(
+        /* setExtraPrice(
           (phase === "stuffing"
             ? ingredient.title === "Μοσχαρίσιο Chilli"
               ? 0
@@ -121,7 +120,7 @@ function OptionLabel({
                 phase === "stuffing"
               ? 0.5
               : 0)
-        );
+        ); */
         addExtraCost(
           (phase === "stuffing"
             ? ingredient.title === "Μοσχαρίσιο Chilli"

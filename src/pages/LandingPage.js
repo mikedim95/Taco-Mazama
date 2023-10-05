@@ -33,8 +33,8 @@ function LandingPage() {
   } = useMyContext();
   const [searchTerm, setSearchTerm] = useState("");
   const [position, setPosition] = useState(1);
+  let totalCount = 0;
   useEffect(() => {
-    var totalCount = 0;
     if (Array.isArray(finalDishOrder)) {
       finalDishOrder.forEach((item) => {
         // Assuming 'key' is the specific key you want to accumulate
@@ -252,5 +252,4 @@ function LandingPage() {
     </div>
   );
 }
-
 export default LandingPage;

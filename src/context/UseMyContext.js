@@ -5,7 +5,6 @@ const MyContext = createContext();
 
 // Create a custom provider component
 export const MyProvider = ({ children }) => {
-  console.log("mounting context");
   const [currentDish, setCurrentDish] = useState(() => {
     const storedCurrentDish = localStorage.getItem("currentDish");
     return storedCurrentDish ? JSON.parse(storedCurrentDish) : [];
@@ -31,7 +30,11 @@ export const MyProvider = ({ children }) => {
           drinks: [],
         };
   });
-  const [tableNo, setTableNo] = useState();
+  const [tableNo, setTableNo] = useState(
+    localStorage.getItem("finalBeveragesOrder") !== undefined
+      ? parseInt(localStorage.getItem("finalBeveragesOrder"))
+      : null
+  );
   const [totalPrice, setTotalPrice] = useState();
   const [publicIP, setPublicIP] = useState();
   const [legitIP, setLegitIP] = useState(false);

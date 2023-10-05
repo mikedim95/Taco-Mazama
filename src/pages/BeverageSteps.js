@@ -3,9 +3,8 @@ import { softDrinks, beers, drinks } from "../helpers/menu";
 import { useMyContext } from "../context/UseMyContext";
 import BeverageDisplayer from "../components/BeverageDisplayer";
 import { motion as m } from "framer-motion";
-import { useNavigate } from "react-router-dom"; /* 
-import postJsonData from "../helpers/functionalComponents/postRequestToBack"; */
-import { useState, useEffect, useRef } from "react";
+
+import { useState, useRef } from "react";
 import { HiArrowCircleLeft } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import softDrinksImage from "../assets/softDrinks.jpg";
@@ -20,7 +19,6 @@ function Steps() {
 
   const { finalBeveragesOrder, setFinalBeveragesOrder, setCartItemCount } =
     useMyContext();
-  const navigate = useNavigate();
 
   const [nextPosition, setNextPosition] = useState(step);
 
