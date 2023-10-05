@@ -34,9 +34,11 @@ function Steps() {
     };
     if (updatedLocalStorageValue.beers === undefined) {
       updatedLocalStorageValue.beers = [];
-    } else if (updatedLocalStorageValue.drinks === undefined) {
+    }
+    if (updatedLocalStorageValue.drinks === undefined) {
       updatedLocalStorageValue.drinks = [];
-    } else if (updatedLocalStorageValue.softDrinks === undefined) {
+    }
+    if (updatedLocalStorageValue.softDrinks === undefined) {
       updatedLocalStorageValue.softDrinks = [];
     }
     localStorage.setItem(
