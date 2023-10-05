@@ -11,7 +11,9 @@ import postJsonData from "../helpers/functionalComponents/postRequestToBack";
 import MandatoryModal from "../components/MandatoryModal";
 import bell from "../assets/bell.json";
 import Lottie from "lottie-react";
+import { useNavigate } from "react-router-dom";
 function BucketPage() {
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [errorMesasge, setErrorMesage] = useState();
   const [overalPrice, setOveralPrice] = useState(0);
@@ -177,6 +179,15 @@ function BucketPage() {
       localStorage.removeItem("finalDishOrder");
       localStorage.removeItem("finalSidesOrder");
       localStorage.removeItem("finalBeveragesOrder");
+      localStorage.removeItem("currentDish");
+      setFinalDishOrder([]);
+      setFinalSidesOrder([]);
+      setFinalBeveragesOrder({
+        softDrinks: [],
+        beers: [],
+        drinks: [],
+      });
+      navigate("/LandingPage");
     } catch (error) {
       handleModal(error.response.data);
     }
@@ -261,6 +272,11 @@ function BucketPage() {
           className="mix-blend-multiply w-[40px] h-[40px] absolute top-[10px] right-[4px]"
         />
       </div>
+      {/*   {finalDishOrder == [] && finalSidesOrder == []&& finalBeveragesOrder=={beers:[],drinks:[],softDrinks:[]} &&(
+          
+        )
+          
+  } */}
       <div className="flex justify-end relative">
         <h1
           className="absolute right-[30px] top-[-20px] font-pop text-[20px] font-bold text-textFont-dark"
