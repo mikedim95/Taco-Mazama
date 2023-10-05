@@ -13,7 +13,6 @@ function BeverageOptionLabel({
 
   phase,
 }) {
-  console.log(beverage);
   const extraPriceElement = (
     <div className="absolute bottom-[10px] ml-[150px] text-[14px] font-pop text-left font-black">
       {beverage.price} €

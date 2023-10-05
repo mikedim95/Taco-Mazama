@@ -34,18 +34,15 @@ function LandingPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [position, setPosition] = useState(1);
   useEffect(() => {
-    console.log(finalDishOrder);
     var totalCount = 0;
     if (Array.isArray(finalDishOrder)) {
       finalDishOrder.forEach((item) => {
-        console.log(item);
         // Assuming 'key' is the specific key you want to accumulate
         totalCount += item.multiplier;
       });
     }
     if (Array.isArray(finalSidesOrder)) {
       finalSidesOrder.forEach((item) => {
-        console.log(item);
         // Assuming 'key' is the specific key you want to accumulate
         totalCount += item.multiplier;
       });

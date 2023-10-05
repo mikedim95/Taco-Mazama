@@ -30,7 +30,6 @@ function LoginPage() {
           // Handle the case where publicIP is null or undefined
         }
       } catch (error) {
-        console.error("Error fetching public IP:", error);
         // Handle the error
       }
 

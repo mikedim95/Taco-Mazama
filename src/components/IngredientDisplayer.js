@@ -135,7 +135,7 @@ function IngredientDisplayer({
       </p>
     </MandatoryModal>
   );
-  console.log(currentDish);
+
   return (
     <>
       <div className="flex justify-start relative ">

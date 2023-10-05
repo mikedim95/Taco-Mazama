@@ -16,8 +16,6 @@ function IngredientDisplayer({
   updateSelectedItems,
   firstButtonPosition,
 }) {
-  console.log(totalPrice);
-
   useEffect(() => {}, []);
   //vibration notification
   const VibrationActive = () => {
@@ -35,7 +33,7 @@ function IngredientDisplayer({
       const temp = selectedItems.filter(
         (item) => item.title !== beverage.title
       );
-      console.log(temp);
+
       updateSelectedItems(phase, temp);
       return;
     }
@@ -82,7 +80,7 @@ function IngredientDisplayer({
             console.warn("There are no preselected items");
             item = undefined; // or any other default value you want to assign
           }
-          console.log(item);
+
           return (
             <BeverageOptionLabel
               key={index}

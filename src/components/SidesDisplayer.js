@@ -41,7 +41,6 @@ function SidesDisplayer({
     }
   }, [selectedSides]);
 
-  console.log("selectedSides:", selectedSides);
   //vibration notification
   const VibrationActive = () => {
     if (!navigator.vibrate) return false;
@@ -181,8 +180,6 @@ function SidesDisplayer({
               return false;
             })
             .map((sidesIngredient, index) => {
-              console.log("sidesIngredient", sidesIngredient);
-
               return (
                 <OptionLabel
                   key={index}

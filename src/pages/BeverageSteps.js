@@ -17,25 +17,28 @@ function Steps() {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const step = parseInt(params.get("index"));
-  console.log(step);
-  console.log(softDrinks, beers, drinks);
+
   const { finalBeveragesOrder, setFinalBeveragesOrder, setCartItemCount } =
     useMyContext();
   const navigate = useNavigate();
-  console.log(finalBeveragesOrder);
 
   const [nextPosition, setNextPosition] = useState(step);
-  console.log(nextPosition);
+
   const scrollToTopRef = useRef(null);
   //count clicks
 
-  const updateSelectedItems = (key, newBeveragesArray, totalLocalPrice) => {
-    console.log(newBeveragesArray);
+  const updateSelectedItems = (key, newBeveragesArray) => {
     const updatedLocalStorageValue = {
       ...JSON.parse(localStorage.getItem("finalBeveragesOrder")),
       [key]: newBeveragesArray,
     };
-    console.log(updatedLocalStorageValue);
+    if (updatedLocalStorageValue.beers === undefined) {
+      updatedLocalStorageValue.beers = [];
+    } else if (updatedLocalStorageValue.drinks === undefined) {
+      updatedLocalStorageValue.drinks = [];
+    } else if (updatedLocalStorageValue.softDrinks === undefined) {
+      updatedLocalStorageValue.softDrinks = [];
+    }
     localStorage.setItem(
       "finalBeveragesOrder",
       JSON.stringify(updatedLocalStorageValue)
@@ -56,7 +59,7 @@ function Steps() {
 
     return totalPrice;
   };
-  console.log(calculateTotalPrice("beers"));
+
   const order = () => {
     if (nextPosition === 0) {
       return (
@@ -72,7 +75,6 @@ function Steps() {
         />
       );
     } else if (nextPosition === 1) {
-      console.log("trying to render the beers");
       return (
         <BeverageDisplayer
           key="beers"

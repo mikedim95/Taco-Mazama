@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 /* debugger; */
 function Steps() {
   const { currentDish, setCurrentDish, setFinalDishOrder } = useMyContext();
-  console.log(currentDish); // Logs the length of the array
 
   const navigate = useNavigate();
 
@@ -170,20 +169,12 @@ function Steps() {
     };
 
     setFinalDishOrder((prevFinalDishOrder) => {
-      console.log(prevFinalDishOrder);
-      console.log("+");
-      console.log(addingLastValues);
       var updatedFinalDishOrder;
       if (currentDish.index === undefined) {
-        console.log("= (πρωτη φορα)");
         updatedFinalDishOrder = [...prevFinalDishOrder, addingLastValues];
-        console.log(updatedFinalDishOrder);
       } else {
-        console.log("= (editing)");
-
         prevFinalDishOrder[currentDish.index] = addingLastValues;
         updatedFinalDishOrder = prevFinalDishOrder;
-        console.log(updatedFinalDishOrder);
       }
       localStorage.setItem(
         "finalDishOrder",

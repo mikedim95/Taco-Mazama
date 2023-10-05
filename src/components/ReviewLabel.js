@@ -16,13 +16,11 @@ function ReviewLabel({
   onDelete,
   type,
 }) {
-  console.log(selection);
-  console.log(selectionPrice);
   const { setCurrentDishToEdit } = useMyContext();
   var content = {};
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-  console.log(type);
+
   if (type === "dish") {
     content = {
       title: selection.title,
@@ -44,7 +42,6 @@ function ReviewLabel({
         .join(", "),
       multiplier: selection.multiplier,
     };
-    console.log(content);
   } else if (type === "side") {
     /* content = {
       title: selection.title,
@@ -58,7 +55,6 @@ function ReviewLabel({
       subtitle: selection.subtitle,
       multiplier: selection.multiplier,
     };
-    console.log(content);
   }
 
   const handleModal = () => {

@@ -29,7 +29,7 @@ function BucketPage() {
     totalPrice,
     publicIP,
   } = useMyContext();
-  console.log(finalBeveragesOrder);
+
   const handleModal = (errorMesasge) => {
     setShowModal(true);
     setErrorMesage(errorMesasge);
@@ -81,7 +81,6 @@ function BucketPage() {
     </MandatoryModal>
   );
   const deleteOrder = (index, type) => {
-    console.log(type);
     if (type === "dish") {
       const updatedFinalDishOrder = [...finalDishOrder];
       const deletedMultiplier = updatedFinalDishOrder[index].multiplier;
@@ -114,8 +113,6 @@ function BucketPage() {
   };
 
   const handleMultiplier = (index, value, type) => {
-    console.log(index, value, type);
-    console.log(finalBeveragesOrder[type]);
     if (type === "dish") {
       if (value > 0) {
         const updatedFinalDishOrder = [...finalDishOrder];
@@ -137,7 +134,7 @@ function BucketPage() {
         const updatedFinalBeveragesOrder = { ...finalBeveragesOrder };
 
         updatedFinalBeveragesOrder[type][index].multiplier = value;
-        console.log(updatedFinalBeveragesOrder[type][index]);
+
         setFinalBeveragesOrder(updatedFinalBeveragesOrder);
       }
     }
@@ -172,10 +169,12 @@ function BucketPage() {
 
     try {
       const result = await postJsonData(finalOrder);
-      console.log(result);
+
+      localStorage.removeItem("finalDishOrder");
+      localStorage.removeItem("finalSidesOrder");
+      localStorage.removeItem("finalBeveragesOrder");
     } catch (error) {
       handleModal(error.response.data);
-      console.error("Error:", error.response.data);
     }
   };
   const beveragePrice = () => {
@@ -220,7 +219,7 @@ function BucketPage() {
               onDelete={() => deleteOrder(index, type)}
             />
           );
-        }, console.log(order))
+        })
       : [];
 
   return (
