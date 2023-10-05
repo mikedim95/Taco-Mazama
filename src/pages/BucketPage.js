@@ -236,7 +236,6 @@ function BucketPage() {
           );
         })
       : [];
-
   return (
     <div className="max-w-screen-sm h-screen mx-auto bg-background-light overflow-y-scroll">
       <div className="justify-center items-center relative">
@@ -272,122 +271,125 @@ function BucketPage() {
           className="mix-blend-multiply w-[40px] h-[40px] absolute top-[10px] right-[4px]"
         />
       </div>
-      {/*   {finalDishOrder == [] && finalSidesOrder == []&& finalBeveragesOrder=={beers:[],drinks:[],softDrinks:[]} &&(
-          
-        )
-          
-  } */}
-      <div className="flex justify-end relative">
-        <h1
-          className="absolute right-[30px] top-[-20px] font-pop text-[20px] font-bold text-textFont-dark"
-          style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
-        >
-          Συνολική Τιμή: {overalPrice} €
-        </h1>
-      </div>
-      {finalDishOrder.length > 0 ? (
-        <div>
-          <div className="flex justify-start relative ">
-            <h1
-              className="absolute top-[30px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
-              style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
-            >
-              Για πρώτο πιάτο ...
-            </h1>
-          </div>
-          <div className="pt-[65px] pl-[30px] mr-[20px]">
-            <img className="w-full" src={Line} alt="" />
-          </div>
-          <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
-            {renderOrder(finalDishOrder, "dish")}
-          </div>
-        </div>
-      ) : null}
-      {finalSidesOrder.length > 0 ? (
-        <div>
-          <div className="flex justify-start relative ">
-            <h1
-              className="absolute top-[30px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
-              style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
-            >
-              Για συνοδευτικό ...
-            </h1>
-          </div>
-          <div className="pt-[65px] pl-[30px] mr-[20px]">
-            <img className="w-full" src={Line} alt="" />
-          </div>
-          <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
-            {renderOrder(finalSidesOrder, "side")}
-          </div>
-        </div>
-      ) : null}{" "}
-      {finalBeveragesOrder.beers.length > 0 ? (
-        <div>
-          <div className="flex justify-start relative ">
-            <h1
-              className="absolute top-[30px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
-              style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
-            >
-              Για μπύρες ...
-            </h1>
-          </div>
-          <div className="pt-[65px] pl-[30px] mr-[20px]">
-            <img className="w-full" src={Line} alt="" />
-          </div>
-          <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
-            {renderOrder(finalBeveragesOrder.beers, "beers")}
-          </div>
-        </div>
-      ) : null}{" "}
-      {finalBeveragesOrder.softDrinks.length > 0 ? (
-        <div>
-          <div className="flex justify-start relative ">
-            <h1
-              className="absolute top-[30px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
-              style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
-            >
-              Για αναψυκτικά ...
-            </h1>
-          </div>
-          <div className="pt-[65px] pl-[30px] mr-[20px]">
-            <img className="w-full" src={Line} alt="" />
-          </div>
-          <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
-            {renderOrder(finalBeveragesOrder.softDrinks, "softDrinks")}
-          </div>
-        </div>
-      ) : null}{" "}
-      {finalBeveragesOrder.drinks.length > 0 ? (
-        <div>
-          <div className="flex justify-start relative ">
-            <h1
-              className="absolute top-[30px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
-              style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
-            >
-              Για ποτά ...
-            </h1>
-          </div>
-          <div className="pt-[65px] pl-[30px] mr-[20px]">
-            <img className="w-full" src={Line} alt="" />
-          </div>
-          <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
-            {renderOrder(finalBeveragesOrder.drinks, "drinks")}
-          </div>
-        </div>
-      ) : null}
-      {finalBeveragesOrder.beers.length !== 0 ||
+      {finalDishOrder.length !== 0 ||
+      finalSidesOrder.length !== 0 ||
+      finalBeveragesOrder.beers.length !== 0 ||
       finalBeveragesOrder.drinks.length !== 0 ||
-      finalBeveragesOrder.softDrinks.length !== 0 ||
-      finalDishOrder.length !== 0 ||
-      finalSidesOrder.length !== 0 ? (
-        <button
-          className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
-          onClick={() => {
-            finalSubmit();
-          }}
-        >
-          Υποβολή
-        </button>
+      finalBeveragesOrder.softDrinks.length !== 0 ? (
+        <div>
+          <div className="flex justify-end relative">
+            <h1
+              className="absolute right-[30px] top-[-20px] font-pop text-[20px] font-bold text-textFont-dark"
+              style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
+            >
+              Συνολική Τιμή: {overalPrice} €
+            </h1>
+          </div>
+          {finalDishOrder.length > 0 ? (
+            <div>
+              <div className="flex justify-start relative ">
+                <h1
+                  className="absolute top-[30px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
+                  style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
+                >
+                  Για πρώτο πιάτο ...
+                </h1>
+              </div>
+              <div className="pt-[65px] pl-[30px] mr-[20px]">
+                <img className="w-full" src={Line} alt="" />
+              </div>
+              <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
+                {renderOrder(finalDishOrder, "dish")}
+              </div>
+            </div>
+          ) : null}
+          {finalSidesOrder.length > 0 ? (
+            <div>
+              <div className="flex justify-start relative ">
+                <h1
+                  className="absolute top-[30px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
+                  style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
+                >
+                  Για συνοδευτικό ...
+                </h1>
+              </div>
+              <div className="pt-[65px] pl-[30px] mr-[20px]">
+                <img className="w-full" src={Line} alt="" />
+              </div>
+              <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
+                {renderOrder(finalSidesOrder, "side")}
+              </div>
+            </div>
+          ) : null}{" "}
+          {finalBeveragesOrder.beers.length > 0 ? (
+            <div>
+              <div className="flex justify-start relative ">
+                <h1
+                  className="absolute top-[30px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
+                  style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
+                >
+                  Για μπύρες ...
+                </h1>
+              </div>
+              <div className="pt-[65px] pl-[30px] mr-[20px]">
+                <img className="w-full" src={Line} alt="" />
+              </div>
+              <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
+                {renderOrder(finalBeveragesOrder.beers, "beers")}
+              </div>
+            </div>
+          ) : null}{" "}
+          {finalBeveragesOrder.softDrinks.length > 0 ? (
+            <div>
+              <div className="flex justify-start relative ">
+                <h1
+                  className="absolute top-[30px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
+                  style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
+                >
+                  Για αναψυκτικά ...
+                </h1>
+              </div>
+              <div className="pt-[65px] pl-[30px] mr-[20px]">
+                <img className="w-full" src={Line} alt="" />
+              </div>
+              <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
+                {renderOrder(finalBeveragesOrder.softDrinks, "softDrinks")}
+              </div>
+            </div>
+          ) : null}{" "}
+          {finalBeveragesOrder.drinks.length > 0 ? (
+            <div>
+              <div className="flex justify-start relative ">
+                <h1
+                  className="absolute top-[30px] left-[30px] font-pop text-[20px] font-bold text-textFont-dark"
+                  style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
+                >
+                  Για ποτά ...
+                </h1>
+              </div>
+              <div className="pt-[65px] pl-[30px] mr-[20px]">
+                <img className="w-full" src={Line} alt="" />
+              </div>
+              <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
+                {renderOrder(finalBeveragesOrder.drinks, "drinks")}
+              </div>
+            </div>
+          ) : null}
+          {finalBeveragesOrder.beers.length !== 0 ||
+          finalBeveragesOrder.drinks.length !== 0 ||
+          finalBeveragesOrder.softDrinks.length !== 0 ||
+          finalDishOrder.length !== 0 ||
+          finalSidesOrder.length !== 0 ? (
+            <button
+              className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
+              onClick={() => {
+                finalSubmit();
+              }}
+            >
+              Υποβολή
+            </button>
+          ) : null}
+        </div>
       ) : null}
       <div>{showModal && modal}</div>
     </div>
