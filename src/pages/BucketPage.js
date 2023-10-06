@@ -32,9 +32,9 @@ function BucketPage() {
     publicIP,
   } = useMyContext();
 
-  const handleModal = (errorMesasge) => {
+  const handleModal = (message) => {
     setShowModal(true);
-    setErrorMesage(errorMesasge);
+    setErrorMesage(message);
   };
   const handleCloseModal = () => {
     setShowModal(false);
@@ -163,6 +163,15 @@ function BucketPage() {
     }
     return price;
   };
+  const requestNotificationPermission = () => {
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        console.log("Notification permission granted.");
+      } else {
+        console.warn("Notification permission denied.");
+      }
+    });
+  };
   const handlePermission = async () => {
     try {
       const permission = await Notification.requestPermission();
@@ -199,6 +208,10 @@ function BucketPage() {
         beers: [],
         drinks: [],
       });
+      handleModal(
+        "Παρακαλούμε ενεργοποιήστε τις ειδοποιήσεις για να σας ενημερώσουμε για την εξέλιξη της παραγγελίας"
+      );
+      requestNotificationPermission();
       navigate("/LandingPage");
     } catch (error) {
       handleModal(error.response.data);
