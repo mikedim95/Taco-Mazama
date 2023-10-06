@@ -32,15 +32,6 @@ function LandingPage() {
     finalSidesOrder,
     finalBeveragesOrder,
   } = useMyContext();
-  function triggerDelayedNotification(message, delay) {
-    console.log("i got : " + message + " delay: ");
-    // Send a message to the service worker to show a delayed alert notification
-    navigator.serviceWorker.controller.postMessage({
-      type: "SHOW_DELAYED_NOTIFICATION",
-      message,
-      delay,
-    });
-  }
 
   /* const [isTokenFound, setTokenFound] = useState(false);
   requestForToken(); */
@@ -147,7 +138,7 @@ function LandingPage() {
   };
   const onHandleTag = async () => {
     console.log("pressed");
-    triggerDelayedNotification("This is a delayed notification!", 5000);
+
     /* setTimeout(() => {
       serviceWorkerRegistration.postMessage({ task: "Your task data here" });
     }, delayInMilliseconds); */

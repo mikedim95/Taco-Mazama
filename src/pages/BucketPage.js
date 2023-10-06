@@ -172,6 +172,15 @@ function BucketPage() {
       }
     });
   };
+  function triggerDelayedNotification(message, delay) {
+    console.log("i got : " + message + " delay: ");
+    // Send a message to the service worker to show a delayed alert notification
+    navigator.serviceWorker.controller.postMessage({
+      type: "SHOW_DELAYED_NOTIFICATION",
+      message,
+      delay,
+    });
+  }
   const handlePermission = async () => {
     try {
       const permission = await Notification.requestPermission();
@@ -212,6 +221,7 @@ function BucketPage() {
         "Παρακαλούμε ενεργοποιήστε τις ειδοποιήσεις για να σας ενημερώσουμε για την εξέλιξη της παραγγελίας"
       );
       requestNotificationPermission();
+      triggerDelayedNotification("This is a delayed notification!", 5000);
       navigate("/LandingPage");
     } catch (error) {
       handleModal(error.response.data);
