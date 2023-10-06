@@ -13,9 +13,12 @@ import RootLayout from "./layouts/RootLayout";
 import BucketPage from "./pages/BucketPage";
 import BeverageSteps from "./pages/BeverageSteps";
 import SidesPage from "./pages/SidesPage";
-import reportWebVitals from "./reportWebVitals";
+
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 // import Table from "./components/Table";
+
+// inside the jsx being returned:
+
 serviceWorkerRegistration.register();
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,5 +41,4 @@ function App() {
     </MyProvider>
   );
 }
-reportWebVitals(console.log);
 export default App;

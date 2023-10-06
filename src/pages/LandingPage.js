@@ -21,7 +21,8 @@ import MandatoryModal from "../components/MandatoryModal";
 import bell from "../assets/bell.json";
 import Lottie from "lottie-react";
 import "./Cart.css";
-
+/* import OneSignal from "react-onesignal"; */
+/* import firebase from "../firebase"; */
 function LandingPage() {
   const [showModal, setShowModal] = useState(false);
   const {
@@ -31,10 +32,32 @@ function LandingPage() {
     finalSidesOrder,
     finalBeveragesOrder,
   } = useMyContext();
+  function triggerDelayedNotification(message, delay) {
+    console.log("i got : " + message + " delay: ");
+    // Send a message to the service worker to show a delayed alert notification
+    navigator.serviceWorker.controller.postMessage({
+      type: "SHOW_DELAYED_NOTIFICATION",
+      message,
+      delay,
+    });
+  }
+  /* const [isTokenFound, setTokenFound] = useState(false);
+  requestForToken(); */
+  /* console.log(isTokenFound); */
   const [searchTerm, setSearchTerm] = useState("");
   const [position, setPosition] = useState(1);
   let totalCount = 0;
   useEffect(() => {
+    /*  OneSignal.init({
+      appId: "830364d1-0c13-4480-be61-fffd8ce43083",
+    }); */
+    const timeoutId = setTimeout(() => {
+      console.log("This will be executed after 3 seconds.");
+      // Your code here
+    }, 3000);
+
+    // Clean up the timeout if the component unmounts
+
     if (Array.isArray(finalDishOrder)) {
       finalDishOrder.forEach((item) => {
         // Assuming 'key' is the specific key you want to accumulate
@@ -56,7 +79,7 @@ function LandingPage() {
       }
     }
     setCartItemCount(totalCount);
-
+    return () => clearTimeout(timeoutId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const { legitIP } = useMyContext();
@@ -120,6 +143,16 @@ function LandingPage() {
   );
   const handleCarouselSwipe = (newPosition, eventData) => {
     setPosition(newPosition);
+  };
+  const onHandleTag = async () => {
+    console.log("pressed");
+    triggerDelayedNotification("This is a delayed notification!", 5000);
+    /* setTimeout(() => {
+      serviceWorkerRegistration.postMessage({ task: "Your task data here" });
+    }, delayInMilliseconds); */
+    /*  OneSignal.login("thatParticularUser"); */
+    /* OneSignal.Slidedown.promptPush(); */
+    /* OneSignal.Notifications.requestPermission(); */
   };
   return (
     <div className="max-w-screen-sm h-screen mx-auto bg-background-light scroll-smooth overflow-y-scroll">
@@ -209,7 +242,8 @@ function LandingPage() {
             <Fab
               color="error"
               aria-label="add"
-              onClick={() => handleModal()}
+              /* onClick={() => handleModal()} */
+              onClick={() => onHandleTag()}
               style={{ position: "fixed", bottom: "16px", right: "16px" }}
             >
               <Error />

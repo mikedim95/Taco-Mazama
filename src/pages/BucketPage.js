@@ -163,7 +163,19 @@ function BucketPage() {
     }
     return price;
   };
+  const handlePermission = async () => {
+    try {
+      const permission = await Notification.requestPermission();
+      if (permission === "granted") {
+        console.log("Permission granted");
+        // Send the subscription to the backend
+      }
+    } catch (error) {
+      console.error("Error requesting notification permission:", error);
+    }
+  };
   const finalSubmit = async () => {
+    handlePermission();
     const finalOrder = {
       tableNo: parseInt(tableNo),
       dish: finalDishOrder,
