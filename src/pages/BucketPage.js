@@ -221,7 +221,7 @@ function BucketPage() {
         "Παρακαλούμε ενεργοποιήστε τις ειδοποιήσεις για να σας ενημερώσουμε για την εξέλιξη της παραγγελίας"
       );
       requestNotificationPermission();
-      triggerDelayedNotification("This is a delayed notification!", 5000);
+      triggerDelayedNotification("Έλα χοντρέ να φας", 5000);
       navigate("/LandingPage");
     } catch (error) {
       handleModal(error.response.data);

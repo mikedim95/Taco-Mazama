@@ -64,7 +64,7 @@ registerRoute(
 function showDelayedAlertNotification(message, delay) {
   console.log("in service worker" + message + delay);
   setTimeout(() => {
-    self.registration.showNotification("Delayed Alert", {
+    self.registration.showNotification("Το φαϊ είναι έτοιμο", {
       body: message,
     });
   }, delay);
