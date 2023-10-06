@@ -41,6 +41,15 @@ function LandingPage() {
       delay,
     });
   }
+  const requestNotificationPermission = () => {
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        console.log("Notification permission granted.");
+      } else {
+        console.warn("Notification permission denied.");
+      }
+    });
+  };
   /* const [isTokenFound, setTokenFound] = useState(false);
   requestForToken(); */
   /* console.log(isTokenFound); */
@@ -48,6 +57,7 @@ function LandingPage() {
   const [position, setPosition] = useState(1);
   let totalCount = 0;
   useEffect(() => {
+    requestNotificationPermission();
     /*  OneSignal.init({
       appId: "830364d1-0c13-4480-be61-fffd8ce43083",
     }); */
