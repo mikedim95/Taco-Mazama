@@ -42,12 +42,6 @@ function ReviewLabel({
         .join(", "),
       multiplier: selection.multiplier,
     };
-  } else if (type === "side") {
-    /* content = {
-      title: selection.title,
-      subtitle: selection.subtitle,
-      multiplier: selection.multiplier,
-    }; */
   } else {
     // Θα είναι είτε μπύρα είτε ποτό είτε αναψυκτικό
     content = {

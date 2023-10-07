@@ -171,26 +171,37 @@ export const sides = [
   },
   {
     title: "Loaded Nachos",
-    subtitle: "subtitle",
+    subtitle:
+      "Δημοφιλές μεξικάνικο σνακ από καλαμπόκι που ψήνονται μέχρι να γίνει τραγανό και χρυσαφί.loadedNachos",
     price: 7.5,
     img: loadNacho,
   },
   {
     title: "Tortilla Salsas",
-    subtitle: "",
+    subtitle:
+      "Δημοφιλές μεξικάνικο σνακ από καλαμπόκι που ψήνονται μέχρι να γίνει τραγανό και χρυσαφί.tortilla salsas",
     price: 3,
     img: tortilla,
   },
   {
     title: "Tortilla Salsas & Guacamole",
-    subtitle: "",
+    subtitle:
+      "Δημοφιλές μεξικάνικο σνακ από καλαμπόκι που ψήνονται μέχρι να γίνει τραγανό και χρυσαφί.tortilla salsa & Guacamole",
     price: 3,
     img: loadTortilla,
   },
   {
     title: "Tortilla Chips",
-    subtitle: "",
+    subtitle:
+      "Δημοφιλές μεξικάνικο σνακ από καλαμπόκι που ψήνονται μέχρι να γίνει τραγανό και χρυσαφί.tortilla chips",
     price: 3,
+    img: loadTortilla,
+  },
+  {
+    title: "Dips",
+    subtitle:
+      "Δημοφιλές μεξικάνικο σνακ από καλαμπόκι που ψήνονται μέχρι να γίνει τραγανό και χρυσαφί.Dips",
+    price: 0,
     img: loadTortilla,
   },
 ];

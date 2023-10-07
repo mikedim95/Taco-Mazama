@@ -28,8 +28,82 @@ function SidesPage() {
   const [extraCosts, setExtraCosts] = useState(0);
   const [multiplier, setMultiplier] = useState(1);
 
+  const [extraNachos] = useState([
+    ...ingredients.filter(
+      (item) => item.title === "Jalapenos" || item.title === "Sour Cream"
+    ),
+    ...extra.filter(
+      (item) => item.title === "Guacamole" || item.title === "Chorizo"
+    ),
+  ]);
+
+  const [extraSalsa] = useState([
+    ...salsa,
+    ...ingredients.filter((item) => item.title === "Sour Cream"),
+    ...extra.filter((item) => item.title === "Guacamole"),
+  ]);
+
   const order = () => {
-    if (nextPosition === 0) {
+    if (nextPosition === 0 && currentSide.title === "Loaded Nachos") {
+      return (
+        <SidesDisplayer
+          key="stuffing"
+          phase={"stuffing"}
+          content={stuffing}
+          handleNextStep={handleNextStep}
+          handlePreviousStep={handlePreviousStep}
+          addExtraCost={addExtraCost}
+          subExtraCost={subExtraCost}
+          message={"Διάλεξε γέμιση"}
+          messageSub={"*Θα πρέπει να επιλέξτε 1 υλικό υποχρεωτικά"}
+          firstButtonPosition
+        />
+      );
+    } else if (nextPosition === 0 && currentSide.title === "Tortilla Chips") {
+      return (
+        <SidesDisplayer
+          key="review"
+          phase={"review"}
+          currentSide={currentSide}
+          finalSubmit={finalSubmit}
+          handlePreviousStep={handlePreviousStep}
+          addExtraCost={addExtraCost}
+          subExtraCost={subExtraCost}
+          message={"Δεν περιέχουν γέμιση"}
+          handleMultiplier={handleMultiplier}
+          multiplier={multiplier}
+        />
+      );
+    } else if (
+      nextPosition === 0 &&
+      currentSide.title === "Tortilla Salsas & Guacamole"
+    ) {
+      return (
+        <SidesDisplayer
+          key="salsa"
+          phase={"salsa"}
+          content={extraSalsa}
+          handleNextStep={handleNextStep}
+          message={"Διάλεξε Salsas"}
+          addExtraCost={addExtraCost}
+          subExtraCost={subExtraCost}
+          firstButtonPosition
+        />
+      );
+    } else if (nextPosition === 0 && currentSide.title === "Dips") {
+      return (
+        <SidesDisplayer
+          key="salsa"
+          phase={"salsa"}
+          content={extraSalsa}
+          handleNextStep={handleNextStep}
+          message={"Διάλεξε Salsas"}
+          addExtraCost={addExtraCost}
+          subExtraCost={subExtraCost}
+          firstButtonPosition
+        />
+      );
+    } else if (nextPosition === 0) {
       return (
         <SidesDisplayer
           key="salsa"
@@ -42,12 +116,25 @@ function SidesPage() {
           firstButtonPosition
         />
       );
-    } else if (nextPosition === 1) {
+    } else if (nextPosition === 1 && currentSide.title === "Loaded Nachos") {
+      return (
+        <SidesDisplayer
+          key="salsa"
+          prevPhase={"stuffing"}
+          phase={"salsa"}
+          content={salsa}
+          handleNextStep={handleNextStep}
+          message={"Διάλεξε Salsas"}
+          addExtraCost={addExtraCost}
+          subExtraCost={subExtraCost}
+        />
+      );
+    } else if (nextPosition === 1 && currentSide.title === "Nachos") {
       return (
         <SidesDisplayer
           key="extra"
-          phase={"extra" && "ingredients"}
-          content={extra && ingredients}
+          phase={"extra"}
+          content={extraNachos}
           handleNextStep={handleNextStep}
           handlePreviousStep={handlePreviousStep}
           message={"Extra Υλικά"}
@@ -55,27 +142,74 @@ function SidesPage() {
           subExtraCost={subExtraCost}
         />
       );
-    } else if (nextPosition === 2) {
-      return (
-        <SidesDisplayer
-          key="stuffing"
-          phase={"stuffing"}
-          content={stuffing}
-          handleNextStep={handleNextStep}
-          handlePreviousStep={handlePreviousStep}
-          addExtraCost={addExtraCost}
-          subExtraCost={subExtraCost}
-          message={"Διάλεξε γέμιση"}
-          messageSub={"*Θα πρέπει να κάνετε τουλάχιστον 1 επιλογή"}
-        />
-      );
-    } else if (nextPosition === 4) {
+    } else if (nextPosition === 1) {
       return (
         <SidesDisplayer
           key="review"
           phase={"review"}
           currentSide={currentSide}
-          finalSideSubmit={finalSideSubmit}
+          finalSubmit={finalSubmit}
+          handlePreviousStep={handlePreviousStep}
+          addExtraCost={addExtraCost}
+          subExtraCost={subExtraCost}
+          message={"Δες τι έχτισες ..."}
+          handleMultiplier={handleMultiplier}
+          multiplier={multiplier}
+        />
+      );
+    } else if (nextPosition === 2 && currentSide.title === "Loaded Nachos") {
+      return (
+        <SidesDisplayer
+          key="extra"
+          phase={"extra"}
+          content={extraNachos}
+          handleNextStep={handleNextStep}
+          handlePreviousStep={handlePreviousStep}
+          message={"Extra Υλικά"}
+          addExtraCost={addExtraCost}
+          subExtraCost={subExtraCost}
+        />
+      );
+    } else if (nextPosition === 2 && currentSide.title === "Nachos") {
+      return (
+        <SidesDisplayer
+          key="review"
+          phase={"review"}
+          currentSide={currentSide}
+          finalSubmit={finalSubmit}
+          handlePreviousStep={handlePreviousStep}
+          addExtraCost={addExtraCost}
+          subExtraCost={subExtraCost}
+          message={"Δες τι έχτισες ..."}
+          handleMultiplier={handleMultiplier}
+          multiplier={multiplier}
+        />
+      );
+    } else if (nextPosition === 2 && currentSide.title === "Loaded Nachos") {
+      return (
+        <SidesDisplayer
+          key="review"
+          phase={"review"}
+          currentSide={currentSide}
+          finalSubmit={finalSubmit}
+          handlePreviousStep={handlePreviousStep}
+          addExtraCost={addExtraCost}
+          subExtraCost={subExtraCost}
+          message={"Δες τι έχτισες ..."}
+          handleMultiplier={handleMultiplier}
+          multiplier={multiplier}
+        />
+      );
+    } else if (
+      nextPosition === 2 &&
+      currentSide.title === "Tortilla Salsas & Guacamole"
+    ) {
+      return (
+        <SidesDisplayer
+          key="review"
+          phase={"review"}
+          currentSide={currentSide}
+          finalSubmit={finalSubmit}
           handlePreviousStep={handlePreviousStep}
           addExtraCost={addExtraCost}
           subExtraCost={subExtraCost}
@@ -86,7 +220,7 @@ function SidesPage() {
       );
     }
   };
-
+  console.log("πουτσα", currentSide);
   useEffect(() => {
     setCurrentSide({ ...currentSide, multiplier: multiplier });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -122,7 +256,7 @@ function SidesPage() {
 
   const navigate = useNavigate();
 
-  const finalSideSubmit = () => {
+  const finalSubmit = () => {
     const addingLastValues = {
       ...currentSide,
       multiplier: multiplier,
@@ -137,7 +271,7 @@ function SidesPage() {
     setFinalSidesOrder([...finalSidesOrder, currentSide]);
     navigate("/LandingPage");
   };
-
+  console.log("ti fernei final", finalSidesOrder);
   const initialImage = {
     hidden: { opacity: 0, y: "-100%" },
     visible: { opacity: 1, y: "0%" },
@@ -187,7 +321,7 @@ function SidesPage() {
           >
             Συνολική Τιμή: {(currentSide.price + extraCosts) * multiplier} €
           </h1>
-          <h1
+          {/* <h1
             className="absolute pt-[20px] top-[10px] left-[30px] font-pop text-[18px] font-bold text-textFont-dark"
             style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.4)" }}
           >
@@ -195,14 +329,14 @@ function SidesPage() {
           </h1>
           <div className="pt-[60px] pl-[30px] mr-[20px]">
             <img className="w-full" src={Line} alt="" />
-          </div>
+          </div> */}
         </div>
-        <div className="columns-1 px-[20px] justify-center space-y-[10px] items-center">
+        <div className="columns-1 justify-center space-y-[10px] items-center">
           {/* <ReviewLabel
             currentSide={currentSide}
             handleMultiplier={handleMultiplier}
           /> */}
-          <div className="pt-[10px]">{order()}</div>
+          <div className="pt-[20px]">{order()}</div>
         </div>
         {/* <div
           ref={scope}
@@ -213,7 +347,7 @@ function SidesPage() {
             onClick={async () => {
               await onButtonClick();
               setTimeout(() => {
-                finalSideSubmit();
+                finalSubmit();
               }, 500);
             }}
           >

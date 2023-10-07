@@ -15,7 +15,7 @@ function OptionLabel({
   subExtraCost,
   phase,
 }) {
-  const { currentDish } = useMyContext();
+  const { currentDish, currentSide } = useMyContext();
   const [isClicked, setIsClicked] = useState(() =>
     selectedItems.some((item) => item === ingredient.title)
   );
@@ -61,24 +61,6 @@ function OptionLabel({
         /* setExtraPrice(normalPrice); */
         subExtraCost(normalPrice);
       } else {
-        /*  setExtraPrice(
-          (phase === "stuffing"
-            ? ingredient.title === "Μοσχαρίσιο Chilli"
-              ? 0
-              : normalPrice
-            : normalPrice) +
-            (phase === "stuffing" &&
-            currentDish.title !== "Taco" &&
-            currentDish.title !== "Mulita" &&
-            currentDish.title !== "Enchilada"
-              ? 1.5
-              : (currentDish.title === "Taco" ||
-                  currentDish.title === "Mulita" ||
-                  currentDish.title === "Enchilada") &&
-                phase === "stuffing"
-              ? 0.5
-              : 0)
-        ); */
         subExtraCost(
           (phase === "stuffing"
             ? ingredient.title === "Μοσχαρίσιο Chilli"

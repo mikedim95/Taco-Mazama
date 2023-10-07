@@ -11,6 +11,7 @@ import { motion as m } from "framer-motion";
 
 function SidesDisplayer({
   phase,
+  prevPhase,
   content,
   handleNextStep,
   handlePreviousStep,
@@ -52,17 +53,17 @@ function SidesDisplayer({
     new Audio(mariachi).play();
   };
 
-  const handleClick = (sidesIngredient) => {
-    if (selectedSides.includes(sidesIngredient.title)) {
+  const handleClick = (ingredient) => {
+    if (selectedSides.includes(ingredient.title)) {
       const updatedSelectedSides = selectedSides.filter(
-        (piece) => piece !== sidesIngredient.title
+        (piece) => piece !== ingredient.title
       );
       setSelectedSides(updatedSelectedSides);
     } else {
-      setSelectedSides([...selectedSides, sidesIngredient.title]);
+      setSelectedSides([...selectedSides, ingredient.title]);
     }
   };
-
+  console.log("handleClick", selectedSides);
   if (finalSubmit) {
     content = [
       {
@@ -71,8 +72,8 @@ function SidesDisplayer({
           currentSide.stuffing && currentSide.stuffing.length > 0
             ? currentSide.stuffing.join(", ")
             : null,
-          currentSide.ingredient && currentSide.ingredient.length > 0
-            ? currentSide.ingredient.join(", ")
+          currentSide.ingredients && currentSide.ingredients.length > 0
+            ? currentSide.ingredients.join(", ")
             : null,
           currentSide.salsa && currentSide.salsa.length > 0
             ? currentSide.salsa.join(", ")
@@ -81,7 +82,7 @@ function SidesDisplayer({
             ? currentSide.extra.join(", ")
             : null,
         ]
-          .filter((piece) => piece !== null) // Remove null entries
+          .filter((item) => item !== null) // Remove null entries
           .join(", "),
       },
     ];
@@ -129,8 +130,9 @@ function SidesDisplayer({
         className="text-[14px] mt-[2px] mb-[10px] text-start font-pop text-background-dark font-normal"
         style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.6)" }}
       >
-        Συγνώμη αλλα θα πρέπει να κάνετε τουλάχιστον μία επιλογή για να
-        συνεχίσεται στο επόμενο βήμα.
+        {selectedSides.length > 0
+          ? "Συγνώμη αλλά θα πρέπει να επιλέξετε μόνο ένα πλευρικό για να συνεχίσετε στο επόμενο βήμα."
+          : "Συγνώμη αλλά θα πρέπει να κάνετε τουλάχιστον μία επιλογή για να συνεχίσετε στο επόμενο βήμα."}
       </p>
     </MandatoryModal>
   );
@@ -155,46 +157,44 @@ function SidesDisplayer({
         <img className="w-full" src={Line} alt="" />
       </div>
       <div className="columns-1 px-[20px] justify-center space-y-[10px] items-center">
-        {finalSubmit ? (
-          <div>
-            <ReviewLabel
-              currentSide={currentSide}
-              handleMultiplier={handleMultiplier}
-            />
-          </div>
-        ) : (
-          content
-            .filter((sidesIngredient) => {
-              if (sidesIngredient.extraPrice) {
-                return false;
-              }
-              if (
-                sidesIngredient.title === "Guacamole" ||
-                sidesIngredient.title === "Chorizo" ||
-                sidesIngredient.title === "Jalapenos" ||
-                phase === "stuffing" ||
-                phase === "salsa"
-              ) {
-                return true;
-              }
-              return false;
-            })
-            .map((sidesIngredient, index) => {
-              return (
-                <OptionLabel
-                  key={index}
-                  phase={phase}
-                  ingredient={sidesIngredient}
-                  index={index + sidesIngredient.title}
-                  selectedItems={selectedSides}
-                  handleClick={handleClick}
-                  hasChosen={hasChosen}
-                  addExtraCost={addExtraCost}
-                  subExtraCost={subExtraCost} // Pass the handleClick function as a prop
+        {finalSubmit
+          ? (console.log("Before ReviewLabel div", selectedSides),
+            (
+              <div>
+                <ReviewLabel
+                  selection={currentSide}
+                  handleMultiplier={handleMultiplier}
+                  type={"dish"}
                 />
-              );
-            })
-        )}
+              </div>
+            ))
+          : (console.log("gamw to theo soy", content),
+            content
+              .filter((ingredient) => {
+                if (
+                  currentSide.title === "Tortilla Salsas & Guacamole" &&
+                  ingredient.title === "Guacamole"
+                ) {
+                  return false;
+                } else {
+                  return true;
+                }
+              })
+              .map((ingredient, index) => {
+                return (
+                  <OptionLabel
+                    key={index}
+                    phase={phase}
+                    ingredient={ingredient}
+                    index={index + ingredient.title}
+                    selectedItems={selectedSides}
+                    handleClick={handleClick}
+                    hasChosen={hasChosen}
+                    addExtraCost={addExtraCost}
+                    subExtraCost={subExtraCost} // Pass the handleClick function as a prop
+                  />
+                );
+              }))}
       </div>
       <div
         className={`pt-[15px] pb-[20px] ${
@@ -204,12 +204,14 @@ function SidesDisplayer({
         } `}
       >
         {phase !== "salsa" ? (
-          <button
-            className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
-            onClick={() => handlePreviousStep(phase, selectedSides)}
-          >
-            Προηγούμενο
-          </button>
+          phase !== "stuffing" ? (
+            <button
+              className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
+              onClick={() => handlePreviousStep(phase, selectedSides)}
+            >
+              Προηγούμενο
+            </button>
+          ) : null
         ) : null}
 
         {phase === "review" ? (
@@ -229,19 +231,12 @@ function SidesDisplayer({
           <button
             className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
             onClick={() => {
-              if (
-                (phase === "stuffing" && !hasChosen) ||
-                (phase === "ingredients" && !hasChosen) ||
-                (phase === "salsa" && !hasChosen)
-              ) {
+              if (phase === "stuffing" && !hasChosen) {
                 handleModal();
-              } else handleNextStep(phase, selectedSides);
+              } else {
+                handleNextStep(phase, selectedSides);
+              }
             }}
-            // disabled={
-            //   (phase === "stuffing" && !hasChosen) ||
-            //   (phase === "ingredients" && !hasChosen) ||
-            //   (phase === "salsa" && !hasChosen)
-            // }
           >
             <div>{showModal && modal}</div>
             Επόμενο
