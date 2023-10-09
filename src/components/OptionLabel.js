@@ -21,13 +21,18 @@ function OptionLabel({
   );
   const normalPrice =
     ingredient.extraPrice > 0
-      ? currentDish.title === "Taco" ||
-        currentDish.title === "Mulita" ||
-        currentDish.title === "Enchilada"
-        ? ingredient.title === "Fajita Mix" || ingredient.title === "Καλαμπόκι"
+      ? (currentDish.title === "Taco" ||
+          currentDish.title === "Mulita" ||
+          currentDish.title === "Enchilada")
+        ? (ingredient.title === "Fajita Mix" || ingredient.title === "Καλαμπόκι")
           ? ingredient.extraPrice - 0.25
           : ingredient.extraPrice - 0.5
-        : ingredient.extraPrice
+        : ((currentSide.title !== "Nachos" || currentSide.title !== "Loaded Nachos") 
+          ? ingredient.title === "Guacamole"
+            ? 0
+            : ingredient.extraPrice
+          : ingredient.extraPrice)
+        
       : ingredient.extraPrice;
 
   const addedPrice =
