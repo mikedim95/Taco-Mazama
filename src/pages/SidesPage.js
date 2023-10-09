@@ -32,9 +32,11 @@ function SidesPage() {
     ...ingredients.filter(
       (item) => item.title === "Jalapenos" || item.title === "Sour Cream"
     ),
-    ...extra.filter(
-      (item) => item.title === "Guacamole" || item.title === "Chorizo"
-    ),
+    ...extra
+      .filter((item) => item.title === "Guacamole" || item.title === "Chorizo")
+      .map((item) =>
+        item.title === "Guacamole" ? { ...item, extraPrice: 0 } : item
+      ),
   ]);
 
   const [extraSalsa] = useState([
