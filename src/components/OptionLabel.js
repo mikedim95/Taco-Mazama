@@ -14,21 +14,22 @@ function OptionLabel({
   addExtraCost,
   subExtraCost,
   phase,
+  handleModal,
 }) {
-  const { currentDish } = useMyContext();
+  const { currentDish, currentSide } = useMyContext();
   const [isClicked, setIsClicked] = useState(() =>
-    selectedItems.some((item) => item === ingredient.title)
+    selectedItems.some((item) => item === ingredient?.title)
   );
   const normalPrice =
-    ingredient.extraPrice > 0
-      ? currentDish.title === "Taco" ||
-        currentDish.title === "Mulita" ||
-        currentDish.title === "Enchilada"
-        ? ingredient.title === "Fajita Mix" || ingredient.title === "Καλαμπόκι"
-          ? ingredient.extraPrice - 0.25
-          : ingredient.extraPrice - 0.5
-        : ingredient.extraPrice
-      : ingredient.extraPrice;
+    ingredient?.extraPrice > 0
+      ? currentDish?.title === "Taco" ||
+        currentDish?.title === "Mulita" ||
+        currentDish?.title === "Enchilada"
+        ? ingredient?.title === "Fajita Mix" || ingredient.title === "Καλαμπόκι"
+          ? ingredient?.extraPrice - 0.25
+          : ingredient?.extraPrice - 0.5
+        : ingredient?.extraPrice
+      : ingredient?.extraPrice;
 
   const addedPrice =
     (phase === "stuffing"
@@ -52,89 +53,101 @@ function OptionLabel({
 
   // eslint-disable-next-line
   useEffect(() => {
-    setIsClicked(selectedItems.some((item) => item === ingredient.title));
+    setIsClicked(selectedItems.some((item) => item === ingredient?.title));
   });
   const optionClicked = () => {
+    // Check if it's a specific condition to handle the modal
+    if (
+      (currentSide?.title === "Loaded Nachos" && phase === "stuffing") ||
+      (currentSide?.title === "Tortilla Salsas" && phase === "salsa") ||
+      (currentSide?.title === "Tortilla Salsas & Guacamole" &&
+        phase === "salsa")
+    ) {
+      if (selectedItems.includes(ingredient?.title)) {
+        handleClick(ingredient);
+        // Return early to prevent the rest of the code from running
+      } else if (selectedItems.length === 1) {
+        handleModal();
+        return;
+      }
+    }
+
+    // Rest of your code for handling item selection/deselection
     setIsClicked(!isClicked);
-    if (selectedItems.includes(ingredient.title)) {
-      if (selectedItems.length === 1) {
-        /* setExtraPrice(normalPrice); */
+
+    if (selectedItems.includes(ingredient?.title)) {
+      if (
+        selectedItems.length === 1 &&
+        currentSide?.title !== "Loaded Nachos"
+      ) {
         subExtraCost(normalPrice);
-      } else {
+      } else if (currentSide?.title !== "Loaded Nachos") {
         subExtraCost(
-          (phase === "stuffing"
-            ? ingredient.title === "Μοσχαρίσιο Chilli"
-              ? 0
-              : normalPrice
-            : normalPrice) +
-            (phase === "stuffing" &&
-            currentDish.title !== "Taco" &&
-            currentDish.title !== "Mulita" &&
-            currentDish.title !== "Enchilada"
-              ? 1.5
-              : (currentDish.title === "Taco" ||
-                  currentDish.title === "Mulita" ||
-                  currentDish.title === "Enchilada") &&
-                phase === "stuffing"
-              ? 0.5
-              : 0)
+          phase === "stuffing" && ingredient.title === "Μοσχαρίσιο Chilli"
+            ? 0
+            : normalPrice
         );
+
+        if (
+          phase === "stuffing" &&
+          currentDish.title !== "Taco" &&
+          currentDish.title !== "Mulita" &&
+          currentDish.title !== "Enchilada"
+        ) {
+          subExtraCost(1.5);
+        } else if (
+          (currentDish.title === "Taco" ||
+            currentDish.title === "Mulita" ||
+            currentDish.title === "Enchilada") &&
+          phase === "stuffing"
+        ) {
+          subExtraCost(0.5);
+        }
       }
     } else {
-      if (selectedItems.length === 0) {
-        /*  setExtraPrice(normalPrice); */
+      if (
+        selectedItems.length === 0 &&
+        currentSide?.title !== "Loaded Nachos"
+      ) {
         addExtraCost(normalPrice);
-      } else {
-        /* setExtraPrice(
-          (phase === "stuffing"
-            ? ingredient.title === "Μοσχαρίσιο Chilli"
-              ? 0
-              : normalPrice
-            : normalPrice) +
-            (phase === "stuffing" &&
-            currentDish.title !== "Taco" &&
-            currentDish.title !== "Mulita" &&
-            currentDish.title !== "Enchilada"
-              ? 1.5
-              : (currentDish.title === "Taco" ||
-                  currentDish.title === "Mulita" ||
-                  currentDish.title === "Enchilada") &&
-                phase === "stuffing"
-              ? 0.5
-              : 0)
-        ); */
+      } else if (currentSide?.title !== "Loaded Nachos") {
         addExtraCost(
-          (phase === "stuffing"
-            ? ingredient.title === "Μοσχαρίσιο Chilli"
-              ? 0
-              : normalPrice
-            : normalPrice) +
-            (phase === "stuffing" &&
-            currentDish.title !== "Taco" &&
-            currentDish.title !== "Mulita" &&
-            currentDish.title !== "Enchilada"
-              ? 1.5
-              : (currentDish.title === "Taco" ||
-                  currentDish.title === "Mulita" ||
-                  currentDish.title === "Enchilada") &&
-                phase === "stuffing"
-              ? 0.5
-              : 0)
+          phase === "stuffing" && ingredient.title === "Μοσχαρίσιο Chilli"
+            ? 0
+            : normalPrice
         );
+
+        if (
+          phase === "stuffing" &&
+          currentDish.title !== "Taco" &&
+          currentDish.title !== "Mulita" &&
+          currentDish.title !== "Enchilada"
+        ) {
+          addExtraCost(1.5);
+        } else if (
+          (currentDish.title === "Taco" ||
+            currentDish.title === "Mulita" ||
+            currentDish.title === "Enchilada") &&
+          phase === "stuffing"
+        ) {
+          addExtraCost(0.5);
+        }
       }
     }
 
     handleClick(ingredient);
   };
-  const extraPriceElement = hasChosen ? (
-    <div className="absolute bottom-[10px] left-[90px] text-[14px] font-pop text-left font-black">
-      {isClicked ? null : addedPrice !== 0 ? `+${addedPrice} €` : null}
-    </div>
-  ) : (
-    <div className="absolute bottom-[10px] left-[90px] text-[14px] font-pop text-left font-black">
-      {normalPrice !== 0 ? `+${normalPrice} €` : null}
-    </div>
-  );
+
+  const extraPriceElement =
+    currentSide?.title === "Loaded Nachos" ? null : hasChosen ? (
+      <div className="absolute bottom-[10px] left-[90px] text-[14px] font-pop text-left font-black">
+        {isClicked ? null : addedPrice !== 0 ? `+${addedPrice} €` : null}
+      </div>
+    ) : (
+      <div className="absolute bottom-[10px] left-[90px] text-[14px] font-pop text-left font-black">
+        {normalPrice !== 0 ? `+${normalPrice} €` : null}
+      </div>
+    );
 
   const icons = isClicked ? (
     <Lottie

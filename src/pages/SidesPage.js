@@ -87,6 +87,7 @@ function SidesPage() {
           content={extraSalsa}
           handleNextStep={handleNextStep}
           message={"Διάλεξε Salsas"}
+          messageSub={"*Θα πρέπει να επιλέξτε 1 υλικό υποχρεωτικά"}
           addExtraCost={addExtraCost}
           subExtraCost={subExtraCost}
           firstButtonPosition
@@ -113,6 +114,20 @@ function SidesPage() {
           content={salsa}
           handleNextStep={handleNextStep}
           message={"Διάλεξε Salsas"}
+          addExtraCost={addExtraCost}
+          subExtraCost={subExtraCost}
+          firstButtonPosition
+        />
+      );
+    } else if (nextPosition === 0 && currentSide.title === "Tortilla Salsas") {
+      return (
+        <SidesDisplayer
+          key="salsa"
+          phase={"salsa"}
+          content={salsa}
+          handleNextStep={handleNextStep}
+          message={"Διάλεξε Salsas"}
+          messageSub={"*Θα πρέπει να επιλέξτε 1 υλικό υποχρεωτικά"}
           addExtraCost={addExtraCost}
           subExtraCost={subExtraCost}
           firstButtonPosition
@@ -187,7 +202,7 @@ function SidesPage() {
           multiplier={multiplier}
         />
       );
-    } else if (nextPosition === 2 && currentSide.title === "Loaded Nachos") {
+    } else if (nextPosition === 3 && currentSide.title === "Loaded Nachos") {
       return (
         <SidesDisplayer
           key="review"
@@ -222,7 +237,7 @@ function SidesPage() {
       );
     }
   };
-  console.log("πουτσα", currentSide);
+
   useEffect(() => {
     setCurrentSide({ ...currentSide, multiplier: multiplier });
     // eslint-disable-next-line react-hooks/exhaustive-deps

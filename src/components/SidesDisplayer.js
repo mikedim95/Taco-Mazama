@@ -11,7 +11,6 @@ import { motion as m } from "framer-motion";
 
 function SidesDisplayer({
   phase,
-  prevPhase,
   content,
   handleNextStep,
   handlePreviousStep,
@@ -123,7 +122,7 @@ function SidesDisplayer({
           className="text-start font-pop font-bold text-gray-600"
           style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.5)" }}
         >
-          Ουυπςς !!!
+          {selectedSides.length > 0 ? "Ωχ!!!!" : "Ουυπςς !!!"}
         </h1>
       </div>
       <p
@@ -131,7 +130,7 @@ function SidesDisplayer({
         style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.6)" }}
       >
         {selectedSides.length > 0
-          ? "Συγνώμη αλλά θα πρέπει να επιλέξετε μόνο ένα πλευρικό για να συνεχίσετε στο επόμενο βήμα."
+          ? "Συγνώμη αλλά μπορείται να επιλέξετε μόνο ένα υλικό"
           : "Συγνώμη αλλά θα πρέπει να κάνετε τουλάχιστον μία επιλογή για να συνεχίσετε στο επόμενο βήμα."}
       </p>
     </MandatoryModal>
@@ -191,7 +190,9 @@ function SidesDisplayer({
                     handleClick={handleClick}
                     hasChosen={hasChosen}
                     addExtraCost={addExtraCost}
-                    subExtraCost={subExtraCost} // Pass the handleClick function as a prop
+                    subExtraCost={subExtraCost}
+                    handleModal={handleModal}
+                    // Pass the handleClick function as a prop
                   />
                 );
               }))}
@@ -231,10 +232,19 @@ function SidesDisplayer({
           <button
             className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
             onClick={() => {
-              if (phase === "stuffing" && !hasChosen) {
+              if (
+                ((phase === "stuffing" &&
+                  currentSide.title === "Loaded Nachos") ||
+                  (phase === "salsa" &&
+                    (currentSide.title === "Tortilla Salsas" ||
+                      currentSide.title === "Tortilla Salsas & Guacamole"))) &&
+                !hasChosen
+              ) {
                 handleModal();
               } else {
-                handleNextStep(phase, selectedSides);
+                if (!showModal) {
+                  handleNextStep(phase, selectedSides);
+                }
               }
             }}
           >
