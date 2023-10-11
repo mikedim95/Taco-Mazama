@@ -161,7 +161,7 @@ function SidesDisplayer({
             <ReviewLabel
               selection={currentSide}
               handleMultiplier={handleMultiplier}
-              type={"dish"}
+              type={"side"}
             />
           </div>
         ) : (
@@ -228,7 +228,7 @@ function SidesDisplayer({
               play();
             }}
           >
-            Υποβολή
+            {currentSide.index ? "Ολοκλήρωση Επεξεργασίας" : "ΥποΒολή"}
           </button>
         ) : (
           <button

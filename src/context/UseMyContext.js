@@ -39,14 +39,15 @@ export const MyProvider = ({ children }) => {
   const [publicIP, setPublicIP] = useState();
   const [legitIP, setLegitIP] = useState(false);
   const setCurrentDishToEdit = (key) => {
-    console.log("accepted key: " + key);
     setCurrentDish({ ...finalDishOrder[key], index: key });
     localStorage.setItem("currentDish", { ...finalDishOrder[key], index: key });
-    console.log("current dish should be: ");
-    console.log(finalDishOrder[key]);
   };
   function setCurrentSideToEdit(key) {
-    setCurrentSide(finalSidesOrder[key]);
+    setCurrentSide({ ...finalSidesOrder[key], index: key });
+    localStorage.setItem("currentSide", {
+      ...finalSidesOrder[key],
+      index: key,
+    });
   }
   return (
     <MyContext.Provider

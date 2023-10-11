@@ -297,13 +297,22 @@ function SidesPage() {
       multiplier: multiplier,
       extraCosts: extraCosts,
     };
-    delete addingLastValues.img;
-    delete addingLastValues.subtitle;
-    delete addingLastValues.extraPrice;
 
-    setCartItemCount(cartItemCount + currentSide.multiplier);
-    // Use the callback form of setFinalDishOrder to access the most recent state
-    setFinalSidesOrder([...finalSidesOrder, currentSide]);
+    setFinalSidesOrder((prevFinalSidesOrder) => {
+      var updatedFinalSidesOrder;
+      if (currentSide.index === undefined) {
+        updatedFinalSidesOrder = [...prevFinalSidesOrder, addingLastValues];
+      } else {
+        prevFinalSidesOrder[currentSide.index] = addingLastValues;
+        updatedFinalSidesOrder = prevFinalSidesOrder;
+      }
+      localStorage.setItem(
+        "finalSidesOrder",
+        JSON.stringify(updatedFinalSidesOrder)
+      );
+      return updatedFinalSidesOrder;
+    });
+    localStorage.removeItem("currentSide");
     navigate("/LandingPage");
   };
   console.log("ti fernei final", finalSidesOrder);

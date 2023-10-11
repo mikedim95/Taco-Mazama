@@ -352,7 +352,7 @@ function BucketPage() {
                 <img className="w-full" src={Line} alt="" />
               </div>
               <div className="columns-1 px-[20px] mb-[-20px] justify-center space-y-[10px] items-center">
-                {renderOrder(finalSidesOrder, "dish")}
+                {renderOrder(finalSidesOrder, "side")}
               </div>
             </div>
           ) : null}{" "}

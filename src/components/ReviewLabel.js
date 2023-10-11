@@ -16,12 +16,12 @@ function ReviewLabel({
   onDelete,
   type,
 }) {
-  const { setCurrentDishToEdit } = useMyContext();
+  const { setCurrentDishToEdit, setCurrentSideToEdit } = useMyContext();
   var content = {};
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
-  if (type === "dish") {
+  if (type === "dish" || type === "side") {
     content = {
       title: selection.title,
       subtitle: [
@@ -177,9 +177,11 @@ function ReviewLabel({
                     onClick={() => {
                       if (type === "dish") {
                         setCurrentDishToEdit(index);
+
                         navigate(`/Steps`);
-                      } else if (type === "sides") {
-                        /*   navigate(`/Steps`); */
+                      } else if (type === "side") {
+                        setCurrentSideToEdit(index);
+                        navigate(`/SidesPage`);
                       } else if (type === "drinks") {
                         navigate(`/BeveragesPage?index=2`);
                       } else if (type === "beers") {

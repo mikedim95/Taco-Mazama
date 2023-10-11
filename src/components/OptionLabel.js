@@ -98,14 +98,14 @@ function OptionLabel({
           currentDish.title !== "Mulita" &&
           currentDish.title !== "Enchilada"
         ) {
-          subExtraCost(1.5);
+          subExtraCost(addedPrice);
         } else if (
           (currentDish.title === "Taco" ||
             currentDish.title === "Mulita" ||
             currentDish.title === "Enchilada") &&
           phase === "stuffing"
         ) {
-          subExtraCost(0.5);
+          subExtraCost(addedPrice);
         }
       }
     } else {
@@ -127,14 +127,14 @@ function OptionLabel({
           currentDish.title !== "Mulita" &&
           currentDish.title !== "Enchilada"
         ) {
-          addExtraCost(1.5);
+          addExtraCost(addedPrice);
         } else if (
           (currentDish.title === "Taco" ||
             currentDish.title === "Mulita" ||
             currentDish.title === "Enchilada") &&
           phase === "stuffing"
         ) {
-          addExtraCost(0.5);
+          addExtraCost(addedPrice);
         }
       }
     }
