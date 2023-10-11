@@ -72,6 +72,7 @@ function Steps() {
           handleNextStep={handleNextStep}
           message={"Διάλεξετα αναψυκτικά σου"}
           totalPrice={calculateTotalPrice("softDrinks")}
+          firstButtonPosition
         />
       );
     } else if (nextPosition === 1) {

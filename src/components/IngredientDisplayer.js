@@ -123,7 +123,7 @@ function IngredientDisplayer({
           className="text-start font-pop font-bold text-gray-600"
           style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.5)" }}
         >
-          Ουυπςς !!!
+          Ουπς !!!
         </h1>
       </div>
       <p
@@ -252,6 +252,9 @@ function IngredientDisplayer({
                 (phase === "salsa" && !hasChosen)
               ) {
                 handleModal();
+                if (VibrationActive()) {
+                  navigator.vibrate([80]); // Trigger vibration if VibrationActive returns true
+                }
               } else handleNextStep(phase, selectedItems);
             }}
             // disabled={

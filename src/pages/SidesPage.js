@@ -45,6 +45,24 @@ function SidesPage() {
     ...extra.filter((item) => item.title === "Guacamole"),
   ]);
 
+  const [extraDip] = useState([
+    ...salsa.map((item) => ({
+      ...item,
+      extraPrice: 1.5,
+    })),
+    ...ingredients
+      .filter((item) => item.title === "Sour Cream")
+      .map((item) => ({
+        ...item,
+        extraPrice: 1.5,
+      })),
+    ...extra
+      .filter((item) => item.title === "Guacamole")
+      .map((item) => ({
+        ...item,
+        extraPrice: 1.5,
+      })),
+  ]);
   const order = () => {
     if (nextPosition === 0 && currentSide.title === "Loaded Nachos") {
       return (
@@ -74,6 +92,7 @@ function SidesPage() {
           message={"Δεν περιέχουν γέμιση"}
           handleMultiplier={handleMultiplier}
           multiplier={multiplier}
+          firstButtonPosition
         />
       );
     } else if (
@@ -98,7 +117,7 @@ function SidesPage() {
         <SidesDisplayer
           key="salsa"
           phase={"salsa"}
-          content={extraSalsa}
+          content={extraDip}
           handleNextStep={handleNextStep}
           message={"Διάλεξε Salsas"}
           addExtraCost={addExtraCost}
@@ -137,7 +156,6 @@ function SidesPage() {
       return (
         <SidesDisplayer
           key="salsa"
-          prevPhase={"stuffing"}
           phase={"salsa"}
           content={salsa}
           handleNextStep={handleNextStep}

@@ -333,7 +333,7 @@ function BucketPage() {
               <div className="pt-[65px] pl-[30px] mr-[20px]">
                 <img className="w-full" src={Line} alt="" />
               </div>
-              <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
+              <div className="columns-1 px-[20px] mb-[-20px] justify-center space-y-[10px] items-center">
                 {renderOrder(finalDishOrder, "dish")}
               </div>
             </div>
@@ -351,8 +351,8 @@ function BucketPage() {
               <div className="pt-[65px] pl-[30px] mr-[20px]">
                 <img className="w-full" src={Line} alt="" />
               </div>
-              <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
-                {renderOrder(finalSidesOrder, "side")}
+              <div className="columns-1 px-[20px] mb-[-20px] justify-center space-y-[10px] items-center">
+                {renderOrder(finalSidesOrder, "dish")}
               </div>
             </div>
           ) : null}{" "}
@@ -369,7 +369,7 @@ function BucketPage() {
               <div className="pt-[65px] pl-[30px] mr-[20px]">
                 <img className="w-full" src={Line} alt="" />
               </div>
-              <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
+              <div className="columns-1 px-[20px] mb-[-20px] justify-center space-y-[10px] items-center">
                 {renderOrder(finalBeveragesOrder.beers, "beers")}
               </div>
             </div>
@@ -387,7 +387,7 @@ function BucketPage() {
               <div className="pt-[65px] pl-[30px] mr-[20px]">
                 <img className="w-full" src={Line} alt="" />
               </div>
-              <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
+              <div className="columns-1 px-[20px] mb-[-20px] justify-center space-y-[10px] items-center">
                 {renderOrder(finalBeveragesOrder.softDrinks, "softDrinks")}
               </div>
             </div>
@@ -405,7 +405,7 @@ function BucketPage() {
               <div className="pt-[65px] pl-[30px] mr-[20px]">
                 <img className="w-full" src={Line} alt="" />
               </div>
-              <div className="columns-1 px-[20px] mb-[5px] justify-center space-y-[10px] items-center">
+              <div className="columns-1 px-[20px] mb-[-20px] justify-center space-y-[10px] items-center">
                 {renderOrder(finalBeveragesOrder.drinks, "drinks")}
               </div>
             </div>
@@ -415,14 +415,16 @@ function BucketPage() {
           finalBeveragesOrder.softDrinks.length !== 0 ||
           finalDishOrder.length !== 0 ||
           finalSidesOrder.length !== 0 ? (
-            <button
-              className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
-              onClick={() => {
-                finalSubmit();
-              }}
-            >
-              Υποβολή
-            </button>
+            <div className="flex justify-end pr-6 mt-9">
+              <button
+                className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
+                onClick={() => {
+                  finalSubmit();
+                }}
+              >
+                Υποβολή
+              </button>
+            </div>
           ) : null}
         </div>
       ) : null}

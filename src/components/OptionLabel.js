@@ -15,6 +15,7 @@ function OptionLabel({
   subExtraCost,
   phase,
   handleModal,
+  VibrationActive,
 }) {
   const { currentDish, currentSide } = useMyContext();
   const [isClicked, setIsClicked] = useState(() =>
@@ -68,6 +69,9 @@ function OptionLabel({
         // Return early to prevent the rest of the code from running
       } else if (selectedItems.length === 1) {
         handleModal();
+        if (VibrationActive()) {
+          navigator.vibrate([80]); // Trigger vibration if VibrationActive returns true
+        }
         return;
       }
     }

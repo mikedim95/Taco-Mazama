@@ -122,7 +122,7 @@ function SidesDisplayer({
           className="text-start font-pop font-bold text-gray-600"
           style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.5)" }}
         >
-          {selectedSides.length > 0 ? "Ωχ!!!!" : "Ουυπςς !!!"}
+          {selectedSides.length > 0 ? "Ωχ!!!!" : "Ουπς !!!"}
         </h1>
       </div>
       <p
@@ -156,46 +156,45 @@ function SidesDisplayer({
         <img className="w-full" src={Line} alt="" />
       </div>
       <div className="columns-1 px-[20px] justify-center space-y-[10px] items-center">
-        {finalSubmit
-          ? (console.log("Before ReviewLabel div", selectedSides),
-            (
-              <div>
-                <ReviewLabel
-                  selection={currentSide}
-                  handleMultiplier={handleMultiplier}
-                  type={"dish"}
+        {finalSubmit ? (
+          <div>
+            <ReviewLabel
+              selection={currentSide}
+              handleMultiplier={handleMultiplier}
+              type={"dish"}
+            />
+          </div>
+        ) : (
+          content
+            .filter((ingredient) => {
+              if (
+                currentSide.title === "Tortilla Salsas & Guacamole" &&
+                ingredient.title === "Guacamole"
+              ) {
+                return false;
+              } else {
+                return true;
+              }
+            })
+            .map((ingredient, index) => {
+              return (
+                <OptionLabel
+                  key={index}
+                  phase={phase}
+                  ingredient={ingredient}
+                  index={index + ingredient.title}
+                  selectedItems={selectedSides}
+                  handleClick={handleClick}
+                  hasChosen={hasChosen}
+                  addExtraCost={addExtraCost}
+                  subExtraCost={subExtraCost}
+                  handleModal={handleModal}
+                  VibrationActive={VibrationActive}
+                  // Pass the handleClick function as a prop
                 />
-              </div>
-            ))
-          : (console.log("gamw to theo soy", content),
-            content
-              .filter((ingredient) => {
-                if (
-                  currentSide.title === "Tortilla Salsas & Guacamole" &&
-                  ingredient.title === "Guacamole"
-                ) {
-                  return false;
-                } else {
-                  return true;
-                }
-              })
-              .map((ingredient, index) => {
-                return (
-                  <OptionLabel
-                    key={index}
-                    phase={phase}
-                    ingredient={ingredient}
-                    index={index + ingredient.title}
-                    selectedItems={selectedSides}
-                    handleClick={handleClick}
-                    hasChosen={hasChosen}
-                    addExtraCost={addExtraCost}
-                    subExtraCost={subExtraCost}
-                    handleModal={handleModal}
-                    // Pass the handleClick function as a prop
-                  />
-                );
-              }))}
+              );
+            })
+        )}
       </div>
       <div
         className={`pt-[15px] pb-[20px] ${
@@ -204,14 +203,17 @@ function SidesDisplayer({
             : "px-[20px] flex justify-between space-x-[10px] items-end"
         } `}
       >
-        {phase !== "salsa" ? (
+        {phase !== "salsa" ||
+        (phase === "salsa" && currentSide.title === "Loaded Nachos") ? (
           phase !== "stuffing" ? (
-            <button
-              className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
-              onClick={() => handlePreviousStep(phase, selectedSides)}
-            >
-              Προηγούμενο
-            </button>
+            currentSide.title !== "Tortilla Chips" ? (
+              <button
+                className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
+                onClick={() => handlePreviousStep(phase, selectedSides)}
+              >
+                Προηγούμενο
+              </button>
+            ) : null
           ) : null
         ) : null}
 
@@ -230,7 +232,7 @@ function SidesDisplayer({
           </button>
         ) : (
           <button
-            className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
+            className="w-[150px] h-[40px]  rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
             onClick={() => {
               if (
                 ((phase === "stuffing" &&
@@ -241,6 +243,9 @@ function SidesDisplayer({
                 !hasChosen
               ) {
                 handleModal();
+                if (VibrationActive()) {
+                  navigator.vibrate([80]); // Trigger vibration if VibrationActive returns true
+                }
               } else {
                 if (!showModal) {
                   handleNextStep(phase, selectedSides);
