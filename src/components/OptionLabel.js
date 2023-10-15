@@ -57,35 +57,12 @@ function OptionLabel({
     setIsClicked(selectedItems.some((item) => item === ingredient?.title));
   });
   const optionClicked = () => {
-    // Check if it's a specific condition to handle the modal
-    if (
-      (currentSide?.title === "Loaded Nachos" && phase === "stuffing") ||
-      (currentSide?.title === "Tortilla Salsas" && phase === "salsa") ||
-      (currentSide?.title === "Tortilla Salsas & Guacamole" &&
-        phase === "salsa")
-    ) {
-      if (selectedItems.includes(ingredient?.title)) {
-        handleClick(ingredient);
-        // Return early to prevent the rest of the code from running
-      } else if (selectedItems.length === 1) {
-        handleModal();
-        if (VibrationActive()) {
-          navigator.vibrate([80]); // Trigger vibration if VibrationActive returns true
-        }
-        return;
-      }
-    }
-
-    // Rest of your code for handling item selection/deselection
     setIsClicked(!isClicked);
 
     if (selectedItems.includes(ingredient?.title)) {
-      if (
-        selectedItems.length === 1 &&
-        currentSide?.title !== "Loaded Nachos"
-      ) {
+      if (selectedItems.length === 1) {
         subExtraCost(normalPrice);
-      } else if (currentSide?.title !== "Loaded Nachos") {
+      } else {
         subExtraCost(
           phase === "stuffing" && ingredient.title === "Μοσχαρίσιο Chilli"
             ? 0
@@ -109,12 +86,9 @@ function OptionLabel({
         }
       }
     } else {
-      if (
-        selectedItems.length === 0 &&
-        currentSide?.title !== "Loaded Nachos"
-      ) {
+      if (selectedItems.length === 0) {
         addExtraCost(normalPrice);
-      } else if (currentSide?.title !== "Loaded Nachos") {
+      } else {
         addExtraCost(
           phase === "stuffing" && ingredient.title === "Μοσχαρίσιο Chilli"
             ? 0
@@ -142,16 +116,15 @@ function OptionLabel({
     handleClick(ingredient);
   };
 
-  const extraPriceElement =
-    currentSide?.title === "Loaded Nachos" ? null : hasChosen ? (
-      <div className="absolute bottom-[10px] left-[90px] text-[14px] font-pop text-left font-black">
-        {isClicked ? null : addedPrice !== 0 ? `+${addedPrice} €` : null}
-      </div>
-    ) : (
-      <div className="absolute bottom-[10px] left-[90px] text-[14px] font-pop text-left font-black">
-        {normalPrice !== 0 ? `+${normalPrice} €` : null}
-      </div>
-    );
+  const extraPriceElement = hasChosen ? (
+    <div className="absolute bottom-[10px] left-[90px] text-[14px] font-pop text-left font-black">
+      {isClicked ? null : addedPrice !== 0 ? `+${addedPrice} €` : null}
+    </div>
+  ) : (
+    <div className="absolute bottom-[10px] left-[90px] text-[14px] font-pop text-left font-black">
+      {normalPrice !== 0 ? `+${normalPrice} €` : null}
+    </div>
+  );
 
   const icons = isClicked ? (
     <Lottie

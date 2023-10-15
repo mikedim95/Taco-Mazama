@@ -14,14 +14,8 @@ import { Link } from "react-router-dom";
 // import ReviewLabel from "../components/ReviewLabel";
 
 function SidesPage() {
-  const {
-    currentSide,
-    setCurrentSide,
-    setFinalSidesOrder,
-    finalSidesOrder,
-    setCartItemCount,
-    cartItemCount,
-  } = useMyContext();
+  const { currentSide, setCurrentSide, setFinalSidesOrder, finalSidesOrder } =
+    useMyContext();
 
   const [nextPosition, setNextPosition] = useState(0);
   const scrollToTopRef = useRef(null);
@@ -32,11 +26,9 @@ function SidesPage() {
     ...ingredients.filter(
       (item) => item.title === "Jalapenos" || item.title === "Sour Cream"
     ),
-    ...extra
-      .filter((item) => item.title === "Guacamole" || item.title === "Chorizo")
-      .map((item) =>
-        item.title === "Guacamole" ? { ...item, extraPrice: 0 } : item
-      ),
+    ...extra.filter(
+      (item) => item.title === "Guacamole" || item.title === "Chorizo"
+    ),
   ]);
 
   const [extraSalsa] = useState([
@@ -45,24 +37,24 @@ function SidesPage() {
     ...extra.filter((item) => item.title === "Guacamole"),
   ]);
 
-  const [extraDip] = useState([
-    ...salsa.map((item) => ({
-      ...item,
-      extraPrice: 1.5,
-    })),
-    ...ingredients
-      .filter((item) => item.title === "Sour Cream")
-      .map((item) => ({
-        ...item,
-        extraPrice: 1.5,
-      })),
-    ...extra
-      .filter((item) => item.title === "Guacamole")
-      .map((item) => ({
-        ...item,
-        extraPrice: 1.5,
-      })),
-  ]);
+  // const [extraDip] = useState([
+  //   ...salsa.map((item) => ({
+  //     ...item,
+  //     extraPrice: 1.5,
+  //   })),
+  //   ...ingredients
+  //     .filter((item) => item.title === "Sour Cream")
+  //     .map((item) => ({
+  //       ...item,
+  //       extraPrice: 1.5,
+  //     })),
+  //   ...extra
+  //     .filter((item) => item.title === "Guacamole")
+  //     .map((item) => ({
+  //       ...item,
+  //       extraPrice: 1.5,
+  //     })),
+  // ]);
   const order = () => {
     if (nextPosition === 0 && currentSide.title === "Loaded Nachos") {
       return (
@@ -117,7 +109,7 @@ function SidesPage() {
         <SidesDisplayer
           key="salsa"
           phase={"salsa"}
-          content={extraDip}
+          content={extraSalsa}
           handleNextStep={handleNextStep}
           message={"Διάλεξε Salsas"}
           addExtraCost={addExtraCost}
@@ -315,7 +307,7 @@ function SidesPage() {
     localStorage.removeItem("currentSide");
     navigate("/LandingPage");
   };
-  console.log("ti fernei final", finalSidesOrder);
+
   const initialImage = {
     hidden: { opacity: 0, y: "-100%" },
     visible: { opacity: 1, y: "0%" },
@@ -382,36 +374,6 @@ function SidesPage() {
           /> */}
           <div className="pt-[20px]">{order()}</div>
         </div>
-        {/* <div
-          ref={scope}
-          className="flex justify-end items-end mt-[20px] mr-[20px]"
-        >
-          <button
-            className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center "
-            onClick={async () => {
-              await onButtonClick();
-              setTimeout(() => {
-                finalSubmit();
-              }, 500);
-            }}
-          >
-            <span className="sr-only">Motion</span>
-            <span
-              className="h-8 overflow-hidden flex items-center justify-center"
-              aria-hidden
-            >
-              {["Υ", "π", "ο", "β", "ο", "λ", "ή"].map((letter, index) => (
-                <span
-                  data-letter={letter}
-                  className="letter inline-block relative h-8 leading-8 after:h-8 after:absolute after:left-0 after:top-full after:content-[attr(data-letter)]"
-                  key={`${letter}-${index}`}
-                >
-                  {letter}
-                </span>
-              ))}
-            </span>
-          </button>
-        </div> */}
       </m.div>
     </div>
   );

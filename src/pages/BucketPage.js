@@ -71,7 +71,7 @@ function BucketPage() {
           className="text-start font-pop font-bold text-gray-600"
           style={{ textShadow: "0 4px 6px rgba(0, 0, 0, 0.5)" }}
         >
-          Ουυπςς !!!
+          Ουπς !!!
         </h1>
       </div>
       <p
@@ -132,6 +132,10 @@ function BucketPage() {
         const updatedFinalSideOrder = [...finalSidesOrder];
         const oldMultiplier = updatedFinalSideOrder[index].multiplier;
         updatedFinalSideOrder[index].multiplier = value;
+        localStorage.setItem(
+          "finalSidesOrder",
+          JSON.stringify(updatedFinalSideOrder)
+        );
         setFinalSidesOrder(updatedFinalSideOrder);
         setCartItemCount(cartItemCount - oldMultiplier + value);
       }
@@ -158,11 +162,12 @@ function BucketPage() {
     let price = 0;
     if (Array.isArray(finalSidesOrder)) {
       finalSidesOrder.forEach((side) => {
-        price += side.price * side.multiplier;
+        price += (side.price + side.extraCosts) * side.multiplier;
       });
     }
     return price;
   };
+  console.log("price", sidePrice());
   const requestNotificationPermission = () => {
     Notification.requestPermission().then((permission) => {
       if (permission === "granted") {
@@ -262,15 +267,19 @@ function BucketPage() {
                 selection.basePrice
                   ? (selection.basePrice + selection.extraCosts) *
                     selection.multiplier
+                  : type === "side"
+                  ? (selection.price + selection.extraCosts) *
+                    selection.multiplier
                   : selection.price * selection.multiplier
               }
-              sidePrice={0}
+              sidePrice={index}
               beveragePrice={0}
               onDelete={() => deleteOrder(index, type)}
             />
           );
         })
       : [];
+
   return (
     <div className="max-w-screen-sm h-screen mx-auto bg-background-light overflow-y-scroll">
       <div className="justify-center items-center relative">

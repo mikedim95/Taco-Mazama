@@ -11,6 +11,7 @@ function ReviewLabel({
   handleMultiplier,
   selection,
   selectionPrice,
+  sidePrice,
   index,
   buttonDelete,
   onDelete,

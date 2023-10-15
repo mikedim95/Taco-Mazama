@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import MandatoryModal from "./MandatoryModal";
 import Line from "../assets/Line.svg";
 import { useMyContext } from "../context/UseMyContext";
-import OptionLabel from "../components/OptionLabel";
+import OptionLabelSide from "../components/OptionLabelSide";
 import ReviewLabel from "../components/ReviewLabel";
 import mariachi from "../assets/mariachi.wav";
 import bell from "../assets/bell.json";
@@ -62,7 +62,7 @@ function SidesDisplayer({
       setSelectedSides([...selectedSides, ingredient.title]);
     }
   };
-  console.log("handleClick", selectedSides);
+
   if (finalSubmit) {
     content = [
       {
@@ -178,7 +178,7 @@ function SidesDisplayer({
             })
             .map((ingredient, index) => {
               return (
-                <OptionLabel
+                <OptionLabelSide
                   key={index}
                   phase={phase}
                   ingredient={ingredient}
