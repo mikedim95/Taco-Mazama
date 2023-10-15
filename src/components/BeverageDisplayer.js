@@ -4,7 +4,6 @@ import Line from "../assets/Line.svg";
 import { useMyContext } from "../context/UseMyContext";
 import BeverageOptionLabel from "../components/BeverageOptionLabel";
 
-import mariachi from "../assets/mariachi.wav";
 function IngredientDisplayer({
   phase,
   content,
@@ -21,11 +20,6 @@ function IngredientDisplayer({
   const VibrationActive = () => {
     if (!navigator.vibrate) return false;
     return true;
-  };
-
-  //play sound
-  const play = () => {
-    new Audio(mariachi).play();
   };
 
   const handleMultiplier = (beverage, phase, multiplier) => {

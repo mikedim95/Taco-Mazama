@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useMyContext } from "../context/UseMyContext";
 import ReviewLabel from "../components/ReviewLabel";
+import mariachia from "../assets/mariachia.wav";
 import postJsonData from "../helpers/functionalComponents/postRequestToBack";
 import MandatoryModal from "../components/MandatoryModal";
 import bell from "../assets/bell.json";
@@ -31,6 +32,14 @@ function BucketPage() {
     totalPrice,
     publicIP,
   } = useMyContext();
+
+  const VibrationActive = () => {
+    if (!navigator.vibrate) return false;
+    return true;
+  };
+  const play = () => {
+    new Audio(mariachia).play();
+  };
 
   const handleModal = (message) => {
     setShowModal(true);
@@ -429,6 +438,10 @@ function BucketPage() {
                 className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
                 onClick={() => {
                   finalSubmit();
+                  if (VibrationActive()) {
+                    navigator.vibrate([1000, 50, 1000]); // Trigger vibration if VibrationActive returns true
+                  }
+                  play();
                 }}
               >
                 Υποβολή

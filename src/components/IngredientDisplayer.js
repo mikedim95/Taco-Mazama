@@ -5,7 +5,6 @@ import { useMyContext } from "../context/UseMyContext";
 import OptionLabel from "../components/OptionLabel";
 import ReviewLabel from "../components/ReviewLabel";
 import AddComment from "../components/AddComment";
-import mariachi from "../assets/mariachi.wav";
 import bell from "../assets/bell.json";
 import Lottie from "lottie-react";
 
@@ -46,11 +45,6 @@ function IngredientDisplayer({
   const VibrationActive = () => {
     if (!navigator.vibrate) return false;
     return true;
-  };
-
-  //play sound
-  const play = () => {
-    new Audio(mariachi).play();
   };
 
   const handleClick = (ingredient) => {
@@ -231,16 +225,16 @@ function IngredientDisplayer({
 
         {phase === "review" ? (
           <button
-            className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center "
-            onClick={() => {
+            className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center transition duration-200 focus:animate-rubberBand"
+            onClick={async () => {
+              await new Promise((resolve) => setTimeout(resolve, 400));
               finalSubmit();
               if (VibrationActive()) {
-                navigator.vibrate([1000, 50, 1000]); // Trigger vibration if VibrationActive returns true
+                navigator.vibrate([800, 50, 800]); // Trigger vibration if VibrationActive returns true
               }
-              play();
             }}
           >
-            {currentDish.index ? "Ολοκλήρωση Επεξεργασίας" : "ΥποΒολή"}
+            {currentDish.index ? "Ολοκλήρωση" : "Υποβολή"}
           </button>
         ) : (
           <button

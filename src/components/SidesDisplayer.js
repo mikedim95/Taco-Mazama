@@ -4,7 +4,6 @@ import Line from "../assets/Line.svg";
 import { useMyContext } from "../context/UseMyContext";
 import OptionLabelSide from "../components/OptionLabelSide";
 import ReviewLabel from "../components/ReviewLabel";
-import mariachi from "../assets/mariachi.wav";
 import bell from "../assets/bell.json";
 import Lottie from "lottie-react";
 import { motion as m } from "framer-motion";
@@ -48,9 +47,6 @@ function SidesDisplayer({
   };
 
   //play sound
-  const play = () => {
-    new Audio(mariachi).play();
-  };
 
   const handleClick = (ingredient) => {
     if (selectedSides.includes(ingredient.title)) {
@@ -219,16 +215,16 @@ function SidesDisplayer({
 
         {phase === "review" ? (
           <button
-            className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center "
-            onClick={() => {
+            className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center transition duration-200 focus:animate-rubberBand"
+            onClick={async () => {
+              await new Promise((resolve) => setTimeout(resolve, 400));
               finalSubmit();
               if (VibrationActive()) {
                 navigator.vibrate([1000, 50, 1000]); // Trigger vibration if VibrationActive returns true
               }
-              play();
             }}
           >
-            {currentSide.index ? "Ολοκλήρωση Επεξεργασίας" : "ΥποΒολή"}
+            {currentSide.index ? "Ολοκλήρωση" : "Υποβολή"}
           </button>
         ) : (
           <button
