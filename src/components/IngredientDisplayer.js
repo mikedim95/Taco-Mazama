@@ -159,8 +159,7 @@ function IngredientDisplayer({
             />
             <AddComment
               // Apply style here
-              currentDish={currentDish}
-              handleMultiplier={handleMultiplier}
+
               handleCommentChange={handleCommentChange}
               comment={comment}
             />

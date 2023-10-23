@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { Link } from "react-router-dom";
 import Line from "../assets/Line.svg";
 import { useMyContext } from "../context/UseMyContext";
 import BeverageOptionLabel from "../components/BeverageOptionLabel";
@@ -102,6 +102,12 @@ function IngredientDisplayer({
             Προηγούμενο
           </button>
         ) : null}
+        <Link
+          className="w-[130px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
+          to={"/LandingPage"}
+        >
+          Υποβολή
+        </Link>
 
         {phase !== "drinks" ? (
           <button

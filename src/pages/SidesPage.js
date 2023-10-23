@@ -4,11 +4,7 @@ import SidesDisplayer from "../components/SidesDisplayer";
 import { useState, useRef, useEffect } from "react";
 import { stuffing, ingredients, salsa, extra } from "../helpers/menu";
 import Stepper from "../components/Stepper";
-
-// import postJsonData from "../helpers/functionalComponents/postRequestToBack"; */
-import Line from "../assets/Line.svg";
-import { useNavigate } from "react-router-dom"; /* 
-import useMultiplier from "../hooks/useMultiplier"; */
+import { useNavigate } from "react-router-dom";
 import { HiArrowCircleLeft } from "react-icons/hi";
 import { Link } from "react-router-dom";
 // import ReviewLabel from "../components/ReviewLabel";
@@ -16,11 +12,14 @@ import { Link } from "react-router-dom";
 function SidesPage() {
   const { currentSide, setCurrentSide, setFinalSidesOrder, finalSidesOrder } =
     useMyContext();
-
+  console.log(currentSide);
+  const [comment, setComment] = useState(
+    currentSide.comment ? currentSide.comment : ""
+  );
   const [nextPosition, setNextPosition] = useState(0);
   const scrollToTopRef = useRef(null);
   const [extraCosts, setExtraCosts] = useState(0);
-  const [multiplier, setMultiplier] = useState(1);
+  const [multiplier, setMultiplier] = useState(currentSide.multiplier || 1);
 
   const [extraNachos] = useState([
     ...ingredients.filter(
@@ -36,7 +35,9 @@ function SidesPage() {
     ...ingredients.filter((item) => item.title === "Sour Cream"),
     ...extra.filter((item) => item.title === "Guacamole"),
   ]);
-
+  const handleCommentChange = (newComment) => {
+    setComment(newComment);
+  };
   // const [extraDip] = useState([
   //   ...salsa.map((item) => ({
   //     ...item,
@@ -69,6 +70,8 @@ function SidesPage() {
           message={"Διάλεξε γέμιση"}
           messageSub={"*Θα πρέπει να επιλέξτε 1 υλικό υποχρεωτικά"}
           firstButtonPosition
+          handleCommentChange={handleCommentChange}
+          comment={comment}
         />
       );
     } else if (nextPosition === 0 && currentSide.title === "Tortilla Chips") {
@@ -85,6 +88,8 @@ function SidesPage() {
           handleMultiplier={handleMultiplier}
           multiplier={multiplier}
           firstButtonPosition
+          handleCommentChange={handleCommentChange}
+          comment={comment}
         />
       );
     } else if (
@@ -102,6 +107,8 @@ function SidesPage() {
           addExtraCost={addExtraCost}
           subExtraCost={subExtraCost}
           firstButtonPosition
+          handleCommentChange={handleCommentChange}
+          comment={comment}
         />
       );
     } else if (nextPosition === 0 && currentSide.title === "Dips") {
@@ -115,6 +122,8 @@ function SidesPage() {
           addExtraCost={addExtraCost}
           subExtraCost={subExtraCost}
           firstButtonPosition
+          handleCommentChange={handleCommentChange}
+          comment={comment}
         />
       );
     } else if (nextPosition === 0) {
@@ -128,6 +137,8 @@ function SidesPage() {
           addExtraCost={addExtraCost}
           subExtraCost={subExtraCost}
           firstButtonPosition
+          handleCommentChange={handleCommentChange}
+          comment={comment}
         />
       );
     } else if (nextPosition === 0 && currentSide.title === "Tortilla Salsas") {
@@ -142,6 +153,8 @@ function SidesPage() {
           addExtraCost={addExtraCost}
           subExtraCost={subExtraCost}
           firstButtonPosition
+          handleCommentChange={handleCommentChange}
+          comment={comment}
         />
       );
     } else if (nextPosition === 1 && currentSide.title === "Loaded Nachos") {
@@ -154,6 +167,8 @@ function SidesPage() {
           message={"Διάλεξε Salsas"}
           addExtraCost={addExtraCost}
           subExtraCost={subExtraCost}
+          handleCommentChange={handleCommentChange}
+          comment={comment}
         />
       );
     } else if (nextPosition === 1 && currentSide.title === "Nachos") {
@@ -167,6 +182,8 @@ function SidesPage() {
           message={"Extra Υλικά"}
           addExtraCost={addExtraCost}
           subExtraCost={subExtraCost}
+          handleCommentChange={handleCommentChange}
+          comment={comment}
         />
       );
     } else if (nextPosition === 1) {
@@ -182,6 +199,8 @@ function SidesPage() {
           message={"Δες τι έχτισες ..."}
           handleMultiplier={handleMultiplier}
           multiplier={multiplier}
+          handleCommentChange={handleCommentChange}
+          comment={comment}
         />
       );
     } else if (nextPosition === 2 && currentSide.title === "Loaded Nachos") {
@@ -195,6 +214,8 @@ function SidesPage() {
           message={"Extra Υλικά"}
           addExtraCost={addExtraCost}
           subExtraCost={subExtraCost}
+          handleCommentChange={handleCommentChange}
+          comment={comment}
         />
       );
     } else if (nextPosition === 2 && currentSide.title === "Nachos") {
@@ -210,6 +231,8 @@ function SidesPage() {
           message={"Δες τι έχτισες ..."}
           handleMultiplier={handleMultiplier}
           multiplier={multiplier}
+          handleCommentChange={handleCommentChange}
+          comment={comment}
         />
       );
     } else if (nextPosition === 3 && currentSide.title === "Loaded Nachos") {
@@ -225,6 +248,8 @@ function SidesPage() {
           message={"Δες τι έχτισες ..."}
           handleMultiplier={handleMultiplier}
           multiplier={multiplier}
+          handleCommentChange={handleCommentChange}
+          comment={comment}
         />
       );
     } else if (
@@ -243,6 +268,8 @@ function SidesPage() {
           message={"Δες τι έχτισες ..."}
           handleMultiplier={handleMultiplier}
           multiplier={multiplier}
+          handleCommentChange={handleCommentChange}
+          comment={comment}
         />
       );
     }
@@ -288,6 +315,7 @@ function SidesPage() {
       ...currentSide,
       multiplier: multiplier,
       extraCosts: extraCosts,
+      comment: comment,
     };
 
     setFinalSidesOrder((prevFinalSidesOrder) => {

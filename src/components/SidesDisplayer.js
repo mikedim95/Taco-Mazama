@@ -6,6 +6,7 @@ import OptionLabelSide from "../components/OptionLabelSide";
 import ReviewLabel from "../components/ReviewLabel";
 import bell from "../assets/bell.json";
 import Lottie from "lottie-react";
+import AddComment from "./AddComment";
 import { motion as m } from "framer-motion";
 
 function SidesDisplayer({
@@ -20,6 +21,8 @@ function SidesDisplayer({
   handleMultiplier,
   addExtraCost,
   subExtraCost,
+  handleCommentChange,
+  comment,
 }) {
   const { currentSide } = useMyContext();
 
@@ -158,6 +161,10 @@ function SidesDisplayer({
               selection={currentSide}
               handleMultiplier={handleMultiplier}
               type={"side"}
+            />
+            <AddComment
+              handleCommentChange={handleCommentChange}
+              comment={comment}
             />
           </div>
         ) : (

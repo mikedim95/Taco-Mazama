@@ -177,37 +177,8 @@ function BucketPage() {
     return price;
   };
   console.log("price", sidePrice());
-  const requestNotificationPermission = () => {
-    Notification.requestPermission().then((permission) => {
-      if (permission === "granted") {
-        console.log("Notification permission granted.");
-      } else {
-        console.warn("Notification permission denied.");
-      }
-    });
-  };
-  function triggerDelayedNotification(message, delay) {
-    console.log("i got : " + message + " delay: ");
-    // Send a message to the service worker to show a delayed alert notification
-    navigator.serviceWorker.controller.postMessage({
-      type: "SHOW_DELAYED_NOTIFICATION",
-      message,
-      delay,
-    });
-  }
-  const handlePermission = async () => {
-    try {
-      const permission = await Notification.requestPermission();
-      if (permission === "granted") {
-        console.log("Permission granted");
-        // Send the subscription to the backend
-      }
-    } catch (error) {
-      console.error("Error requesting notification permission:", error);
-    }
-  };
+
   const finalSubmit = async () => {
-    handlePermission();
     const finalOrder = {
       tableNo: parseInt(tableNo),
       dish: finalDishOrder,
@@ -231,11 +202,11 @@ function BucketPage() {
         beers: [],
         drinks: [],
       });
-      handleModal(
-        "Παρακαλούμε ενεργοποιήστε τις ειδοποιήσεις για να σας ενημερώσουμε για την εξέλιξη της παραγγελίας"
-      );
-      requestNotificationPermission();
-      triggerDelayedNotification("Έλα χοντρέ να φας", 5000);
+      if (VibrationActive()) {
+        navigator.vibrate([1000, 50, 1000]); // Trigger vibration if VibrationActive returns true
+      }
+      play();
+
       navigate("/LandingPage");
     } catch (error) {
       handleModal(error.response.data);
@@ -438,10 +409,6 @@ function BucketPage() {
                 className="w-[150px] h-[40px] rounded-full outline outline-2 outline-gray-600 bg-primary-regular font-pop text-[16px] font-normal text-center"
                 onClick={() => {
                   finalSubmit();
-                  if (VibrationActive()) {
-                    navigator.vibrate([1000, 50, 1000]); // Trigger vibration if VibrationActive returns true
-                  }
-                  play();
                 }}
               >
                 Υποβολή
